@@ -35,14 +35,14 @@
 			<section class="primary">
 				<section class="tile">
 					<img src="resources/img/poster1.jpg" alt="Tytuł filmu 1">
-					<h2>Tytuł filmu</h2>
-					<p>Gatunek: <span>nieznany</span></p>
+					<h2>${tytul}</h2>
+					<p>Gatunek: <span>${gatunek}</span></p>
 					<p>Reżyseria: <span>nieznany</span></p>
 					<p>Scenariusz: <span>nieznany</span></p>
 					<p>Czas trwania: <span>nieznany</span></p>
 					<p>Od lat: <span>nieznany</span></p>
-					<p>Premiera: <span>nieznany</span></p>
-					<p>Opis filmu:<br> <span>Chwilowo brak opisu filmu.</span></p>
+					<p>Premiera: <span>${rok}</span></p>
+					<p>Opis filmu:<br> <span>${opis}</span></p>
 				</section>
 
 				<section class="tile">
