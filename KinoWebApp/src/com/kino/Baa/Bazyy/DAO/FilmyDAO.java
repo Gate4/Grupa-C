@@ -19,6 +19,6 @@ public interface FilmyDAO
 	
 	public Map<String, Integer> getStatFilmy();
 	
-	
+	public List getAllMovies();
 	
 }

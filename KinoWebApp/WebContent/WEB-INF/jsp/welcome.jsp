@@ -22,8 +22,8 @@
 
 			<nav class="clear">
 				<ul>
-					<li><a class="active" href='#'>Strona główna</a></li>
-					<li><a href='#'>Repertuar</a></li>
+					<li><a href='#'>Strona główna</a></li>
+					<li><a class="active" href='#'>Repertuar</a></li>
 					<li><a href='#'>Cennik</a></li>
 					<li><a href='#'>Zaloguj</a></li>
 				</ul>
@@ -33,17 +33,8 @@
 
 		<div id="content" role="main">
 			<section class="primary">
-				<section class="tile">
-					<img src="resources/img/poster1.jpg" alt="Tytuł filmu 1">
-					<h2>${tytul}</h2>
-					<p>Gatunek: <span>${gatunek}</span></p>
-					<p>Reżyseria: <span>nieznany</span></p>
-					<p>Scenariusz: <span>nieznany</span></p>
-					<p>Czas trwania: <span>nieznany</span></p>
-					<p>Od lat: <span>nieznany</span></p>
-					<p>Premiera: <span>${rok}</span></p>
-					<p>Opis filmu:<br> <span>${opis}</span></p>
-				</section>
+			
+				${kafelek}
 
 				<section class="tile">
 					<section class="poster">

@@ -10,7 +10,7 @@ public class Filmy
 	
 	private String opis;
 
-	public String getTytul() 
+	public String getTitle() 
 	{
 		return tytul;
 	}
@@ -20,7 +20,7 @@ public class Filmy
 		this.tytul = tytul;
 	}
 
-	public String getGatunek() 
+	public String getGenre() 
 	{
 		return gatunek;
 	}
@@ -30,7 +30,7 @@ public class Filmy
 		this.gatunek = gatunek;
 	}
 
-	public String getRok() 
+	public String getYear() 
 	{
 		return rok;
 	}
@@ -40,7 +40,7 @@ public class Filmy
 		this.rok = rok;
 	}
 
-	public String getOpis() 
+	public String getDescription() 
 	{
 		return opis;
 	}

@@ -46,10 +46,10 @@ public class SqliteDAO implements KlienciDAO, FilmyDAO, SeansyDAO
 	{
 		String sql = "insert into Filmy (tytul,gatunek,rok,opis) VALUES (:tytul, :gatunek, :rok, :opis)";
 		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("tytul",film.getTytul());
-		params.addValue("gatunek",film.getGatunek());
-		params.addValue("rok",film.getRok());
-		params.addValue("opis",film.getOpis());
+		params.addValue("tytul",film.getTitle());
+		params.addValue("gatunek",film.getGenre());
+		params.addValue("rok",film.getYear());
+		params.addValue("opis",film.getDescription());
 		jdbcTemplate.update(sql, params);
 	}
 	
@@ -187,11 +187,16 @@ public class SqliteDAO implements KlienciDAO, FilmyDAO, SeansyDAO
 	    
 	    for(Filmy li : frm)
 	    {
-	    	System.out.println("Tytul: " + li.getTytul());
+	    	System.out.println("Tytul: " + li.getTitle());
 	    }
 	    return jdbcTemplate.query(sql,params, new FilmRowMapper ());
-
-		
+	}
+	
+	public List<Filmy> getAllMovies()
+	{
+		String sql = "select * from Filmy";
+		List<Filmy> frm =  jdbcTemplate.query(sql, new FilmRowMapper ());
+	    return jdbcTemplate.query(sql, new FilmRowMapper ());
 	}
 
 
