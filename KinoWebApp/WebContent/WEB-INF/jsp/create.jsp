@@ -17,7 +17,7 @@
 	<div id="page">
 		<header>
 			<h1 id="logo">
-				<img src="img/logo.png" alt="Kino Katowice">
+				<img src="resources/img/logo.png" alt="Kino Katowice">
 			</h1>
 
 			<nav class="clear">
