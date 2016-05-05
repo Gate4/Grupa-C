@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><br/>
-<beans xmlns="http://www.springframework.org/schema/beans"<br/>
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"<br/>
-	xsi:schemaLocation="http://www.springframework.org/schema/beans<br/>
-    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"><br/>
-	<!-- the application context definition for the springapp DispatcherServlet --><br/>
-	<bean name="/hello.htm" class="springapp.web.HelloController" /><br/>
-</beans>

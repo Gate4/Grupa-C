@@ -23,9 +23,9 @@
 			<nav class="clear">
 				<ul>
 					<li><a href='#'>Strona główna</a></li>
-					<li><a class="active" href='welcome.html'>Repertuar</a></li>
+					<li><a href='welcome.jsp'>Repertuar</a></li>
 					<li><a href='#'>Cennik</a></li>
-					<li><a href='login.jsp'>Zaloguj</a></li>
+					<li><a class="active" href='login.jsp'>Zaloguj</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -33,46 +33,26 @@
 
 		<div id="content" role="main">
 			<section class="primary">
-			
-				${kafelek}
-
 				<section class="tile">
-					<section class="poster">
-						<a href='#'><img src="resources/img/poster4.jpg"
-							alt="Tytuł filmu 1"></a>
-					</section>
-					<section class="poster">
-						<a href='#'><img src="resources/img/poster4.jpg"
-							alt="Tytuł filmu 2"></a>
-					</section>
-					<section class="poster">
-						<a href='#'><img src="resources/img/poster4.jpg"
-							alt="Tytuł filmu 3"></a>
-					</section>
-					<section class="poster">
-						<a href='#'><img src="resources/img/poster4.jpg"
-							alt="Tytuł filmu 4"></a>
-					</section>
+				<h2>Logowanie</h2>
+					<form method="POST">
+						<table>
+							<tr>
+								<td>Login:</td>
+								<td><input type="text" name="login"></td>
+							</tr>
+							<tr>
+								<td>Hasło:</td>
+								<td><input type="text" name="password"></td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="submit" value="Zaloguj się" /></td>
+							</tr>
+						</table>
+					</form>
+					Nie masz konta? Zarejestruj się <a href='create.html'>tutaj</a>
 				</section>
-
 			</section>
-
-			<aside class="secondary">
-				<section>
-					<h2>News 1</h2>
-					<p>${message}</p>
-				</section>
-				<hr>
-				<section>
-					<h2>News 2</h2>
-					<p>${message}</p>
-				</section>
-				<hr>
-				<section>
-					<h2>News 3</h2>
-					<p>${message}</p>
-				</section>
-			</aside>
 		</div>
 
 		<footer class="clear">

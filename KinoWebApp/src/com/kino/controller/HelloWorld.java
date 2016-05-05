@@ -45,15 +45,22 @@ public class HelloWorld {
 			String description = moviesList.get(i).getDescription();
 			String year = moviesList.get(i).getYear();
 			output=output.concat("<section class=\"tile\"><img src=\"resources/img/poster1.jpg\" alt=\""+title+"\"><h2>"+title+"</h2><p>Gatunek: <span>"+genre+"</span></p><p>Re¿yseria: <span>nieznany</span></p><p>Scenariusz: <span>nieznany</span></p><p>Czas trwania: <span>nieznany</span></p><p>Od lat: <span>nieznany</span></p><p>Premiera: <span>"+year+"</span></p><p>Opis filmu:<br> <span>"+description+"</span></p></section>");
-		}
-		
-		
+		}	
 		model.put("message", message);
-
-		
-		
 		model.put("kafelek",output);
 		return new ModelAndView("welcome", model);
+	}
+	
+	@RequestMapping("/login")
+	public ModelAndView login(Map<String, Object> model) {
+		
+		return new ModelAndView("login", model);
+	}
+	
+	@RequestMapping("/create")
+	public ModelAndView create(Map<String, Object> model) {
+		
+		return new ModelAndView("create", model);
 	}
 
 }

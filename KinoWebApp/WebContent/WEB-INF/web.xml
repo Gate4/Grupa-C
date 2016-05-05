@@ -14,10 +14,18 @@
         </servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>kino</servlet-name>
         <url-pattern>/welcome.jsp</url-pattern>
         <url-pattern>/welcome.html</url-pattern>
+        
+        <url-pattern>/login.jsp</url-pattern>
+        <url-pattern>/login.html</url-pattern>
+        
+        <url-pattern>/create.jsp</url-pattern>
+        <url-pattern>/create.html</url-pattern>
+        
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
   
