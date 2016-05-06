@@ -8,16 +8,20 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 import com.kino.Baa.Bazyy.DAO.Filmy;
-
+import com.kino.Baa.Bazyy.DAO.Klienci;
 import com.kino.Baa.Bazyy.connector.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import java.util.Map;
 
 @Controller
 public class HelloWorld {
 
-	@RequestMapping("/welcome")
+	@RequestMapping(value="/welcome")
 	/*
 	 * public ModelAndView helloWorld(Map<String, Object> model) {
 	 * ApplicationContext context = new
@@ -57,10 +61,33 @@ public class HelloWorld {
 		return new ModelAndView("login", model);
 	}
 	
-	@RequestMapping("/create")
-	public ModelAndView create(Map<String, Object> model) {
-		
-		return new ModelAndView("create", model);
-	}
+	@RequestMapping(value="/create",method = RequestMethod.GET)
+	public String viewRegistration(Map<String, Object> model) {
+        Klienci userForm = new Klienci();
+        model.put("userForm", userForm);
+        return "create";
+    }
+	
+	@RequestMapping(value="/create",method = RequestMethod.POST)
+	public String processRegistration(@ModelAttribute("userForm") Klienci user,
+            Map<String, Object> model) {
+		System.out.println(user.getLogin());
+        System.out.println(user.getEmail());
+        System.out.println(user.getTelefon());
+        String result="createSuccess";
+        if(!user.getLogin().isEmpty()){
+        	ApplicationContext context = new ClassPathXmlApplicationContext("aa.xml");
+    		SqliteDAO sqliteDAO = (SqliteDAO) context.getBean("sqliteDAO");
+        	if(sqliteDAO.getKlientByLogin(user.getLogin()).isEmpty()){
+        		System.out.println("Rejestrujê usera "+user.getLogin());
+        		sqliteDAO.insert(user);
+        	}else{
+        		result="createFail";
+        	}
+        }else{
+        	result="createFail";
+        }
+        return result;
+    }
 
 }

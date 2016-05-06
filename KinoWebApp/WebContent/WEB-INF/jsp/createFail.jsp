@@ -36,25 +36,7 @@
 			<section class="primary">
 				<section class="tile">
 				<h2>Rejestracja</h2>
-					<form:form action="create.jsp" method="POST" commandName="userForm">
-						<table>
-							<tr>
-								<td>Login:</td>
-								<td><form:input path="login"/></td>
-							</tr>
-							<tr>
-								<td>Nr telefonu:</td>
-								<td><form:input path="telefon"/></td>
-							</tr>
-							<tr>
-								<td>E-mail:</td>
-								<td><form:input path="email"/></td>
-							</tr>
-							<tr>
-								<td colspan="2"><input type="submit" value="Załóż konto" /></td>
-							</tr>
-						</table>
-					</form:form>
+					Rejestracja zakończona niepowodzeniem
 				</section>
 			</section>
 		</div>
