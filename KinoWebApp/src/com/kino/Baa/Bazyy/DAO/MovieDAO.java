@@ -5,9 +5,9 @@ import java.util.Map;
 
 
 
-public interface FilmyDAO 
+public interface MovieDAO 
 {
-	void insert (Filmy film);
+	void insert (Movie film);
 	
 	void deleteFilm (String tytul);
 	
@@ -15,7 +15,7 @@ public interface FilmyDAO
 	
 	void findFilmByType (String gatunek);
 	
-	List<Filmy> getFilmListByName(String tytul);
+	List<Movie> getFilmListByName(String tytul);
 	
 	public Map<String, Integer> getStatFilmy();
 	
