@@ -52,6 +52,7 @@
 							</tr>
 							<tr>
 								<td colspan="2"><input type="submit" value="Załóż konto" /></td>
+								<strong>${message}</strong>
 							</tr>
 						</table>
 					</form:form>

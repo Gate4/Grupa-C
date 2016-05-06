@@ -1,6 +1,7 @@
 package com.kino.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -21,7 +22,7 @@ import java.util.Map;
 @Controller
 public class HelloWorld {
 
-	@RequestMapping(value="/welcome")
+	@RequestMapping(value = "/welcome")
 	/*
 	 * public ModelAndView helloWorld(Map<String, Object> model) {
 	 * ApplicationContext context = new
@@ -38,57 +39,60 @@ public class HelloWorld {
 	 */
 	public ModelAndView displayAll(Map<String, Object> model) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("aa.xml");
-		SqliteDAO sqliteDAO = (SqliteDAO) context.getBean("sqliteDAO");		
+		SqliteDAO sqliteDAO = (SqliteDAO) context.getBean("sqliteDAO");
 		List<Filmy> moviesList = sqliteDAO.getAllMovies();
-		String output="";
-		int n=moviesList.size();
-		for(int i=0;i<n;i++){
+		String output = "";
+		int n = moviesList.size();
+		for (int i = 0; i < n; i++) {
 			String title = moviesList.get(i).getTitle();
 			String genre = moviesList.get(i).getGenre();
 			String description = moviesList.get(i).getDescription();
 			String year = moviesList.get(i).getYear();
-			output=output.concat("<section class=\"tile\"><img src=\"resources/img/poster1.jpg\" alt=\""+title+"\"><h2>"+title+"</h2><p>Gatunek: <span>"+genre+"</span></p><p>Re¿yseria: <span>nieznany</span></p><p>Scenariusz: <span>nieznany</span></p><p>Czas trwania: <span>nieznany</span></p><p>Od lat: <span>nieznany</span></p><p>Premiera: <span>"+year+"</span></p><p>Opis filmu:<br> <span>"+description+"</span></p></section>");
+			output = output.concat("<section class=\"tile\"><img src=\"resources/img/poster1.jpg\" alt=\"" + title
+					+ "\"><h2>" + title + "</h2><p>Gatunek: <span>" + genre
+					+ "</span></p><p>Re¿yseria: <span>nieznany</span></p><p>Scenariusz: <span>nieznany</span></p><p>Czas trwania: <span>nieznany</span></p><p>Od lat: <span>nieznany</span></p><p>Premiera: <span>"
+					+ year + "</span></p><p>Opis filmu:<br> <span>" + description + "</span></p></section>");
 		}
 		String message = "Treœæ newsa ze Springa";
 		model.put("message", message);
-		model.put("kafelek",output);
+		model.put("kafelek", output);
 		return new ModelAndView("welcome", model);
 	}
-	
+
 	@RequestMapping("/login")
 	public ModelAndView login(Map<String, Object> model) {
-		
+
 		return new ModelAndView("login", model);
 	}
-	
-	@RequestMapping(value="/create",method = RequestMethod.GET)
-	public String viewRegistration(Map<String, Object> model) {
-        Klienci userForm = new Klienci();
-        model.put("userForm", userForm);
-        return "create";
-    }
-	
-	@RequestMapping(value="/create",method = RequestMethod.POST)
-	public String processRegistration(@ModelAttribute("userForm") Klienci user,
-            Map<String, Object> model) {
-		System.out.println(user.getLogin());
-        System.out.println(user.getEmail());
-        System.out.println(user.getTelefon());
-        String result="createSuccess";
-        if(!user.getLogin().isEmpty()){
-        	ApplicationContext context = new ClassPathXmlApplicationContext("aa.xml");
-    		SqliteDAO sqliteDAO = (SqliteDAO) context.getBean("sqliteDAO");
-        	if(sqliteDAO.getKlientByLogin(user.getLogin()).isEmpty()){
-        		System.out.println("Rejestrujê usera "+user.getLogin());
-        		sqliteDAO.insert(user);
-        	}else{
-        		result="createFail";
-        	}
-        }else{
-        	result="createFail";
-        }
-        return result;
-    }
 
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public String viewRegistration(Map<String, Object> model) {
+		Klienci userForm = new Klienci();
+		model.put("userForm", userForm);
+		return "create";
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public String processRegistration(@ModelAttribute("userForm") Klienci user, Model model) {
+		System.out.println(user.getLogin());
+		System.out.println(user.getEmail());
+		System.out.println(user.getTelefon());
+		String result = "createSuccess";
+		if (!user.getLogin().isEmpty() && !user.getTelefon().isEmpty() && !user.getEmail().isEmpty()) {
+			ApplicationContext context = new ClassPathXmlApplicationContext("aa.xml");
+			SqliteDAO sqliteDAO = (SqliteDAO) context.getBean("sqliteDAO");
+			if (sqliteDAO.getKlientByLogin(user.getLogin()).isEmpty()) {
+				System.out.println("Rejestrujê usera " + user.getLogin());
+				sqliteDAO.insert(user);
+			} else {
+				model.addAttribute("message", "Login jest ju¿ zajêty");
+				result = "create";
+			}
+		} else {
+			model.addAttribute("message", "Wype³nij wszystkie pola");
+			result = "create";
+		}
+		return result;
+	}
 
 }
