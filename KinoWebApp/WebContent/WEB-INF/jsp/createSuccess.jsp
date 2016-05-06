@@ -36,7 +36,9 @@
 			<section class="primary">
 				<section class="tile">
 				<h2>Rejestracja</h2>
-					Rejestracja zakończona powodzeniem!
+				    Witaj <strong>${message}</strong><br>
+					Rejestracja zakończona powodzeniem!<br>
+					Teraz możesz się zalogować <a href='login.html'>tutaj</a>
 				</section>
 			</section>
 		</div>

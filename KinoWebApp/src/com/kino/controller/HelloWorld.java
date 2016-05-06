@@ -73,10 +73,7 @@ public class HelloWorld {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String processRegistration(@ModelAttribute("userForm") Klienci user, Model model) {
-		System.out.println(user.getLogin());
-		System.out.println(user.getEmail());
-		System.out.println(user.getTelefon());
+	public String processRegistration(@ModelAttribute("userForm") Klienci user, Model model) {	
 		String result = "createSuccess";
 		if (!user.getLogin().isEmpty() && !user.getTelefon().isEmpty() && !user.getEmail().isEmpty()) {
 			ApplicationContext context = new ClassPathXmlApplicationContext("aa.xml");
@@ -84,6 +81,7 @@ public class HelloWorld {
 			if (sqliteDAO.getKlientByLogin(user.getLogin()).isEmpty()) {
 				System.out.println("Rejestrujê usera " + user.getLogin());
 				sqliteDAO.insert(user);
+				model.addAttribute("message", user.getLogin());
 			} else {
 				model.addAttribute("message", "Login jest ju¿ zajêty");
 				result = "create";
