@@ -1,8 +1,8 @@
 package com.kino.controller;
 
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -38,8 +38,7 @@ public class HelloWorld {
 	 */
 	public ModelAndView displayAll(Map<String, Object> model) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("aa.xml");
-		SqliteDAO sqliteDAO = (SqliteDAO) context.getBean("sqliteDAO");
-		String message = "Treœæ newsa ze Springa";
+		SqliteDAO sqliteDAO = (SqliteDAO) context.getBean("sqliteDAO");		
 		List<Filmy> moviesList = sqliteDAO.getAllMovies();
 		String output="";
 		int n=moviesList.size();
@@ -49,7 +48,8 @@ public class HelloWorld {
 			String description = moviesList.get(i).getDescription();
 			String year = moviesList.get(i).getYear();
 			output=output.concat("<section class=\"tile\"><img src=\"resources/img/poster1.jpg\" alt=\""+title+"\"><h2>"+title+"</h2><p>Gatunek: <span>"+genre+"</span></p><p>Re¿yseria: <span>nieznany</span></p><p>Scenariusz: <span>nieznany</span></p><p>Czas trwania: <span>nieznany</span></p><p>Od lat: <span>nieznany</span></p><p>Premiera: <span>"+year+"</span></p><p>Opis filmu:<br> <span>"+description+"</span></p></section>");
-		}	
+		}
+		String message = "Treœæ newsa ze Springa";
 		model.put("message", message);
 		model.put("kafelek",output);
 		return new ModelAndView("welcome", model);
@@ -89,5 +89,6 @@ public class HelloWorld {
         }
         return result;
     }
+
 
 }
