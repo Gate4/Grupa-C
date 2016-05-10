@@ -33,11 +33,15 @@ public class MainController {
 			String title = moviesList.get(i).getTitle();
 			String genre = moviesList.get(i).getGenre();
 			String description = moviesList.get(i).getDescription();
-			String year = moviesList.get(i).getReleaseYear();
+			String releaseYear = moviesList.get(i).getReleaseYear();
+			String direction = moviesList.get(i).getDirection();
+			String scenario = moviesList.get(i).getScenario();
+			String pegi = moviesList.get(i).getPegi();
+			String duration = moviesList.get(i).getDuration();
 			output = output.concat("<section class=\"tile\"><img src=\"resources/img/poster1.jpg\" alt=\"" + title
 					+ "\"><h2>" + title + "</h2><p>Gatunek: <span>" + genre
-					+ "</span></p><p>Re¿yseria: <span>nieznany</span></p><p>Scenariusz: <span>nieznany</span></p><p>Czas trwania: <span>nieznany</span></p><p>Od lat: <span>nieznany</span></p><p>Premiera: <span>"
-					+ year + "</span></p><p>Opis filmu:<br> <span>" + description + "</span></p></section>");
+					+ "</span></p><p>Re¿yseria: <span>"+direction+"</span></p><p>Scenariusz: <span>"+scenario+"</span></p><p>Czas trwania: <span>"+duration+" min.</span></p><p>Od lat: <span>"+pegi+"</span></p><p>Premiera: <span>"
+					+ releaseYear + "</span></p><p>Opis filmu:<br> <span>" + description + "</span></p></section>");
 		}
 		String message = "Treœæ newsa ze Springa";
 		model.put("message", message);
@@ -59,19 +63,18 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-<<<<<<< HEAD:KinoWebApp/src/com/kino/controller/HelloWorld.java
-	public String processRegistration(@ModelAttribute("userForm") Klienci user, Model model) {	
-=======
 	public String processRegistration(@ModelAttribute("userForm") User user, Model model) {
->>>>>>> origin/master:KinoWebApp/src/com/kino/controller/MainController.java
+		System.out.println(user.getLogin());
+		System.out.println(user.getEmail());
+		System.out.println(user.getPhone());
+
 		String result = "createSuccess";
 		if (!user.getLogin().isEmpty() && !user.getPhone().isEmpty() && !user.getEmail().isEmpty()) {
 			ApplicationContext context = new ClassPathXmlApplicationContext("aa.xml");
 			SqliteDAO sqliteDAO = (SqliteDAO) context.getBean("sqliteDAO");
-			if (sqliteDAO.getKlientByLogin(user.getLogin()).isEmpty()) {
+			if (sqliteDAO.getUserByLogin(user.getLogin()).isEmpty()) {
 				System.out.println("Rejestrujê usera " + user.getLogin());
-				sqliteDAO.insert(user);
-				model.addAttribute("message", user.getLogin());
+				sqliteDAO.insertUser(user);
 			} else {
 				model.addAttribute("message", "Login jest ju¿ zajêty");
 				result = "create";

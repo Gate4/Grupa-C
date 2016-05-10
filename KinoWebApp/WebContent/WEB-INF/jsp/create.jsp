@@ -44,7 +44,7 @@
 							</tr>
 							<tr>
 								<td>Nr telefonu:</td>
-								<td><form:input path="telefon"/></td>
+								<td><form:input path="phone"/></td>
 							</tr>
 							<tr>
 								<td>E-mail:</td>

@@ -2,10 +2,17 @@ package com.kino.Baa.Bazyy.DAO;
 
 public class Seance {
 	private String roomNumber;
-
 	private String duration;
-
 	private String title;
+	private String date;
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
 
 	public String getTitle() {
 		return title;
@@ -15,11 +22,11 @@ public class Seance {
 		this.title = title;
 	}
 
-	public String getSala() {
+	public String getRoomNumber() {
 		return roomNumber;
 	}
 
-	public void setSala(String roomNumber) {
+	public void setRoomNumber(String roomNumber) {
 		this.roomNumber = roomNumber;
 	}
 

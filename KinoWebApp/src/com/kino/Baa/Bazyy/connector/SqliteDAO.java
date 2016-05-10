@@ -1,11 +1,11 @@
 package com.kino.Baa.Bazyy.connector;
 
-import com.kino.Baa.Bazyy.DAO.Filmy;
-import com.kino.Baa.Bazyy.DAO.FilmyDAO;
-import com.kino.Baa.Bazyy.DAO.Klienci;
-import com.kino.Baa.Bazyy.DAO.KlienciDAO;
-import com.kino.Baa.Bazyy.DAO.Seansy;
-import com.kino.Baa.Bazyy.DAO.SeansyDAO;
+import com.kino.Baa.Bazyy.DAO.Movie;
+import com.kino.Baa.Bazyy.DAO.MovieDAO;
+import com.kino.Baa.Bazyy.DAO.User;
+import com.kino.Baa.Bazyy.DAO.UserDAO;
+import com.kino.Baa.Bazyy.DAO.Seance;
+import com.kino.Baa.Bazyy.DAO.SeanceDAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +25,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component("sqliteDAO")
-public class SqliteDAO implements KlienciDAO, FilmyDAO, SeansyDAO {
+public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
 
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -34,121 +34,133 @@ public class SqliteDAO implements KlienciDAO, FilmyDAO, SeansyDAO {
 		this.jdbcTemplate = new NamedParameterJdbcTemplate(datasource);
 	}
 
-	public void insert(Filmy film) {
-		String sql = "insert into Filmy (tytul,gatunek,rok,opis) VALUES (:tytul, :gatunek, :rok, :opis)";
+	public void insertMovie(Movie film) {
+		String sql = "insert into Movie (title,genre,releaseYear,description,direction,scenario,pegi,duration) VALUES (:title, :genre, :releaseYear, :description, :direction, :scenario, :pegi, :duration)";
 		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("tytul", film.getTitle());
-		params.addValue("gatunek", film.getGenre());
-		params.addValue("rok", film.getYear());
-		params.addValue("opis", film.getDescription());
+		params.addValue("title", film.getTitle());
+		params.addValue("genre", film.getGenre());
+		params.addValue("releaseYear", film.getReleaseYear());
+		params.addValue("description", film.getDescription());
+		params.addValue("direction", film.getDirection());
+		params.addValue("scenario", film.getScenario());
+		params.addValue("pegi", film.getPegi());
+		params.addValue("duration", film.getDuration());
 		jdbcTemplate.update(sql, params);
 	}
 
-	// public void insert(Filmy film)
+	// public void insert(Movie film)
 	// {
 	//
-	// String sql = "insert into Filmy (tytul,gatunek,rok,opis) VALUES
+	// String sql = "insert into Movie (tytul,gatunek,rok,opis) VALUES
 	// (?,?,?,?)";
 	// jdbcTemplate.update(sql, new
-	// Object[]{film.getTytul(),film.getGatunek(),film.getRok(),film.getOpis()});
+	// Object[]{film.getTitle(),film.getGatunek(),film.getRok(),film.getOpis()});
 	// }
 
-	public void deleteFilm(String tytul) {
-		String sql = "delete from Filmy where tytul=?";
-		jdbcTemplate.getJdbcOperations().update(sql, tytul);
+	public void deleteMovie(String title) {
+		String sql = "delete from Movie where title=?";
+		jdbcTemplate.getJdbcOperations().update(sql, title);
 	}
 
-	public void insert(Klienci klient) {
-		String sql = "insert into Klienty (login,telefon,email) VALUES (?,?,?)";
-		jdbcTemplate.getJdbcOperations().update(sql,
-				new Object[] { klient.getLogin(), klient.getTelefon(), klient.getEmail() });
+	public void insertUser(User user) {
+		String sql = "insert into User (login,phone,email, password, name, surname) VALUES (?,?,?,?,?,?)";
+		jdbcTemplate.getJdbcOperations().update(sql, new Object[] { user.getLogin(), user.getPhone(), user.getEmail(),
+				user.getPassword(), user.getName(), user.getSurname() });
 
 	}
 
-	public void deleteKlient(String login) {
-		String sql = "delete from Klienty where login=?";
+	public void deleteUser(String login) {
+		String sql = "delete from User where login=?";
 		int result = jdbcTemplate.getJdbcOperations().update(sql, login);
 	}
 
-	public void insert(Seansy seans) {
-		String sql = "insert into Seansy (czas,sala,tytul) VALUES (?,?,?)";
+	public void insertSeance(Seance seance) {
+		String sql = "insert into Seance (duration,roomNumber,title,date) VALUES (?,?,?,?)";
 		jdbcTemplate.getJdbcOperations().update(sql,
-				new Object[] { seans.getCzas(), seans.getSala(), seans.getTytul() });
+				new Object[] { seance.getDuration(),seance.getRoomNumber(), seance.getTitle(), seance.getDate() });
 
 	}
 
-	public void deleteSeans(String czas) {
-		String sql = "delete from Seansy where czas=?";
-		int result = jdbcTemplate.getJdbcOperations().update(sql, czas);
+	public void deleteSeance(String date) {
+		String sql = "delete from Seance where date=?";
+		int result = jdbcTemplate.getJdbcOperations().update(sql, date);
 	}
 
-	public void findFilmByName(String tytul) {
-		String sql = "select * from Filmy where tytul=? ";
-		List<Map<String, Object>> lista = jdbcTemplate.getJdbcOperations().queryForList(sql, tytul);
-		for (Object li : lista) {
+	public void findMovieByName(String title) {
+		String sql = "select * from Movie where title=? ";
+		List<Map<String, Object>> list = jdbcTemplate.getJdbcOperations().queryForList(sql, title);
+		for (Object li : list) {
 			System.out.println(li.toString());
 		}
 
 	}
 
-	public void findFilmByType(String gatunek) {
-		String sql = "select * from Filmy where gatunek=? ";
-		List<Map<String, Object>> lista = jdbcTemplate.getJdbcOperations().queryForList(sql, gatunek);
-		for (Object li : lista) {
+	public void findMovieByType(String genre) {
+		String sql = "select * from Movie where genre=? ";
+		List<Map<String, Object>> list = jdbcTemplate.getJdbcOperations().queryForList(sql, genre);
+		for (Object li : list) {
 			System.out.println(li.toString());
 		}
 
 	}
 
-	private static final class FilmRowMapper implements RowMapper<Filmy> {
+	private static final class MovieRowMapper implements RowMapper<Movie> {
 
-		public Filmy mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Filmy film = new Filmy();
-			film.setGatunek(rs.getString("gatunek"));
-			film.setTytul(rs.getString("tytul"));
-			film.setRok(rs.getString("rok"));
-			film.setOpis(rs.getString("opis"));
-			return film;
+		public Movie mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Movie movie = new Movie();
+			movie.setGenre(rs.getString("genre"));
+			movie.setTitle(rs.getString("title"));
+			movie.setReleaseYear(rs.getString("releaseYear"));
+			movie.setDescription(rs.getString("description"));
+			movie.setDirection(rs.getString("direction"));
+			movie.setScenario(rs.getString("scenario"));
+			movie.setPegi(rs.getString("pegi"));
+			movie.setDuration(rs.getString("duration"));
+			return movie;
 		}
 
 	}
 
-	private static final class SeansRowMapper implements RowMapper<Seansy> {
+	private static final class SeanceRowMapper implements RowMapper<Seance> {
 
-		public Seansy mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Seansy seans = new Seansy();
-			seans.setCzas(rs.getString("czas"));
-			seans.setSala(rs.getString("sala"));
-			seans.setTytul(rs.getString("tytul"));
-			return seans;
+		public Seance mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Seance seance = new Seance();
+			seance.setDuration(rs.getString("duration"));
+			seance.setRoomNumber(rs.getString("roomNumber"));
+			seance.setTitle(rs.getString("title"));
+			seance.setDate(rs.getString("date"));
+			return seance;
 		}
 
 	}
 
-	private static final class KlientRowMapper implements RowMapper<Klienci> {
+	private static final class UserRowMapper implements RowMapper<User> {
 
-		public Klienci mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Klienci klient = new Klienci();
-			klient.setEmail(rs.getString("email"));
-			klient.setLogin(rs.getString("login"));
-			klient.setTelefon(rs.getString("telefon"));
-			return klient;
+		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+			User user = new User();
+			user.setEmail(rs.getString("email"));
+			user.setLogin(rs.getString("login"));
+			user.setPhone(rs.getString("phone"));
+			user.setPassword(rs.getString("password"));
+			user.setName(rs.getString("name"));
+			user.setSurname(rs.getString("surname"));
+			return user;
 		}
 
 	}
 
-	public Map<String, Integer> getStatFilmy() {
-		String sql = "select tytul, count(*) as count from Filmy group by tytul";
+	public Map<String, Integer> getStatMovie() {
+		String sql = "select title, count(*) as count from Movie group by title";
 
 		return jdbcTemplate.query(sql, new ResultSetExtractor<Map<String, Integer>>() {
 
 			public Map<String, Integer> extractData(ResultSet rs) throws SQLException {
 				Map<String, Integer> map = new TreeMap<String, Integer>();
 				while (rs.next()) {
-					String tytul = rs.getString("tytul");
+					String title = rs.getString("title");
 					int count = rs.getInt("count");
-					map.put(tytul, count);
-					System.out.println("Tytul filmu:" + tytul);
+					map.put(title, count);
+					System.out.println("Tytul filmu:" + title);
 				}
 				return map;
 			};
@@ -157,75 +169,75 @@ public class SqliteDAO implements KlienciDAO, FilmyDAO, SeansyDAO {
 
 	}
 
-	public List<Filmy> getFilmListByName(String tytul) {
-		String sql = "select * from Filmy where upper(tytul) like :tytul";
+	public List<Movie> getMovieListByName(String title) {
+		String sql = "select * from Movie where upper(title) like :title";
 		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("tytul", "%" + tytul.toUpperCase() + "%");
-		List<Filmy> frm = jdbcTemplate.query(sql, params, new FilmRowMapper());
+		params.addValue("title", "%" + title.toUpperCase() + "%");
+		List<Movie> frm = jdbcTemplate.query(sql, params, new MovieRowMapper());
 
-		for (Filmy li : frm) {
+		for (Movie li : frm) {
 			System.out.println("Tytul: " + li.getTitle());
 		}
-		return jdbcTemplate.query(sql, params, new FilmRowMapper());
+		return jdbcTemplate.query(sql, params, new MovieRowMapper());
 	}
 
-	public List<Filmy> getAllMovies() {
-		String sql = "select * from Filmy";
-	//	List<Filmy> frm = jdbcTemplate.query(sql, new FilmRowMapper());
-		return jdbcTemplate.query(sql, new FilmRowMapper());
+	public List<Movie> getAllMovies() {
+		String sql = "select * from Movie";
+		// List<Movie> frm = jdbcTemplate.query(sql, new FilmRowMapper());
+		return jdbcTemplate.query(sql, new MovieRowMapper());
 	}
 
-	public List<Seansy> getSeansByTytul(String tytul) {
-		String sql = "select * from Seansy where upper(tytul) like :tytul";
+	public List<Seance> getSeanceByTitle(String title) {
+		String sql = "select * from Seance where upper(title) like :title";
 		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("tytul", "%" + tytul.toUpperCase() + "%");
-		List<Seansy> frm = jdbcTemplate.query(sql, params, new SeansRowMapper());
+		params.addValue("title", "%" + title.toUpperCase() + "%");
+		List<Seance> frm = jdbcTemplate.query(sql, params, new SeanceRowMapper());
 
-		for (Seansy seans : frm) {
+		for (Seance seans : frm) {
 			System.out.println(
-					"Czas seansu " + seans.getTytul() + " w salie " + seans.getSala() + ": " + seans.getCzas());
+					"Czas seansu " + seans.getTitle() + " w salie " + seans.getRoomNumber() + ": " + seans.getDuration());
 		}
-		return jdbcTemplate.query(sql, params, new SeansRowMapper());
+		return jdbcTemplate.query(sql, params, new SeanceRowMapper());
 
 	}
 
-	public List<Seansy> getSeansByTytul() {
-		String sql = "select * from Seansy ";
+	public List<Seance> getAllSeances() {
+		String sql = "select * from Seance ";
 
-		List<Seansy> frm = jdbcTemplate.query(sql, new SeansRowMapper());
+		List<Seance> frm = jdbcTemplate.query(sql, new SeanceRowMapper());
 
-		for (Seansy seans : frm) {
+		for (Seance seance : frm) {
 			System.out.println(
-					"Czas seansu " + seans.getTytul() + "w salie " + seans.getSala() + "w : " + seans.getCzas());
+					"Czas seansu " + seance.getTitle() + "w salie " + seance.getRoomNumber() + "w : " + seance.getDuration());
 		}
-		return jdbcTemplate.query(sql, new SeansRowMapper());
+		return jdbcTemplate.query(sql, new SeanceRowMapper());
 	}
 
-	public List<Klienci> getKlientByLogin(String login) {
+	public List<User> getUserByLogin(String login) {
 
-		String sql = "select * from Klienty where upper(login) like :login";
+		String sql = "select * from User where upper(login) like :login";
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("login", login.toUpperCase());
-		List<Klienci> frm = jdbcTemplate.query(sql, params, new KlientRowMapper());
+		List<User> frm = jdbcTemplate.query(sql, params, new UserRowMapper());
 
-		for (Klienci klient : frm) {
-			System.out.println("Klient: " + klient.getLogin() + " ma email: " + klient.getEmail()
-					+ " a numer telefoniczny " + klient.getTelefon());
+		for (User user : frm) {
+			System.out.println("Klient: " + user.getLogin() + " ma email: " + user.getEmail()
+					+ " a numer telefoniczny " + user.getPhone());
 		}
-		return jdbcTemplate.query(sql, params, new KlientRowMapper());
+		return jdbcTemplate.query(sql, params, new UserRowMapper());
 	}
 
-	public List<Klienci> getKlientByLogin() {
+	public List<User> getAllUsers() {
 
-		String sql = "select * from Klienty ";
+		String sql = "select * from User ";
 
-		List<Klienci> frm = jdbcTemplate.query(sql, new KlientRowMapper());
+		List<User> frm = jdbcTemplate.query(sql, new UserRowMapper());
 
-		for (Klienci klient : frm) {
+		for (User klient : frm) {
 			System.out.println("Klient: " + klient.getLogin() + " ma email: " + klient.getEmail()
-					+ " a numer telefoniczny " + klient.getTelefon());
+					+ " a numer telefoniczny " + klient.getPhone());
 		}
-		return jdbcTemplate.query(sql, new KlientRowMapper());
+		return jdbcTemplate.query(sql, new UserRowMapper());
 	}
 
 }

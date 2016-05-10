@@ -7,17 +7,17 @@ import java.util.Map;
 
 public interface MovieDAO 
 {
-	void insert (Movie film);
+	void insertMovie (Movie film);
 	
-	void deleteFilm (String tytul);
+	void deleteMovie (String tytul);
 	
-	void findFilmByName (String tytul);
+	void findMovieByName (String tytul);
 	
-	void findFilmByType (String gatunek);
+	void findMovieByType (String gatunek);
 	
-	List<Movie> getFilmListByName(String tytul);
+	List<Movie> getMovieListByName(String tytul);
 	
-	public Map<String, Integer> getStatFilmy();
+	public Map<String, Integer> getStatMovie();
 	
 	public List getAllMovies();
 	

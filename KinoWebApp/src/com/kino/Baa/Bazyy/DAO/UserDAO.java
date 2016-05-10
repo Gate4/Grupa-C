@@ -5,11 +5,11 @@ import java.util.Map;
 
 public interface UserDAO 
 {
-	 void insert (User klient);
+	 void insertUser (User klient);
 	 
-	 void deleteKlient (String login);
+	 void deleteUser (String login);
 	 
-	 List<User> getKlientByLogin(String login);
+	 List<User> getUserByLogin(String login);
 	 
-	 List<User> getKlientByLogin();
+	 List<User> getAllUsers();
 }

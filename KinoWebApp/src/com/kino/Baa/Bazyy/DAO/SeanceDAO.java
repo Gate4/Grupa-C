@@ -5,11 +5,11 @@ import java.util.Map;
 
 public interface SeanceDAO 
 {
-	void insert (Seance seans);
+	void insertSeance (Seance seans);
 	
-	void deleteSeans (String czas);
+	void deleteSeance (String czas);
 	
-	List<Seance> getSeansByTytul(String tytul);
+	List<Seance> getSeanceByTitle(String tytul);
 	 
-	List<Seance> getSeansByTytul();
+	List<Seance> getAllSeances();
 }
