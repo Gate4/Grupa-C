@@ -1,18 +1,17 @@
 package com.kino.Baa.Bazyy.DAO;
 
-public class Klienci
+public class User
 {
 	private String login;
 	
 	private String email;
 	
-	private String telefon;
+	private String phone;
 
 	public String getLogin() 
 	{
 		return login;
 	}
-
 	public void setLogin(String login) 
 	{
 		this.login = login;
@@ -28,14 +27,14 @@ public class Klienci
 		this.email = email;
 	}
 
-	public String getTelefon()
+	public String getPhone()
 	{
-		return telefon;
+		return phone;
 	}
 
-	public void setTelefon(String telefon) 
+	public void setPhone(String phone) 
 	{
-		this.telefon = telefon;
+		this.phone = phone;
 	}
 	
 }
