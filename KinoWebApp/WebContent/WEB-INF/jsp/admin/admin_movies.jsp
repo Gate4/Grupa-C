@@ -21,8 +21,8 @@
 
 			<nav class="clear">
 				<ul>
-					<li><a class="active" href='admin_movies.jsp'>Filmy</a></li>
-					<li><a href='welcome.html'>Seanse</a></li>
+					<li><a class="active" href='admin_movies.html'>Filmy</a></li>
+					<li><a href='#'>Seanse</a></li>
 					<li><a href='#'>Użytkownicy</a></li>
 					<li><a href='http://localhost:8080/KinoWebApp/welcome.jsp'>Strona
 							główna</a></li>
@@ -46,7 +46,7 @@
 							<p>Scenariusz: ${movie.scenario}</p>
 							<p>Od lat: ${movie.pegi}</p>
 							<p>Czas trwania: ${movie.duration}</p>
-							<p><input type="submit" value="Edytuj"/><input type="submit" value="Usuń"/></p>
+							<p><input type="submit" name="action" value="Edytuj"/><input type="submit" name="action" value="Usuń"/></p>
 						</section>
 					</c:forEach>
 				
