@@ -47,6 +47,8 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
 		params.addValue("duration", film.getDuration());
 		jdbcTemplate.update(sql, params);
 	}
+	
+	
 
 	// public void insert(Movie film)
 	// {

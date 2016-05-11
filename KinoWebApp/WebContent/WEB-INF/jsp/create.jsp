@@ -43,12 +43,24 @@
 								<td><form:input path="login"/></td>
 							</tr>
 							<tr>
+								<td>Hasło:</td>
+								<td><form:input type="password" path="password"/></td>
+							</tr>
+							<tr>
 								<td>Nr telefonu:</td>
 								<td><form:input path="phone"/></td>
 							</tr>
 							<tr>
 								<td>E-mail:</td>
-								<td><form:input path="email"/></td>
+								<td><form:input type="email" path="email"/></td>
+							</tr>
+							<tr>
+								<td>Imię:</td>
+								<td><form:input path="name"/></td>
+							</tr>
+							<tr>
+								<td>Nazwisko:</td>
+								<td><form:input path="surname"/></td>
 							</tr>
 							<tr>
 								<td colspan="2"><input type="submit" value="Załóż konto" /></td>

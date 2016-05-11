@@ -65,9 +65,14 @@ public class MainController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String processRegistration(@ModelAttribute("userForm") User user, Model model) {
 		System.out.println(user.getLogin());
+		System.out.println(user.getPassword());
 		System.out.println(user.getEmail());
 		System.out.println(user.getPhone());
-
+		System.out.println(user.getName());
+		System.out.println(user.getSurname());
+		
+		
+		
 		String result = "createSuccess";
 		if (!user.getLogin().isEmpty() && !user.getPhone().isEmpty() && !user.getEmail().isEmpty()) {
 			ApplicationContext context = new ClassPathXmlApplicationContext("aa.xml");
@@ -75,6 +80,7 @@ public class MainController {
 			if (sqliteDAO.getUserByLogin(user.getLogin()).isEmpty()) {
 				System.out.println("Rejestrujê usera " + user.getLogin());
 				sqliteDAO.insertUser(user);
+				model.addAttribute("message", user.getLogin());
 			} else {
 				model.addAttribute("message", "Login jest ju¿ zajêty");
 				result = "create";
@@ -85,5 +91,29 @@ public class MainController {
 		}
 		return result;
 	}
+	
+	//ADMIN
+	
+	@RequestMapping("/admin/admin_panel")
+	public ModelAndView viewAdminPanel(Map<String, Object> model) {
+		return new ModelAndView("admin/admin_panel", model);
+	}
+	
+	@RequestMapping(value = "/admin/admin_movies", method = RequestMethod.GET)
+	public String viewAdminMovies(Map<String, Object> model) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("aa.xml");
+		SqliteDAO sqliteDAO = (SqliteDAO) context.getBean("sqliteDAO");
+		List<Movie> movies=sqliteDAO.getAllMovies();
+		model.put("movies", movies);
+		return "/admin/admin_movies";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

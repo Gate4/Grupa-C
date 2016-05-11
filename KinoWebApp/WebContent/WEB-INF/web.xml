@@ -26,6 +26,12 @@
         <url-pattern>/create.jsp</url-pattern>
         <url-pattern>/create.html</url-pattern>
         
+        <url-pattern>/createSuccess.jsp</url-pattern>
+        <url-pattern>/createSuccess.html</url-pattern>
+        
+        <url-pattern>/createFail.jsp</url-pattern>
+        <url-pattern>/createFail.html</url-pattern>
+        
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
   

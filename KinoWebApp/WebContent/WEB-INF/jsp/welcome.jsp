@@ -25,6 +25,7 @@
 					<li><a href='#'>Strona główna</a></li>
 					<li><a class="active" href='welcome.html'>Repertuar</a></li>
 					<li><a href='#'>Cennik</a></li>
+					<li><a href='admin/admin_panel.html'>Admin</a></li>
 					<li><a href='login.jsp'>Zaloguj</a></li>
 				</ul>
 			</nav>
