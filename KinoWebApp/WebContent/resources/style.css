@@ -151,6 +151,10 @@ nav ul li:last-child a:hover, nav ul li:last-child a.active {
 	font-weight: bold;
 }
 
+textarea {
+   resize: none;
+}
+
 .footer {
 	border-radius: 10px;
 	background-color: #000000;

@@ -16,16 +16,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
 @Controller
 public class MainController {
+	Movie currentMovie;
+	ApplicationContext context = new ClassPathXmlApplicationContext("aa.xml");
+	SqliteDAO sqliteDAO = (SqliteDAO) context.getBean("sqliteDAO");
 
 	@RequestMapping(value = "/welcome")
 	public ModelAndView displayAll(Map<String, Object> model) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("aa.xml");
-		SqliteDAO sqliteDAO = (SqliteDAO) context.getBean("sqliteDAO");
 		List<Movie> moviesList = sqliteDAO.getAllMovies();
 		String output = "";
 		int n = moviesList.size();
@@ -65,20 +67,9 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String processRegistration(@ModelAttribute("userForm") User user, Model model) {
-		System.out.println(user.getLogin());
-		System.out.println(user.getPassword());
-		System.out.println(user.getEmail());
-		System.out.println(user.getPhone());
-		System.out.println(user.getName());
-		System.out.println(user.getSurname());
-		
-		
-		
+	public String processRegistration(@ModelAttribute("userForm") User user, Model model) {	
 		String result = "createSuccess";
 		if (!user.getLogin().isEmpty() && !user.getPhone().isEmpty() && !user.getEmail().isEmpty()) {
-			ApplicationContext context = new ClassPathXmlApplicationContext("aa.xml");
-			SqliteDAO sqliteDAO = (SqliteDAO) context.getBean("sqliteDAO");
 			if (sqliteDAO.getUserByLogin(user.getLogin()).isEmpty()) {
 				System.out.println("Rejestrujê usera " + user.getLogin());
 				sqliteDAO.insertUser(user);
@@ -103,13 +94,29 @@ public class MainController {
 	
 	@RequestMapping(value = "/admin/admin_movies", method = RequestMethod.GET)
 	public String viewAdminMovies(Map<String, Object> model) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("aa.xml");
-		SqliteDAO sqliteDAO = (SqliteDAO) context.getBean("sqliteDAO");
-		List<Movie> movies=sqliteDAO.getAllMovies();
-		model.put("movies", movies);
+		model.put("movies",sqliteDAO.getAllMovies());
 		return "/admin/admin_movies";
 	}
 	
+	@RequestMapping(value = "/admin/admin_movies", method = RequestMethod.POST)
+	public String adminMovieAction(@RequestParam String action, @RequestParam String movieTitle, Model model) {
+		currentMovie=sqliteDAO.getMovieListByName(movieTitle).get(0);
+		String result="/admin/admin_movies";
+		if(action.equals("Edytuj")){
+			result="redirect:/admin/admin_movie_edit.html";
+		}else if(action.equals("Usuñ")){
+			//Usuwanie
+		}else{
+			//Nieznana akcja
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/admin/admin_movie_edit", method = RequestMethod.GET)
+	public String viewMovieEdit(Map<String, Object> model) {
+		model.put("movieForm", currentMovie);
+		return "/admin/admin_movie_edit";
+	}
 	
 	
 	
