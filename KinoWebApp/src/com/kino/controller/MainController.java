@@ -39,10 +39,12 @@ public class MainController {
 			String pegi = moviesList.get(i).getPegi();
 			String duration = moviesList.get(i).getDuration();
 			output = output.concat("<section class=\"tile\"><img src=\"resources/img/poster1.jpg\" alt=\"" + title
-					+ "\"><h2>" + title + "</h2><p>Gatunek: <span>" + genre
-					+ "</span></p><p>Re¿yseria: <span>"+direction+"</span></p><p>Scenariusz: <span>"+scenario+"</span></p><p>Czas trwania: <span>"+duration+" min.</span></p><p>Od lat: <span>"+pegi+"</span></p><p>Premiera: <span>"
+					+ "\"><h2>" + title + "</h2><p>Gatunek: <span>" + genre + "</span></p><p>Re¿yseria: <span>"
+					+ direction + "</span></p><p>Scenariusz: <span>" + scenario + "</span></p><p>Czas trwania: <span>"
+					+ duration + " min.</span></p><p>Od lat: <span>" + pegi + "</span></p><p>Premiera: <span>"
 					+ releaseYear + "</span></p><p>Opis filmu:<br> <span>" + description + "</span></p></section>");
 		}
+
 		String message = "Treœæ newsa ze Springa";
 		model.put("message", message);
 		model.put("kafelek", output);
