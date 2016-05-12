@@ -24,7 +24,7 @@
 				<ul>
 					<li><a href='admin_movies.html'>Filmy</a></li>
 					<li><a class="active" href='admin_seances.html'>Seanse</a></li>
-					<li><a href='#'>Użytkownicy</a></li>
+					<li><a href='admin_users.html'>Użytkownicy</a></li>
 					<li><a href='http://localhost:8080/KinoWebApp/welcome.jsp'>Strona
 							główna</a></li>
 				</ul>
@@ -48,7 +48,7 @@
 										readonly />
 								</tr>
 								<tr>
-									<td>Czas trwania:</td>
+									<td>Godzina:</td>
 									<td><input type="text" value="${seance.duration}" readonly /></td>
 								</tr>
 								<tr>

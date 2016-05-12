@@ -135,6 +135,7 @@ public class MainController {
 		String result="redirect:/admin/admin_seances.html";
 		if(action.equals("Edytuj")){
 			result="/admin/admin_seance_edit";
+			model.addAttribute("movies",sqliteDAO.getAllMovies());
 			model.addAttribute("seanceForm",sqliteDAO.getSeanceByID(ID).get(0));
 			model.addAttribute("ID",ID);
 			model.addAttribute("message","ID jest identyfikatorem - zmiana spowoduje dodanie nowego seansu do bazy danych, lub zmianê istniej¹cego!");
@@ -143,10 +144,40 @@ public class MainController {
 		}else if(action.equals("Zapisz zmiany")){
 			sqliteDAO.insertOrReplaceSeance(seance);
 		}else if(action.equals("Dodaj nowy")){
+			model.addAttribute("movies",sqliteDAO.getAllMovies());
 			result="/admin/admin_seance_edit";
 			Seance newSeance=new Seance();
 			model.addAttribute("seanceForm",newSeance);
 			model.addAttribute("ID","Nowy seans");
+		}
+		return result;
+	}
+	
+//ADMIN_USERS
+	
+	@RequestMapping(value = "/admin/admin_users", method = RequestMethod.GET)
+	public String viewAdminUsers(Map<String, Object> model) {
+		model.put("users",sqliteDAO.getAllUsers());
+		return "admin/admin_users";
+	}
+	
+	@RequestMapping(value = "/admin/admin_users", method = RequestMethod.POST)
+	public String adminUserAction(@RequestParam String action, @RequestParam String login, @ModelAttribute("userForm") User user, Model model) {
+		String result="redirect:/admin/admin_users.html";
+		if(action.equals("Edytuj")){
+			result="/admin/admin_user_edit";
+			model.addAttribute("userForm",sqliteDAO.getUserByLogin(login).get(0));
+			model.addAttribute("login",login);
+			model.addAttribute("message","Login jest identyfikatorem - zmiana spowoduje dodanie nowego u¿ytkownika do bazy danych, lub zmianê istniej¹cego!");
+		}else if(action.equals("Skasuj")){
+			sqliteDAO.deleteUser(login);
+		}else if(action.equals("Zapisz zmiany")){		
+			sqliteDAO.insertOrReplaceUser(user);
+		}else if(action.equals("Dodaj nowy")){
+			result="/admin/admin_user_edit";
+			User newUser=new User();
+			model.addAttribute("userForm",newUser);
+			model.addAttribute("login","Nowy u¿ytkownik");
 		}
 		return result;
 	}

@@ -88,6 +88,19 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
 		String sql = "delete from User where login=?";
 		int result = jdbcTemplate.getJdbcOperations().update(sql, login);
 	}
+	
+	public void insertOrReplaceUser(User user){
+		if(getUserByLogin(user.getLogin()).isEmpty()){
+			insertUser(user);
+		}else{
+			updateUserByLogin(user.getLogin(), user);
+		}
+	}
+	
+	public void updateUserByLogin(String login,User user){
+		String sql = "update User SET password=?,phone=?,email=?,name=?,surname=? where login=?";
+		jdbcTemplate.getJdbcOperations().update(sql, new Object[]{user.getPassword(),user.getPhone(),user.getEmail(),user.getName(),user.getSurname(),login});
+	}
 
 	public void insertSeance(Seance seance) {
 		String sql = "insert into Seance (ID,duration,roomNumber,title,date) VALUES (?,?,?,?,?)";
