@@ -16,7 +16,7 @@ body{
 			Wybierz swoje kino:<br> <br>
 		</h2>
 		<h3>
-			<a href="welcome.jsp">Katowice</a>
+			<a href="welcome">Katowice</a>
 			
 		</h3>
 	</div>
