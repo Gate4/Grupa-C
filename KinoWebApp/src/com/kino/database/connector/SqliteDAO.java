@@ -1,11 +1,4 @@
-package com.kino.Baa.Bazyy.connector;
-
-import com.kino.Baa.Bazyy.DAO.Movie;
-import com.kino.Baa.Bazyy.DAO.MovieDAO;
-import com.kino.Baa.Bazyy.DAO.User;
-import com.kino.Baa.Bazyy.DAO.UserDAO;
-import com.kino.Baa.Bazyy.DAO.Seance;
-import com.kino.Baa.Bazyy.DAO.SeanceDAO;
+package com.kino.database.connector;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,6 +16,13 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+
+import com.kino.database.DAO.Movie;
+import com.kino.database.DAO.MovieDAO;
+import com.kino.database.DAO.Seance;
+import com.kino.database.DAO.SeanceDAO;
+import com.kino.database.DAO.User;
+import com.kino.database.DAO.UserDAO;
 
 @Component("sqliteDAO")
 public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {

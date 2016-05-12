@@ -1,4 +1,4 @@
-package com.kino.Baa.Bazyy.DAO;
+package com.kino.database.DAO;
 
 public class User {
 	private String login;

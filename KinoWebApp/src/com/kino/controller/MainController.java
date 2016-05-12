@@ -1,31 +1,26 @@
 package com.kino.controller;
 
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
-
-import com.kino.Baa.Bazyy.DAO.Movie;
-import com.kino.Baa.Bazyy.DAO.User;
-import com.kino.Baa.Bazyy.DAO.Seance;
-import com.kino.Baa.Bazyy.connector.*;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Map;
+import com.kino.database.DAO.Movie;
+import com.kino.database.DAO.Seance;
+import com.kino.database.DAO.User;
+import com.kino.database.connector.SqliteDAO;
 
 @Controller
 public class MainController {
-	ApplicationContext context = new ClassPathXmlApplicationContext("aa.xml");
-	SqliteDAO sqliteDAO = (SqliteDAO) context.getBean("sqliteDAO");
-
+	@Autowired
+	private SqliteDAO sqliteDAO; 
+	
 	@RequestMapping(value = "/welcome")
 	public ModelAndView displayAll(Map<String, Object> model) {
 		model.put("movies",sqliteDAO.getAllMovies());
