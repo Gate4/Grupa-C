@@ -84,12 +84,14 @@ public class MainController {
 		return result;
 	}
 	
-	//ADMIN
+//ADMIN
 	
 	@RequestMapping("/admin/admin_panel")
 	public ModelAndView viewAdminPanel(Map<String, Object> model) {
 		return new ModelAndView("admin/admin_panel", model);
 	}
+	
+//ADMIN MOVIES
 	
 	@RequestMapping(value = "/admin/admin_movies", method = RequestMethod.GET)
 	public String viewAdminMovies(Map<String, Object> model) {
@@ -117,6 +119,14 @@ public class MainController {
 			model.addAttribute("title","Nowy film");
 		}
 		return result;
+	}
+	
+//ADMIN SEANCES
+	
+	@RequestMapping(value = "/admin/admin_seances", method = RequestMethod.GET)
+	public String viewAdminSeances(Map<String, Object> model) {
+		model.put("seances",sqliteDAO.getAllSeances());
+		return "admin/admin_seances";
 	}
 	
 }

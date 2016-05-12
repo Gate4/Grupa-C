@@ -90,15 +90,15 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
 	}
 
 	public void insertSeance(Seance seance) {
-		String sql = "insert into Seance (duration,roomNumber,title,date) VALUES (?,?,?,?)";
+		String sql = "insert into Seance (ID,duration,roomNumber,title,date) VALUES (?,?,?,?,?)";
 		jdbcTemplate.getJdbcOperations().update(sql,
-				new Object[] { seance.getDuration(),seance.getRoomNumber(), seance.getTitle(), seance.getDate() });
+				new Object[] { seance.getID(),seance.getDuration(),seance.getRoomNumber(), seance.getTitle(), seance.getDate() });
 
 	}
 
-	public void deleteSeance(String date) {
-		String sql = "delete from Seance where date=?";
-		int result = jdbcTemplate.getJdbcOperations().update(sql, date);
+	public void deleteSeance(String id) {
+		String sql = "delete from Seance where id=?";
+		int result = jdbcTemplate.getJdbcOperations().update(sql, id);
 	}
 
 	public void findMovieByName(String title) {
@@ -140,6 +140,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
 
 		public Seance mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Seance seance = new Seance();
+			seance.setID(rs.getString("id"));
 			seance.setDuration(rs.getString("duration"));
 			seance.setRoomNumber(rs.getString("roomNumber"));
 			seance.setTitle(rs.getString("title"));
@@ -198,9 +199,10 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
 
 	public List<Movie> getAllMovies() {
 		String sql = "select * from Movie";
-		// List<Movie> frm = jdbcTemplate.query(sql, new FilmRowMapper());
 		return jdbcTemplate.query(sql, new MovieRowMapper());
 	}
+	
+	
 
 	public List<Seance> getSeanceByTitle(String title) {
 		String sql = "select * from Seance where upper(title) like :title";
@@ -213,18 +215,17 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
 					"Czas seansu " + seans.getTitle() + " w salie " + seans.getRoomNumber() + ": " + seans.getDuration());
 		}
 		return jdbcTemplate.query(sql, params, new SeanceRowMapper());
-
+	}
+	
+	public List<Seance> getSeanceByID(String ID) {
+		String sql="select * from Seance where ID=:ID";
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("ID", ID);
+		return jdbcTemplate.query(sql, params, new SeanceRowMapper());
 	}
 
 	public List<Seance> getAllSeances() {
 		String sql = "select * from Seance ";
-
-		List<Seance> frm = jdbcTemplate.query(sql, new SeanceRowMapper());
-
-		for (Seance seance : frm) {
-			System.out.println(
-					"Czas seansu " + seance.getTitle() + "w salie " + seance.getRoomNumber() + "w : " + seance.getDuration());
-		}
 		return jdbcTemplate.query(sql, new SeanceRowMapper());
 	}
 
@@ -254,5 +255,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
 		}
 		return jdbcTemplate.query(sql, new UserRowMapper());
 	}
+
+
 
 }

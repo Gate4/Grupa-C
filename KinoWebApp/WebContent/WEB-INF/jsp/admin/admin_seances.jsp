@@ -22,8 +22,8 @@
 
 			<nav class="clear">
 				<ul>
-					<li><a class="active" href='admin_movies.html'>Filmy</a></li>
-					<li><a href='admin_seances.html'>Seanse</a></li>
+					<li><a href='admin_movies.html'>Filmy</a></li>
+					<li><a class="active" href='admin_seances.html'>Seanse</a></li>
 					<li><a href='#'>Użytkownicy</a></li>
 					<li><a href='http://localhost:8080/KinoWebApp/welcome.jsp'>Strona
 							główna</a></li>
@@ -34,47 +34,35 @@
 
 		<div id="content" role="main">
 			<section class="primary">
-				<form action="admin_movies.html" method="POST">
-					<input type="hidden" name="title" value="" readonly /> <input
-						type="submit" name="action" value="Dodaj nowy"/>
+				<form action="admin_seances.html" method="POST">
+					<input type="hidden" name="ID" value="" readonly /> <input
+						type="submit" name="action" value="Dodaj nowy" method="POST" />
 				</form>
-				<c:forEach items="${movies}" var="movie">
+				<c:forEach items="${seances}" var="seance">
 					<section class="tile">
-						<form action="admin_movies.html" method="POST">
+						<form action="admin_seances.html" method="POST">
 							<table>
 								<tr>
-									<td>Tytuł:</td>
-									<td><input type="text" name="title" value="${movie.title}"
+									<td>ID:</td>
+									<td><input type="text" name="title" value="${seance.ID}"
 										readonly />
 								</tr>
 								<tr>
-									<td>Gatunek:</td>
-									<td><input type="text" value="${movie.genre}" readonly /></td>
+									<td>Czas trwania:</td>
+									<td><input type="text" value="${seance.duration}" readonly /></td>
 								</tr>
 								<tr>
-									<td>Premiera:</td>
-									<td><input type="text" value="${movie.releaseYear}"
+									<td>Numer sali:</td>
+									<td><input type="text" value="${seance.roomNumber}"
 										readonly /></td>
 								</tr>
 								<tr>
-									<td>Reżyser:</td>
-									<td><input type="text" value="${movie.direction}" readonly /></td>
+									<td>Tytuł filmu:</td>
+									<td><input type="text" value="${seance.title}" readonly /></td>
 								</tr>
 								<tr>
-									<td>Scenariusz:</td>
-									<td><input type="text" value="${movie.scenario}" readonly /></td>
-								</tr>
-								<tr>
-									<td>Od lat:</td>
-									<td><input type="text" value="${movie.pegi}" readonly /></td>
-								</tr>
-								<tr>
-									<td>Czas trwania:</td>
-									<td><input type="text" value="${movie.duration}" readonly /></td>
-								</tr>
-								<tr>
-									<td>Opis:</td>
-									<td><textarea readonly>${movie.description}</textarea></td>
+									<td>Data:</td>
+									<td><input type="text" value="${seance.date}" readonly /></td>
 								</tr>
 								<tr>
 									<td><input type="submit" name="action" value="Edytuj" /><input

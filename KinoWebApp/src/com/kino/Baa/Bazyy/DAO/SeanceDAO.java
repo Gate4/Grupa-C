@@ -11,5 +11,7 @@ public interface SeanceDAO
 	
 	List<Seance> getSeanceByTitle(String tytul);
 	 
+	List<Seance> getSeanceByID(String ID);
+	
 	List<Seance> getAllSeances();
 }
