@@ -35,7 +35,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
 	}
 
 	public void insertMovie(Movie film) {
-		String sql = "insert into Movie (title,genre,releaseYear,description,direction,scenario,pegi,duration) VALUES (:title, :genre, :releaseYear, :description, :direction, :scenario, :pegi, :duration)";
+		String sql = "insert into Movie (title,genre,releaseYear,description,direction,scenario,pegi,duration,poster) VALUES (:title, :genre, :releaseYear, :description, :direction, :scenario, :pegi, :duration, :poster)";
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("title", film.getTitle());
 		params.addValue("genre", film.getGenre());
@@ -45,12 +45,13 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
 		params.addValue("scenario", film.getScenario());
 		params.addValue("pegi", film.getPegi());
 		params.addValue("duration", film.getDuration());
+		params.addValue("poster", film.getPoster());
 		jdbcTemplate.update(sql, params);
 	}
 	
 	public void updateMovieByTitle(String title,Movie film){
-		String sql = "update Movie SET genre=?,releaseYear=?,description=?,direction=?,scenario=?,pegi=?,duration=? where title=?";
-		jdbcTemplate.getJdbcOperations().update(sql, new Object[]{film.getGenre(),film.getReleaseYear(),film.getDescription(),film.getDirection(),film.getScenario(),film.getPegi(),film.getDuration(),title});
+		String sql = "update Movie SET genre=?,releaseYear=?,description=?,direction=?,scenario=?,pegi=?,duration=?,poster=? where title=?";
+		jdbcTemplate.getJdbcOperations().update(sql, new Object[]{film.getGenre(),film.getReleaseYear(),film.getDescription(),film.getDirection(),film.getScenario(),film.getPegi(),film.getDuration(),film.getPoster(),title});
 	}
 	
 	public void insertOrReplaceMovie(Movie film){
@@ -157,6 +158,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
 			movie.setScenario(rs.getString("scenario"));
 			movie.setPegi(rs.getString("pegi"));
 			movie.setDuration(rs.getString("duration"));
+			movie.setPoster(rs.getString("poster"));
 			return movie;
 		}
 

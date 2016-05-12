@@ -77,6 +77,13 @@
 									<td><textarea readonly>${movie.description}</textarea></td>
 								</tr>
 								<tr>
+									<td>Plakat:</td>
+									<td><input type="text" value="${movie.poster}" readonly /></td>
+								</tr>
+								<tr>
+									<td><img src="http://localhost:8080/KinoWebApp/resources/img/${movie.poster}.jpg" alt="nie znaleziono pliku ${movie.poster}.jpg"></td>
+								</tr>
+								<tr>
 									<td><input type="submit" name="action" value="Edytuj" /><input
 										type="submit" name="action" value="Skasuj" /></td>
 								</tr>

@@ -1,5 +1,6 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,23 +36,36 @@
 		<div id="content" role="main">
 			<section class="primary">
 			
-				${kafelek}
+				<c:forEach items="${movies}" var="movie">
+				<section class="tile">
+				<img src="resources/img/${movie.poster}.jpg" alt="${movie.title}">
+				<h2>${movie.title}</h2>
+				<p>Gatunek: <span>${movie.genre}</span></p>
+				<p>Reżyseria: <span>${movie.direction}</span></p>
+				<p>Scenariusz: <span>${movie.scenario}</span></p>
+				<p>Czas trwania: <span>${movie.duration} min.</span></p>
+				<p>Od lat: <span>${movie.pegi}</span></p>
+				<p>Premiera: ${movie.releaseYear}</span></p>
+				<p>Opis filmu:<br><span>${movie.description}</span></p>
+				</section>
+				</c:forEach>
+				
 
 				<section class="tile">
 					<section class="poster">
-						<a href='#'><img src="resources/img/poster4.jpg"
+						<a href='#'><img src="resources/img/p0.jpg"
 							alt="Tytuł filmu 1"></a>
 					</section>
 					<section class="poster">
-						<a href='#'><img src="resources/img/poster4.jpg"
+						<a href='#'><img src="resources/img/p1.jpg"
 							alt="Tytuł filmu 2"></a>
 					</section>
 					<section class="poster">
-						<a href='#'><img src="resources/img/poster4.jpg"
+						<a href='#'><img src="resources/img/p2.jpg"
 							alt="Tytuł filmu 3"></a>
 					</section>
 					<section class="poster">
-						<a href='#'><img src="resources/img/poster4.jpg"
+						<a href='#'><img src="resources/img/p3.jpg"
 							alt="Tytuł filmu 4"></a>
 					</section>
 				</section>

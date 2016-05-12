@@ -28,28 +28,9 @@ public class MainController {
 
 	@RequestMapping(value = "/welcome")
 	public ModelAndView displayAll(Map<String, Object> model) {
-		List<Movie> moviesList = sqliteDAO.getAllMovies();
-		String output = "";
-		int n = moviesList.size();
-		for (int i = 0; i < n; i++) {
-			String title = moviesList.get(i).getTitle();
-			String genre = moviesList.get(i).getGenre();
-			String description = moviesList.get(i).getDescription();
-			String releaseYear = moviesList.get(i).getReleaseYear();
-			String direction = moviesList.get(i).getDirection();
-			String scenario = moviesList.get(i).getScenario();
-			String pegi = moviesList.get(i).getPegi();
-			String duration = moviesList.get(i).getDuration();
-			output = output.concat("<section class=\"tile\"><img src=\"resources/img/poster1.jpg\" alt=\"" + title
-					+ "\"><h2>" + title + "</h2><p>Gatunek: <span>" + genre + "</span></p><p>Re¿yseria: <span>"
-					+ direction + "</span></p><p>Scenariusz: <span>" + scenario + "</span></p><p>Czas trwania: <span>"
-					+ duration + " min.</span></p><p>Od lat: <span>" + pegi + "</span></p><p>Premiera: <span>"
-					+ releaseYear + "</span></p><p>Opis filmu:<br> <span>" + description + "</span></p></section>");
-		}
-
+		model.put("movies",sqliteDAO.getAllMovies());
 		String message = "Treœæ newsa ze Springa";
 		model.put("message", message);
-		model.put("kafelek", output);
 		return new ModelAndView("welcome", model);
 	}
 
