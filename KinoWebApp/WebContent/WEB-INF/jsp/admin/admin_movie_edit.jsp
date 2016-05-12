@@ -24,8 +24,9 @@
 
 		<div id="content" role="main">
 			<section class="primary">		
-					<h2> </h2>
-					<form:form action="admin/admin_movie_edit.html" method="POST" commandName="movieForm">
+					<h2>Edycja "${title}"</h2>
+					<p>Tytuł jest identyfikatorem - zmiana spowoduje dodanie nowego filmu do bazy danych!</p>
+					<form:form action="admin_movies.html" method="POST" commandName="movieForm">
 						<table>
 							<tr>
 								<td>Tytuł:</td>
@@ -60,7 +61,7 @@
 								<td><form:textarea path="description"/></td>
 							</tr>
 							<tr>
-								<td colspan="2"><input type="submit" value="Zapisz zmiany" /></td>
+								<td colspan="2"><input type="submit" name="action" value="Zapisz zmiany" /></td>
 								<strong>${message}</strong>
 							</tr>
 						</table>

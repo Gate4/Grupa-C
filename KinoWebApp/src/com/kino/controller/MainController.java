@@ -22,7 +22,6 @@ import java.util.Map;
 
 @Controller
 public class MainController {
-	Movie currentMovie;
 	ApplicationContext context = new ClassPathXmlApplicationContext("aa.xml");
 	SqliteDAO sqliteDAO = (SqliteDAO) context.getBean("sqliteDAO");
 
@@ -94,35 +93,24 @@ public class MainController {
 	
 	@RequestMapping(value = "/admin/admin_movies", method = RequestMethod.GET)
 	public String viewAdminMovies(Map<String, Object> model) {
+		
 		model.put("movies",sqliteDAO.getAllMovies());
-		return "/admin/admin_movies";
+		return "admin/admin_movies";
 	}
 	
 	@RequestMapping(value = "/admin/admin_movies", method = RequestMethod.POST)
-	public String adminMovieAction(@RequestParam String action, @RequestParam String movieTitle, Model model) {
-		currentMovie=sqliteDAO.getMovieListByName(movieTitle).get(0);
-		String result="/admin/admin_movies";
+	public String adminMovieAction(@RequestParam String action, @RequestParam String title, @ModelAttribute("movieForm") Movie movie, Model model) {
+		String result="redirect:/admin/admin_movies.html";
 		if(action.equals("Edytuj")){
-			result="redirect:/admin/admin_movie_edit.html";
+			result="/admin/admin_movie_edit";
+			model.addAttribute("movieForm",sqliteDAO.getMovieListByName(title).get(0));
+			model.addAttribute("title",title);
 		}else if(action.equals("Usuñ")){
 			//Usuwanie
-		}else{
-			//Nieznana akcja
+		}else if(action.equals("Zapisz zmiany")){
+			sqliteDAO.insertOrReplaceMovie(movie);
 		}
 		return result;
 	}
 	
-	@RequestMapping(value = "/admin/admin_movie_edit", method = RequestMethod.GET)
-	public String viewMovieEdit(Map<String, Object> model) {
-		model.put("movieForm", currentMovie);
-		return "/admin/admin_movie_edit";
-	}
-	
-	
-	
-	
-	
-	
-	
-
 }

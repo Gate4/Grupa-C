@@ -48,6 +48,19 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
 		jdbcTemplate.update(sql, params);
 	}
 	
+	public void updateMovieByTitle(String title,Movie film){
+		String sql = "update Movie SET genre=?,releaseYear=?,description=?,direction=?,scenario=?,pegi=?,duration=? where title=?";
+		jdbcTemplate.getJdbcOperations().update(sql, new Object[]{film.getGenre(),film.getReleaseYear(),film.getDescription(),film.getDirection(),film.getScenario(),film.getPegi(),film.getDuration(),title});
+	}
+	
+	public void insertOrReplaceMovie(Movie film){
+		if(getMovieListByName(film.getTitle()).isEmpty()){
+			insertMovie(film);
+		}else{
+			updateMovieByTitle(film.getTitle(), film);
+		}
+	}
+	
 	
 
 	// public void insert(Movie film)

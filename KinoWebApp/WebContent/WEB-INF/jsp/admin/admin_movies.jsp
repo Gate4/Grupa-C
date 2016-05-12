@@ -18,7 +18,7 @@
 <body>
 	<div id="page">
 		<header>
-			<h1 id="logo">Panel administratora</h1>
+			<h1 id="logo">Panel administratora - ${message}</h1>
 
 			<nav class="clear">
 				<ul>
@@ -40,13 +40,13 @@
 					<section class="tile">
 					<form action="admin_movies.html" method="POST">
 					<table>
-							<tr><td>Tytuł:</td> <td><input type="text" name="movieTitle" value="${movie.title}" readonly/></tr>
-							<tr><td>Gatunek:</td> <td><input type="text" value=${movie.genre} readonly/></td></tr>
-							<tr><td>Premiera:</td> <td><input type="text" value=${movie.releaseYear} readonly/></td></tr>
-							<tr><td>Reżyser:</td> <td><input type="text" value=${movie.direction} readonly/></td></tr>
-							<tr><td>Scenariusz:</td> <td><input type="text" value=${movie.scenario} readonly/></td></tr>
-							<tr><td>Od lat:</td> <td><input type="text" value=${movie.pegi} readonly/></td></tr>
-							<tr><td>Czas trwania:</td> <td><input type="text" value=${movie.duration} readonly/></td></tr>
+							<tr><td>Tytuł:</td> <td><input type="text" name="title" value="${movie.title}" readonly/></tr>
+							<tr><td>Gatunek:</td> <td><input type="text" value="${movie.genre}" readonly/></td></tr>
+							<tr><td>Premiera:</td> <td><input type="text" value="${movie.releaseYear}" readonly/></td></tr>
+							<tr><td>Reżyser:</td> <td><input type="text" value="${movie.direction}" readonly/></td></tr>
+							<tr><td>Scenariusz:</td> <td><input type="text" value="${movie.scenario}" readonly/></td></tr>
+							<tr><td>Od lat:</td> <td><input type="text" value="${movie.pegi}" readonly/></td></tr>
+							<tr><td>Czas trwania:</td> <td><input type="text" value="${movie.duration}" readonly/></td></tr>
 							<tr><td>Opis:</td> <td><textarea readonly>${movie.description}</textarea></td></tr>
 							<tr><td><input type="submit" name="action" value="Edytuj"/><input type="submit" name="action" value="Usuń"/></td></tr>
 							</table>
