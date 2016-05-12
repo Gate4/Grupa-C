@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.kino.Baa.Bazyy.DAO.Movie;
 import com.kino.Baa.Bazyy.DAO.User;
+import com.kino.Baa.Bazyy.DAO.Seance;
 import com.kino.Baa.Bazyy.connector.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -107,7 +108,7 @@ public class MainController {
 			result="/admin/admin_movie_edit";
 			model.addAttribute("movieForm",sqliteDAO.getMovieListByName(title).get(0));
 			model.addAttribute("title",title);
-			model.addAttribute("message","Tytu³ jest identyfikatorem - zmiana spowoduje dodanie nowego filmu do bazy danych!");
+			model.addAttribute("message","Tytu³ jest identyfikatorem - zmiana spowoduje dodanie nowego filmu do bazy danych, lub zmianê istniej¹cego!");
 		}else if(action.equals("Skasuj")){
 			sqliteDAO.deleteMovie(title);
 		}else if(action.equals("Zapisz zmiany")){
@@ -127,6 +128,27 @@ public class MainController {
 	public String viewAdminSeances(Map<String, Object> model) {
 		model.put("seances",sqliteDAO.getAllSeances());
 		return "admin/admin_seances";
+	}
+	
+	@RequestMapping(value = "/admin/admin_seances", method = RequestMethod.POST)
+	public String adminSeanceAction(@RequestParam String action, @RequestParam String ID, @ModelAttribute("seanceForm") Seance seance, Model model) {
+		String result="redirect:/admin/admin_seances.html";
+		if(action.equals("Edytuj")){
+			result="/admin/admin_seance_edit";
+			model.addAttribute("seanceForm",sqliteDAO.getSeanceByID(ID).get(0));
+			model.addAttribute("ID",ID);
+			model.addAttribute("message","ID jest identyfikatorem - zmiana spowoduje dodanie nowego seansu do bazy danych, lub zmianê istniej¹cego!");
+		}else if(action.equals("Skasuj")){
+			sqliteDAO.deleteSeance(ID);
+		}else if(action.equals("Zapisz zmiany")){
+			sqliteDAO.insertOrReplaceSeance(seance);
+		}else if(action.equals("Dodaj nowy")){
+			result="/admin/admin_seance_edit";
+			Seance newSeance=new Seance();
+			model.addAttribute("seanceForm",newSeance);
+			model.addAttribute("ID","Nowy seans");
+		}
+		return result;
 	}
 	
 }

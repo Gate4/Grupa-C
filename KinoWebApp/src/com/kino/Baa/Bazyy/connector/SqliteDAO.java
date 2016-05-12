@@ -100,6 +100,19 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
 		String sql = "delete from Seance where id=?";
 		int result = jdbcTemplate.getJdbcOperations().update(sql, id);
 	}
+	
+	public void updateSeanceByID(String ID,Seance seans){
+		String sql = "update Seance SET duration=?,roomNumber=?,title=?,date=? where ID=?";
+		jdbcTemplate.getJdbcOperations().update(sql, new Object[]{seans.getDuration(),seans.getRoomNumber(),seans.getTitle(),seans.getDate(),ID});
+	}
+	
+	public void insertOrReplaceSeance(Seance seans){
+		if(getSeanceByID(seans.getID()).isEmpty()){
+			insertSeance(seans);
+		}else{
+			updateSeanceByID(seans.getID(), seans);
+		}
+	}
 
 	public void findMovieByName(String title) {
 		String sql = "select * from Movie where title=? ";

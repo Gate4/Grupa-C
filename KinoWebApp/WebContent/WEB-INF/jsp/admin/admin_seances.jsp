@@ -44,7 +44,7 @@
 							<table>
 								<tr>
 									<td>ID:</td>
-									<td><input type="text" name="title" value="${seance.ID}"
+									<td><input type="text" name="ID" value="${seance.ID}"
 										readonly />
 								</tr>
 								<tr>
