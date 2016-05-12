@@ -25,7 +25,7 @@
 		<div id="content" role="main">
 			<section class="primary">		
 					<h2>Edycja "${title}"</h2>
-					<p>Tytuł jest identyfikatorem - zmiana spowoduje dodanie nowego filmu do bazy danych!</p>
+					<p>${message}</p>
 					<form:form action="admin_movies.html" method="POST" commandName="movieForm">
 						<table>
 							<tr>
@@ -62,7 +62,6 @@
 							</tr>
 							<tr>
 								<td colspan="2"><input type="submit" name="action" value="Zapisz zmiany" /></td>
-								<strong>${message}</strong>
 							</tr>
 						</table>
 					</form:form>

@@ -105,10 +105,16 @@ public class MainController {
 			result="/admin/admin_movie_edit";
 			model.addAttribute("movieForm",sqliteDAO.getMovieListByName(title).get(0));
 			model.addAttribute("title",title);
-		}else if(action.equals("Usuñ")){
-			//Usuwanie
+			model.addAttribute("message","Tytu³ jest identyfikatorem - zmiana spowoduje dodanie nowego filmu do bazy danych!");
+		}else if(action.equals("Skasuj")){
+			sqliteDAO.deleteMovie(title);
 		}else if(action.equals("Zapisz zmiany")){
 			sqliteDAO.insertOrReplaceMovie(movie);
+		}else if(action.equals("Dodaj nowy")){
+			result="/admin/admin_movie_edit";
+			Movie newMovie=new Movie();
+			model.addAttribute("movieForm",newMovie);
+			model.addAttribute("title","Nowy film");
 		}
 		return result;
 	}
