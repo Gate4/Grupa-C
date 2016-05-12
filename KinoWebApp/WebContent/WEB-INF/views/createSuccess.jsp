@@ -24,9 +24,9 @@
 			<nav class="clear">
 				<ul>
 					<li><a href='#'>Strona główna</a></li>
-					<li><a href='welcome.jsp'>Repertuar</a></li>
+					<li><a href='welcome'>Repertuar</a></li>
 					<li><a href='#'>Cennik</a></li>
-					<li><a href='login.jsp'>Zaloguj</a></li>
+					<li><a href='login'>Zaloguj</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -38,7 +38,7 @@
 				<h2>Rejestracja</h2>
 					Witaj <strong>${message}</strong><br>
 					Rejestracja zakończona powodzeniem!<br>
-					Teraz możesz się zalogować <a href='login.html'>tutaj</a>
+					Teraz możesz się zalogować <a href='login'>tutaj</a>
 				</section>
 			</section>
 		</div>
