@@ -23,9 +23,9 @@
 			<nav class="clear">
 				<ul>
 					<li><a href='#'>Strona główna</a></li>
-					<li><a href='welcome.jsp'>Repertuar</a></li>
+					<li><a href='welcome'>Repertuar</a></li>
 					<li><a href='#'>Cennik</a></li>
-					<li><a class="active" href='login.jsp'>Zaloguj</a></li>
+					<li><a class="active" href='login'>Zaloguj</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -50,7 +50,7 @@
 							</tr>
 						</table>
 					</form>
-					Nie masz konta? Zarejestruj się <a href='create.html'>tutaj</a>
+					Nie masz konta? Zarejestruj się <a href='create'>tutaj</a>
 				</section>
 			</section>
 		</div>
