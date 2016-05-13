@@ -75,6 +75,7 @@ nav ul {
 }
 
 nav ul li {
+	font-weight: bold;
 	display: inline;
 	padding: 5px 1em;
 }
@@ -90,8 +91,8 @@ nav ul li a {
 }
 
 nav ul li a:hover, a.active {
-	background: #FFCC7F;
-	font-weight: bold;
+	background: #FF9A00;
+	background: linear-gradient(#a76400, #db8400);
 }
 
 nav ul li:last-child {
