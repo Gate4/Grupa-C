@@ -25,7 +25,7 @@
 					<li><a href='admin_movies.html'>Filmy</a></li>
 					<li><a class="active" href='admin_seances.html'>Seanse</a></li>
 					<li><a href='admin_users.html'>Użytkownicy</a></li>
-					<li><a href='http://localhost:8080/KinoWebApp/welcome.jsp'>Strona
+					<li><a href='http://localhost:8080/KinoWebApp/welcome'>Strona
 							główna</a></li>
 				</ul>
 			</nav>
