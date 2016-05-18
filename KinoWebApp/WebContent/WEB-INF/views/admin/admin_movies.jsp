@@ -48,39 +48,7 @@
 										readonly />
 								</tr>
 								<tr>
-									<td>Gatunek:</td>
-									<td><input type="text" value="${movie.genre}" readonly /></td>
-								</tr>
-								<tr>
-									<td>Premiera:</td>
-									<td><input type="text" value="${movie.releaseYear}"
-										readonly /></td>
-								</tr>
-								<tr>
-									<td>Reżyser:</td>
-									<td><input type="text" value="${movie.direction}" readonly /></td>
-								</tr>
-								<tr>
-									<td>Scenariusz:</td>
-									<td><input type="text" value="${movie.scenario}" readonly /></td>
-								</tr>
-								<tr>
-									<td>Od lat:</td>
-									<td><input type="text" value="${movie.pegi}" readonly /></td>
-								</tr>
-								<tr>
-									<td>Czas trwania:</td>
-									<td><input type="text" value="${movie.duration}" readonly /></td>
-								</tr>
-								<tr>
-									<td>Opis:</td>
-									<td><textarea readonly>${movie.description}</textarea></td>
-								</tr>
-								<tr>
 									<td>Plakat:</td>
-									<td><input type="text" value="${movie.poster}" readonly /></td>
-								</tr>
-								<tr>
 									<td><img src="http://localhost:8080/KinoWebApp/resources/img/${movie.poster}.jpg" alt="nie znaleziono pliku ${movie.poster}.jpg"></td>
 								</tr>
 								<tr>

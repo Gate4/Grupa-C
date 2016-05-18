@@ -43,8 +43,7 @@
 						<form action="admin_seances.html" method="POST">
 							<table>
 								<tr>
-									<td>ID:</td>
-									<td><input type="text" name="ID" value="${seance.ID}"
+									<td><input type="hidden" name="ID" value="${seance.ID}"
 										readonly />
 								</tr>
 								<tr>

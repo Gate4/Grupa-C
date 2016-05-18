@@ -48,27 +48,6 @@
 										readonly />
 								</tr>
 								<tr>
-									<td>Hasło:</td>
-									<td><input type="password" value="${user.password}" readonly /></td>
-								</tr>
-								<tr>
-									<td>Numer telefonu:</td>
-									<td><input type="text" value="${user.phone}"
-										readonly /></td>
-								</tr>
-								<tr>
-									<td>E-mail:</td>
-									<td><input type="text" value="${user.email}" readonly /></td>
-								</tr>
-								<tr>
-									<td>Imię:</td>
-									<td><input type="text" value="${user.name}" readonly /></td>
-								</tr>
-								<tr>
-									<td>Nazwisko:</td>
-									<td><input type="text" value="${user.surname}" readonly /></td>
-								</tr>
-								<tr>
 									<td><input type="submit" name="action" value="Edytuj" /><input
 										type="submit" name="action" value="Skasuj" /></td>
 								</tr>
