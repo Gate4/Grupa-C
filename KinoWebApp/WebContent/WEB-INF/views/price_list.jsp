@@ -1,5 +1,6 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,8 +25,8 @@
 				<ul>
 					<li><a href='#'>Strona główna</a></li>
 					<li><a href='welcome'>Repertuar</a></li>
-					<li><a href='price_list?day=0'>Cennik</a></li>
-					<li><a class="active" href='login'>Zaloguj</a></li>
+					<li><a class='active' href='price_list?day=0'>Cennik</a></li>
+					<li><a href='login'>Zaloguj</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -33,26 +34,15 @@
 
 		<div id="content" role="main">
 			<section class="primary">
-				<section class="tile">
-				<h2>Logowanie</h2>
-					<form method="POST">
-						<table>
-							<tr>
-								<td>Login:</td>
-								<td><input type="text" name="login"></td>
-							</tr>
-							<tr>
-								<td>Hasło:</td>
-								<td><input type="text" name="password"></td>
-							</tr>
-							<tr>
-								<td colspan="2"><input type="submit" value="Zaloguj się" /></td>
-							</tr>
-						</table>
-					</form>
-					Nie masz konta? Zarejestruj się <a href='create'>tutaj</a>
+			<section class="tile">
+			<h2>Wybierz dzień tygodnia:</h2>
+			<p><c:forEach var="i" begin="1" end="7">
+   			<a href='price_list?day=<c:out value="${i}"/>'>${dayNames[i]}</a>
+			</c:forEach></p>
+			${prices}
 				</section>
 			</section>
+			
 		</div>
 
 		<footer class="clear">

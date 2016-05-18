@@ -19,13 +19,15 @@ import org.springframework.stereotype.Component;
 
 import com.kino.database.DAO.Movie;
 import com.kino.database.DAO.MovieDAO;
+import com.kino.database.DAO.PriceList;
+import com.kino.database.DAO.PriceListDAO;
 import com.kino.database.DAO.Seance;
 import com.kino.database.DAO.SeanceDAO;
 import com.kino.database.DAO.User;
 import com.kino.database.DAO.UserDAO;
 
 @Component("sqliteDAO")
-public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
+public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -192,6 +194,18 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
 		}
 
 	}
+	
+	private static final class PriceListRowMapper implements RowMapper<PriceList>{
+
+		public PriceList mapRow(ResultSet rs, int rowNum) throws SQLException {
+			PriceList pl=new PriceList();
+			pl.setDay(rs.getInt("id"));
+			pl.setLowerPrice(rs.getFloat("lowerPrice"));
+			pl.setNormalPrice(rs.getFloat("normalPrice"));
+			return pl;
+		}
+		
+	}
 
 	public Map<String, Integer> getStatMovie() {
 		String sql = "select title, count(*) as count from Movie group by title";
@@ -282,6 +296,36 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO {
 					+ " a numer telefoniczny " + klient.getPhone());
 		}
 		return jdbcTemplate.query(sql, new UserRowMapper());
+	}
+	
+	
+
+
+	public double getNormalPriceForDay(int day) {
+		String sql="select * from Prices";
+		return jdbcTemplate.query(sql,new PriceListRowMapper()).get(day-1).getNormalPrice();
+	}
+
+
+	public double setNormalPriceForDay(int day, double price) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	public double getLowerPriceForDay(int day) {
+		/*String sql="select lowerPrice from Prices where id=:dzien";
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("dzien", ""+day);
+		return jdbcTemplate.query(sql, params, new PriceListRowMapper()).get(0).getLowerPrice();*/
+		String sql="select * from Prices";
+		return jdbcTemplate.query(sql,new PriceListRowMapper()).get(day-1).getLowerPrice();
+	}
+
+
+	public double setLowerPriceForDay(int day, double price) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

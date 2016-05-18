@@ -25,8 +25,7 @@
 				<ul>
 					<li><a href='#'>Strona główna</a></li>
 					<li><a class="active" href='welcome'>Repertuar</a></li>
-					<li><a href='#'>Cennik</a></li>
-			<li><a href='admin/admin_panel.html'>Admin</a></li>
+					<li><a href='price_list?day=0'>Cennik</a></li>
 					<li><a href='login'>Zaloguj</a></li>
 				</ul>
 			</nav>
