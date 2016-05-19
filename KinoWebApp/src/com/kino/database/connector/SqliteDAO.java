@@ -239,7 +239,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 	}
 
 	public List<Movie> getAllMovies() {
-		String sql = "select * from Movie";
+		String sql = "select * from Movie order by title";
 		return jdbcTemplate.query(sql, new MovieRowMapper());
 	}
 	
