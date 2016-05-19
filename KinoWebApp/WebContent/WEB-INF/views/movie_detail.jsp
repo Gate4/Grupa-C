@@ -5,7 +5,11 @@
 <html>
 <head>
 
+
 <spring:url value="/resources/style.css" var="styleCSS" />
+<link href="${styleCSS}" rel="stylesheet" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <link href="${styleCSS}" rel="stylesheet" />
 <title>Kino</title>
 </head>
@@ -19,7 +23,7 @@
 
 			<nav class="clear">
 				<ul>
-					<li><a class="active" href='/KinoWebApp/'>Strona główna</a></li>
+					<li><a href='/KinoWebApp/'>Strona główna</a></li>
 					<li><a href='welcome'>Repertuar</a></li>
 					<li><a href='price_list?day=0'>Cennik</a></li>
 					<li><a href='login'>Zaloguj</a></li>
@@ -31,37 +35,18 @@
 		<div id="content" role="main">
 			<section class="primary">
 				<section class="tile">
-				<h2>Polecamy:</h2>
-					<section class="poster">
-						<a href='movie_detail?title=Commando'><img src="resources/img/p0.jpg"
-							alt="Tytuł filmu 1"></a>
-					</section>
-					<section class="poster">
-						<a href='movie_detail?title=Annabel'><img src="resources/img/p1.jpg"
-							alt="Tytuł filmu 2"></a>
-					</section>
-					<section class="poster">
-						<a href='movie_detail?title=Obecność'><img src="resources/img/p2.jpg"
-							alt="Tytuł filmu 3"></a>
-					</section>
-					<section class="poster">
-						<a href='movie_detail?title=Piła 7'><img src="resources/img/p3.jpg"
-							alt="Tytuł filmu 4"></a>
-					</section>
+				<img src="resources/img/${movie.poster}.jpg" alt="${movie.title}">
+				<h2>${movie.title}</h2>
+				<p>Gatunek: <span>${movie.genre}</span></p>
+				<p>Reżyseria: <span>${movie.direction}</span></p>
+				<p>Scenariusz: <span>${movie.scenario}</span></p>
+				<p>Czas trwania: <span>${movie.duration} min.</span></p>
+				<p>Od lat: <span>${movie.pegi}</span></p>
+				<p>Premiera: ${movie.releaseYear}</span></p>
+				<p>Opis filmu:<br><span>${movie.description}</span></p>
 				</section>
-
+				
 			</section>
-			<aside class="secondary">
-			<h2>W najbliższym czasie:</h2>
-			<c:forEach items="${seances}" var="seance">
-				<section>
-				<hr>
-				<h2>${seance.title}</h2>
-				<p>${seance.startTime}</p>
-				</section>
-			</c:forEach>
-			</aside>
-
 		</div>
 
 		<footer class="clear">
