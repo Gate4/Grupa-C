@@ -65,6 +65,10 @@
 								<td><form:textarea path="poster"/></td>
 							</tr>
 							<tr>
+								<td>Zwiastun:</td>
+								<td><form:textarea path="trailer"/></td>
+							</tr>
+							<tr>
 								<td colspan="2"><input type="submit" name="action" value="Zapisz zmiany" /></td>
 							</tr>
 						</table>

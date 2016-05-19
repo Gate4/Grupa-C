@@ -42,9 +42,14 @@
 				<p>Scenariusz: <span>${movie.scenario}</span></p>
 				<p>Czas trwania: <span>${movie.duration} min.</span></p>
 				<p>Od lat: <span>${movie.pegi}</span></p>
-				<p>Premiera: ${movie.releaseYear}</span></p>
+				<p>Premiera: <span>${movie.releaseYear}</span></p>
 				<p>Opis filmu:<br><span>${movie.description}</span></p>
+				<h2>Zwiastun:</h2>
+				<iframe id="ytplayer" type="text/html" width="683" height="512"
+src="https://www.youtube.com/v/${movie.trailer}?disablekb=1&fs=0&rel=0&showinfo=0&autohide=1&iv_load_policy=3&vq=large"
+frameborder="0"></iframe>
 				</section>
+				
 				
 			</section>
 		</div>

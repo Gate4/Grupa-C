@@ -48,12 +48,13 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 		params.addValue("pegi", film.getPegi());
 		params.addValue("duration", film.getDuration());
 		params.addValue("poster", film.getPoster());
+		params.addValue("trailer", film.getTrailer());
 		jdbcTemplate.update(sql, params);
 	}
 	
 	public void updateMovieByTitle(String title,Movie film){
-		String sql = "update Movie SET genre=?,releaseYear=?,description=?,direction=?,scenario=?,pegi=?,duration=?,poster=? where title=?";
-		jdbcTemplate.getJdbcOperations().update(sql, new Object[]{film.getGenre(),film.getReleaseYear(),film.getDescription(),film.getDirection(),film.getScenario(),film.getPegi(),film.getDuration(),film.getPoster(),title});
+		String sql = "update Movie SET genre=?,releaseYear=?,description=?,direction=?,scenario=?,pegi=?,duration=?,poster=?,trailer=? where title=?";
+		jdbcTemplate.getJdbcOperations().update(sql, new Object[]{film.getGenre(),film.getReleaseYear(),film.getDescription(),film.getDirection(),film.getScenario(),film.getPegi(),film.getDuration(),film.getPoster(),film.getTrailer(),title});
 	}
 	
 	public void insertOrReplaceMovie(Movie film){
@@ -161,6 +162,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 			movie.setPegi(rs.getString("pegi"));
 			movie.setDuration(rs.getString("duration"));
 			movie.setPoster(rs.getString("poster"));
+			movie.setTrailer(rs.getString("trailer"));
 			return movie;
 		}
 

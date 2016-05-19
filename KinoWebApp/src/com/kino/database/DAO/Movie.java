@@ -10,6 +10,7 @@ public class Movie {
 	private String pegi;
 	private String duration;
 	private String poster;
+	private String trailer;
 
 	public String getPoster() {
 		return poster;
@@ -17,6 +18,14 @@ public class Movie {
 
 	public void setPoster(String poster) {
 		this.poster = poster;
+	}
+	
+	public String getTrailer() {
+		return trailer;
+	}
+
+	public void setTrailer(String trailer) {
+		this.trailer = trailer;
 	}
 	
 	public String getDuration() {
