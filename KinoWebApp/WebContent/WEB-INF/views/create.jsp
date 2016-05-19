@@ -23,7 +23,7 @@
 
 			<nav class="clear">
 				<ul>
-					<li><a href='#'>Strona główna</a></li>
+					<li><a href='/KinoWebApp/'>Strona główna</a></li>
 					<li><a href='welcome'>Repertuar</a></li>
 					<li><a href='price_list?day=0'>Cennik</a></li>
 					<li><a href='login'>Zaloguj</a></li>

@@ -1,24 +1,67 @@
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+
+<spring:url value="/resources/style.css" var="styleCSS" />
+<link href="${styleCSS}" rel="stylesheet" />
 <title>Kino</title>
-<style type="text/css">
-body{
-	background: #000000;
-	color: #FF9A00;
-}
-</style>
 </head>
+
 <body>
-	<br>
-	<div style="text-align:center">
-		<h2>
-			Wybierz swoje kino:<br> <br>
-		</h2>
-		<h3>
-			<a href="welcome">Katowice</a>
-			
-		</h3>
+	<div id="page">
+		<header>
+			<h1 id="logo">
+				<img src="resources/img/logo.png" alt="Kino Katowice">
+			</h1>
+
+			<nav class="clear">
+				<ul>
+					<li><a class="active" href='/KinoWebApp/'>Strona główna</a></li>
+					<li><a href='welcome'>Repertuar</a></li>
+					<li><a href='price_list?day=0'>Cennik</a></li>
+					<li><a href='login'>Zaloguj</a></li>
+				</ul>
+			</nav>
+		</header>
+
+
+		<div id="content" role="main">
+			<section class="primary">
+				<section class="tile">
+				<h2>Polecamy:</h2>
+					<section class="poster">
+						<a href='#'><img src="resources/img/p0.jpg"
+							alt="Tytuł filmu 1"></a>
+					</section>
+					<section class="poster">
+						<a href='#'><img src="resources/img/p1.jpg"
+							alt="Tytuł filmu 2"></a>
+					</section>
+					<section class="poster">
+						<a href='#'><img src="resources/img/p2.jpg"
+							alt="Tytuł filmu 3"></a>
+					</section>
+					<section class="poster">
+						<a href='#'><img src="resources/img/p3.jpg"
+							alt="Tytuł filmu 4"></a>
+					</section>
+				</section>
+
+			</section>
+
+
+		</div>
+
+		<footer class="clear">
+			<section class="footer">
+				<p>Copyright © 2016 | Grupa C</p>
+			</section>
+		</footer>
 	</div>
+
 </body>
+
 </html>
