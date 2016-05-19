@@ -7,6 +7,15 @@ public class User {
 	private String password;
 	private String name;
 	private String surname;
+	private String authorities;
+
+	public String getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(String role) {
+		this.authorities = role;
+	}
 
 	public String getPassword() {
 		return password;

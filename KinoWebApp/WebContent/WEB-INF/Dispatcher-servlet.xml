@@ -2,6 +2,7 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/aop 
 		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
@@ -20,13 +21,9 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.sqlite.JDBC" />
-		<property name="url" value="jdbc:sqlite:db/WEBKino.db" />
-		<property name="username" value="" />
-		<property name="password" value="" />
-	</bean>
+
 	
 <mvc:resources mapping="/resources/**" location="/resources/" />
+
 
 </beans>

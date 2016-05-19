@@ -37,7 +37,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 	}
 
 	public void insertMovie(Movie film) {
-		String sql = "insert into Movie (title,genre,releaseYear,description,direction,scenario,pegi,duration,poster) VALUES (:title, :genre, :releaseYear, :description, :direction, :scenario, :pegi, :duration, :poster)";
+		String sql = "insert into Movie (title,genre,releaseYear,description,direction,scenario,pegi,duration,poster,trailer) VALUES (:title, :genre, :releaseYear, :description, :direction, :scenario, :pegi, :duration, :poster,:trailer)";
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("title", film.getTitle());
 		params.addValue("genre", film.getGenre());
@@ -82,9 +82,9 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 	}
 
 	public void insertUser(User user) {
-		String sql = "insert into User (login,phone,email, password, name, surname) VALUES (?,?,?,?,?,?)";
+		String sql = "insert into User (login,phone,email, password, name, surname,authorities) VALUES (?,?,?,?,?,?,?)";
 		jdbcTemplate.getJdbcOperations().update(sql, new Object[] { user.getLogin(), user.getPhone(), user.getEmail(),
-				user.getPassword(), user.getName(), user.getSurname() });
+				user.getPassword(), user.getName(), user.getSurname(),user.getAuthorities() });
 
 	}
 
@@ -102,8 +102,8 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 	}
 	
 	public void updateUserByLogin(String login,User user){
-		String sql = "update User SET password=?,phone=?,email=?,name=?,surname=? where login=?";
-		jdbcTemplate.getJdbcOperations().update(sql, new Object[]{user.getPassword(),user.getPhone(),user.getEmail(),user.getName(),user.getSurname(),login});
+		String sql = "update User SET password=?,phone=?,email=?,name=?,surname=?,authorities=? where login=?";
+		jdbcTemplate.getJdbcOperations().update(sql, new Object[]{user.getPassword(),user.getPhone(),user.getEmail(),user.getName(),user.getSurname(),user.getAuthorities(),login});
 	}
 
 	public void insertSeance(Seance seance) {
@@ -191,6 +191,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 			user.setPassword(rs.getString("password"));
 			user.setName(rs.getString("name"));
 			user.setSurname(rs.getString("surname"));
+			user.setAuthorities(rs.getString("authorities"));		
 			return user;
 		}
 

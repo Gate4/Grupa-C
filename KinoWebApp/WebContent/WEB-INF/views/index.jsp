@@ -1,6 +1,8 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,35 +33,51 @@
 		<div id="content" role="main">
 			<section class="primary">
 				<section class="tile">
-				<h2>Polecamy:</h2>
+
+
+
+					<h2>Polecamy:</h2>
 					<section class="poster">
-						<a href='movie_detail?title=Commando'><img src="resources/img/p0.jpg"
-							alt="Tytuł filmu 1"></a>
+						<a href='movie_detail?title=Commando'><img
+							src="resources/img/p0.jpg" alt="Tytuł filmu 1"></a>
 					</section>
 					<section class="poster">
-						<a href='movie_detail?title=Annabel'><img src="resources/img/p1.jpg"
-							alt="Tytuł filmu 2"></a>
+						<a href='movie_detail?title=Annabel'><img
+							src="resources/img/p1.jpg" alt="Tytuł filmu 2"></a>
 					</section>
 					<section class="poster">
-						<a href='movie_detail?title=Obecność'><img src="resources/img/p2.jpg"
-							alt="Tytuł filmu 3"></a>
+						<a href='movie_detail?title=Obecność'><img
+							src="resources/img/p2.jpg" alt="Tytuł filmu 3"></a>
 					</section>
 					<section class="poster">
-						<a href='movie_detail?title=Piła 7'><img src="resources/img/p3.jpg"
-							alt="Tytuł filmu 4"></a>
+						<a href='movie_detail?title=Piła 7'><img
+							src="resources/img/p3.jpg" alt="Tytuł filmu 4"></a>
 					</section>
 				</section>
 
 			</section>
 			<aside class="secondary">
-			<h2>W najbliższym czasie:</h2>
-			<c:forEach items="${seances}" var="seance">
-				<section>
-				<hr>
-				<h2>${seance.title}</h2>
-				<p>${seance.startTime}</p>
-				</section>
-			</c:forEach>
+
+
+
+				Dear <strong>${user}</strong>, Welcome to Home Page. <a
+					href="<c:url value="/logout" />">Logout</a>
+
+    <div>
+        <sec:authorize access="hasRole('ADMIN')">
+            <label><a href="#">Edit this page</a> | This part is visible only to ADMIN</label>
+        </sec:authorize>
+    </div>
+
+
+				<h2>W najbliższym czasie:</h2>
+				<c:forEach items="${seances}" var="seance">
+					<section>
+						<hr>
+						<h2>${seance.title}</h2>
+						<p>${seance.startTime}</p>
+					</section>
+				</c:forEach>
 			</aside>
 
 		</div>

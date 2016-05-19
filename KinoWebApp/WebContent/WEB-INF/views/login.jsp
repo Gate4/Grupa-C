@@ -34,22 +34,36 @@
 		<div id="content" role="main">
 			<section class="primary">
 				<section class="tile">
-				<h2>Logowanie</h2>
-					<form method="POST">
+					<h2>Logowanie</h2>
+
+					<c:set var="loginUrl">
+						<c:url value="/login" />
+					</c:set>
+					<form method="post" action="${loginUrl}">
 						<table>
 							<tr>
 								<td>Login:</td>
-								<td><input type="text" name="login"></td>
+								<td><input type="text" name="login" /></td>
 							</tr>
+
 							<tr>
 								<td>Hasło:</td>
-								<td><input type="text" name="password"></td>
+								<td><input type="password" name="password" /></td>
 							</tr>
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
 							<tr>
 								<td colspan="2"><input type="submit" value="Zaloguj się" /></td>
 							</tr>
+
+
+
+
+
 						</table>
 					</form>
+
+
 					Nie masz konta? Zarejestruj się <a href='create'>tutaj</a>
 				</section>
 			</section>
