@@ -1,7 +1,7 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -63,7 +63,7 @@
 				Dear <strong>${user}</strong>, Welcome to Home Page. <a
 					href="<c:url value="/logout" />">Logout</a>
 
-    <div>
+			    <div>
         <sec:authorize access="hasRole('ADMIN')">
             <label><a href="#">Edit this page</a> | This part is visible only to ADMIN</label>
         </sec:authorize>

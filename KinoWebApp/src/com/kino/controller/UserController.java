@@ -37,6 +37,7 @@ public class UserController {
 	 
 	        if (principal instanceof UserDetails) {
 	            userName = ((UserDetails)principal).getUsername();
+	           
 	        } else {
 	            userName = principal.toString();
 	        }
@@ -89,8 +90,9 @@ public class UserController {
 		String result = "createSuccess";
 		if (!user.getLogin().isEmpty() && !user.getPhone().isEmpty() && !user.getEmail().isEmpty()) {
 			if (sqliteDAO.getUserByLogin(user.getLogin()).isEmpty()) {
-				System.out.println("Rejestrujê usera " + user.getLogin());
-				sqliteDAO.insertUser(user);
+				user.setAuthorities("ROLE_USER");
+				System.out.println("Rejestrujê usera " + user.getAuthorities());				
+				sqliteDAO.insertUser(user);				
 				model.addAttribute("message", user.getLogin());
 			} else {
 				model.addAttribute("message", "Login jest ju¿ zajêty");

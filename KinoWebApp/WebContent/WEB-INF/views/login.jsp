@@ -1,5 +1,6 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,6 +41,16 @@
 						<c:url value="/login" />
 					</c:set>
 					<form method="post" action="${loginUrl}">
+						<c:if test="${param.error != null}">
+
+							<p>Invalid usernamee and password.</p>
+
+						</c:if>
+
+						<c:if test="${param.logout != null}">
+							<p>You have been logged out.</p>
+						</c:if>
+
 						<table>
 							<tr>
 								<td>Login:</td>

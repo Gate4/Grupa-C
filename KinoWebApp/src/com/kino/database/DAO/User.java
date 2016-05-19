@@ -13,8 +13,8 @@ public class User {
 		return authorities;
 	}
 
-	public void setAuthorities(String role) {
-		this.authorities = role;
+	public void setAuthorities(String authorities) {
+		this.authorities = authorities;
 	}
 
 	public String getPassword() {
