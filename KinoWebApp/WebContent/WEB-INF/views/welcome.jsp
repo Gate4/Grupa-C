@@ -37,7 +37,8 @@
 			
 				<c:forEach items="${movies}" var="movie">
 				<a href="movie_detail?title=${movie.title}">
-				<section class="tile">
+				<section class="tile_list">
+				<img class="thumb" src="resources/img/${movie.poster}.jpg" alt="">
 				<h2>${movie.title}</h2>
 				</section>
 				</a>

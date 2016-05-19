@@ -21,7 +21,7 @@ body {
 	font-variant: small-caps;
 }
 
-#logo, .primary, .poster, .tile {
+#logo, .primary, .poster,.tile,.tile_list {
 	float: left;
 }
 
@@ -49,7 +49,7 @@ body {
 	width: 25%;
 }
 
-.secondary p, .tile p {
+.secondary p, .tile p,.tile_list p {
 	margin-left: 1em;
 	text-align: left;
 	color: #FFCC7F;
@@ -130,7 +130,7 @@ nav ul li:last-child a:hover, nav ul li:last-child a.active {
 	border-color: #ffb13b;
 }
 
-.tile {
+.tile,.tile_list {
 	border-radius: 10px;
 	background-color: #000000;
 	background-color: rgba(0, 0, 0, 0.5);
@@ -148,7 +148,18 @@ nav ul li:last-child a:hover, nav ul li:last-child a.active {
 	padding: 10px 10px 10px 10px;
 }
 
-.tile p span {
+.tile_list:hover{
+	background-color: #4c4c4c;
+	background-color: rgba(76, 76, 76, 0.5);
+}
+
+.tile_list img{
+	float: left;
+	max-width: 6%;
+	padding: 0px 20px 0px 5px;
+}
+
+.tile p span ,.tile_list p span{
 	font-weight: bold;
 }
 
