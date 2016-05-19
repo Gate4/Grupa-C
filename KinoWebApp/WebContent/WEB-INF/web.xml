@@ -23,7 +23,7 @@
         <servlet-name>Dispatcher</servlet-name>      
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    
+
           <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/security-context.xml</param-value>    
@@ -44,5 +44,20 @@
         org.springframework.web.context.ContextLoaderListener
     </listener-class>
 </listener>
+
+
+<filter>
+    <filter-name>charsetFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </init-param>
+</filter>
+
+<filter-mapping>
+    <filter-name>charsetFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
 
 </web-app>
