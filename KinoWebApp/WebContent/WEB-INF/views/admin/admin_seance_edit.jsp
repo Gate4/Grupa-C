@@ -9,16 +9,6 @@
 
 <spring:url value="/resources/style.css" var="styleCSS" />
 <link href="${styleCSS}" rel="stylesheet" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script>
-	$(function() {
-		$("#datepicker").datepicker();
-	});
-</script>
-<link href="${styleCSS}" rel="stylesheet" />
 <title>Kino - panel administratora</title>
 </head>
 
@@ -35,14 +25,11 @@
 				<p>${message}</p>
 				<form:form action="admin_seances.html" method="POST"
 					commandName="seanceForm">
+					<form:hidden path="ID" />
 					<table>
 						<tr>
-							<td>ID:</td>
-							<td><form:input path="ID" /></td>
-						</tr>
-						<tr>
-							<td>Godzina:</td>
-							<td><form:input path="duration" /></td>
+							<td>Data i godzina rozpoczęcia (rrrr-mm-dd hh:mm:ss):</td>
+							<td><form:input path="startTime" /></td>
 						</tr>
 						<tr>
 							<td>Numer sali:</td>
@@ -56,10 +43,6 @@
 									<option value="${movie.title}" />
 								</c:forEach>
 							</datalist>
-						</tr>
-						<tr>
-							<td>Data:</td>
-							<td><form:input path="date" id="datepicker" /></td>
 						</tr>
 						<tr>
 							<td colspan="2"><input type="submit" name="action"

@@ -106,9 +106,9 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 	}
 
 	public void insertSeance(Seance seance) {
-		String sql = "insert into Seance (ID,duration,roomNumber,title,date) VALUES (?,?,?,?,?)";
+		String sql = "insert into Seance (start_time,roomNumber,title) VALUES (?,?,?)";
 		jdbcTemplate.getJdbcOperations().update(sql,
-				new Object[] { seance.getID(),seance.getDuration(),seance.getRoomNumber(), seance.getTitle(), seance.getDate() });
+				new Object[] {seance.getStartTime(),seance.getRoomNumber(), seance.getTitle()});
 
 	}
 
@@ -118,8 +118,8 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 	}
 	
 	public void updateSeanceByID(String ID,Seance seans){
-		String sql = "update Seance SET duration=?,roomNumber=?,title=?,date=? where ID=?";
-		jdbcTemplate.getJdbcOperations().update(sql, new Object[]{seans.getDuration(),seans.getRoomNumber(),seans.getTitle(),seans.getDate(),ID});
+		String sql = "update Seance SET start_time=?,roomNumber=?,title=? where ID=?";
+		jdbcTemplate.getJdbcOperations().update(sql, new Object[]{seans.getStartTime(),seans.getRoomNumber(),seans.getTitle(),ID});
 	}
 	
 	public void insertOrReplaceSeance(Seance seans){
@@ -171,10 +171,9 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 		public Seance mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Seance seance = new Seance();
 			seance.setID(rs.getString("id"));
-			seance.setDuration(rs.getString("duration"));
+			seance.setStartTime(rs.getString("start_time"));
 			seance.setRoomNumber(rs.getString("roomNumber"));
 			seance.setTitle(rs.getString("title"));
-			seance.setDate(rs.getString("date"));
 			return seance;
 		}
 
@@ -254,7 +253,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 
 		for (Seance seans : frm) {
 			System.out.println(
-					"Czas seansu " + seans.getTitle() + " w salie " + seans.getRoomNumber() + ": " + seans.getDuration());
+					"Czas seansu " + seans.getTitle() + " w salie " + seans.getRoomNumber());
 		}
 		return jdbcTemplate.query(sql, params, new SeanceRowMapper());
 	}

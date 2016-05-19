@@ -2,10 +2,9 @@ package com.kino.database.DAO;
 
 public class Seance {
 	private String ID;
+	private String startTime;
 	private String roomNumber;
-	private String duration;
 	private String title;
-	private String date;
 
 	public String getID() {
 		return ID;
@@ -15,13 +14,6 @@ public class Seance {
 		this.ID = ID;
 	}
 	
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
 
 	public String getTitle() {
 		return title;
@@ -39,12 +31,12 @@ public class Seance {
 		this.roomNumber = roomNumber;
 	}
 
-	public String getDuration() {
-		return duration;
+	public String getStartTime() {
+		return startTime;
 	}
 
-	public void setDuration(String duration) {
-		this.duration = duration;
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
 	}
 
 }

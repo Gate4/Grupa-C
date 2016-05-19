@@ -47,8 +47,8 @@
 										readonly />
 								</tr>
 								<tr>
-									<td>Godzina:</td>
-									<td><input type="text" value="${seance.duration}" readonly /></td>
+									<td>Data i godzina rozpoczęcia:</td>
+									<td><input type="text" value="${seance.startTime}" readonly /></td>
 								</tr>
 								<tr>
 									<td>Numer sali:</td>
@@ -58,10 +58,6 @@
 								<tr>
 									<td>Tytuł filmu:</td>
 									<td><input type="text" value="${seance.title}" readonly /></td>
-								</tr>
-								<tr>
-									<td>Data:</td>
-									<td><input type="text" value="${seance.date}" readonly /></td>
 								</tr>
 								<tr>
 									<td><input type="submit" name="action" value="Edytuj" /><input
