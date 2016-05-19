@@ -26,7 +26,7 @@ public class PriceListController {
 		}catch(NumberFormatException ex){	
 		}	
 		if(dayInt>0&&dayInt<8){
-			model.put("prices", "<p><h3>"+days[dayInt]+"</h3><p>Normalna cena: "+sqliteDAO.getNormalPriceForDay(dayInt)+" z³</p><p>Ni¿sza cena: "+sqliteDAO.getLowerPriceForDay(dayInt)+" z³</p>");
+			model.put("prices", "<p><h3>"+days[dayInt]+"</h3></p><p>Normalna cena: "+sqliteDAO.getNormalPriceForDay(dayInt)+" z³</p><p>Ni¿sza cena: "+sqliteDAO.getLowerPriceForDay(dayInt)+" z³</p>");
 		}		
 		return "/price_list";
 	}
