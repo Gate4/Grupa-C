@@ -16,6 +16,7 @@ public class HomeController {
 	private SqliteDAO sqliteDAO;
 	@RequestMapping("/welcome")
 	public String displayAll(Map<String, Object> model) {
+		model.put("seances", sqliteDAO.getFutureSeances());
 		model.put("movies", sqliteDAO.getAllMovies());
 		String message = "Treœæ newsa ze Springa";
 		model.put("message", message);
@@ -23,8 +24,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/")
-	public String greet(Model model) {
+	public String greet(Map<String, Object> model) {
+		model.put("seances", sqliteDAO.getFutureSeances());
 		return "index";
 	}
+	
+	
 
 }

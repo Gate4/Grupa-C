@@ -51,7 +51,16 @@
 				</section>
 
 			</section>
-
+			<aside class="secondary">
+			<h2>W najbliższym czasie:</h2>
+			<c:forEach items="${seances}" var="seance">
+				<section>
+				<hr>
+				<h2>${seance.title}</h2>
+				<p>${seance.startTime}</p>
+				</section>
+			</c:forEach>
+			</aside>
 
 		</div>
 

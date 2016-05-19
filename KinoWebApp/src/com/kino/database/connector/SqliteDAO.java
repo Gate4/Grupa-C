@@ -327,6 +327,10 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 		return 0;
 	}
 
+	public List<Seance> getFutureSeances() {
+		return jdbcTemplate.query(sql, new SeanceRowMapper());
+	}
+
 
 
 }

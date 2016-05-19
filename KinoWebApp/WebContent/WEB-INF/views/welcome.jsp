@@ -72,20 +72,14 @@
 			</section>
 
 			<aside class="secondary">
+			<h2>W najbliższym czasie:</h2>
+			<c:forEach items="${seances}" var="seance">
 				<section>
-					<h2>News 1</h2>
-					<p>${message}</p>
-				</section>
 				<hr>
-				<section>
-					<h2>News 2</h2>
-					<p>${message}</p>
+				<h2>${seance.title}</h2>
+				<p>${seance.startTime}</p>
 				</section>
-				<hr>
-				<section>
-					<h2>News 3</h2>
-					<p>${message}</p>
-				</section>
+			</c:forEach>
 			</aside>
 		</div>
 
