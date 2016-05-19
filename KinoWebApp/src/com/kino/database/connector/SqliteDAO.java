@@ -229,7 +229,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 	public List<Movie> getMovieListByName(String title) {
 		String sql = "select * from Movie where upper(title) like :title";
 		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("title", "%" + title.toUpperCase() + "%");
+		params.addValue("title", "%" + title + "%");
 		List<Movie> frm = jdbcTemplate.query(sql, params, new MovieRowMapper());
 
 		for (Movie li : frm) {
