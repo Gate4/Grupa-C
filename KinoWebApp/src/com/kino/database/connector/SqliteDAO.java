@@ -328,6 +328,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 	}
 
 	public List<Seance> getFutureSeances() {
+		String sql = "select * from Seance where start_time>(select  datetime(CURRENT_TIMESTAMP, 'localtime')) order by start_time asc LIMIT 10";
 		return jdbcTemplate.query(sql, new SeanceRowMapper());
 	}
 
