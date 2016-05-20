@@ -41,6 +41,7 @@
 				<c:forEach items="${seances}" var="seance">
 					<section class="tile">
 						<form action="admin_seances.html" method="POST">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 							<table>
 								<tr>
 									<td><input type="hidden" name="ID" value="${seance.ID}"

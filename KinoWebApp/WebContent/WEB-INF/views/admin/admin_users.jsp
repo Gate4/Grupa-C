@@ -41,6 +41,7 @@
 				<c:forEach items="${users}" var="user">
 					<section class="tile">
 						<form action="admin_users.html" method="POST">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 							<table>
 								<tr>
 									<td>Login:</td>
