@@ -38,7 +38,7 @@
 			<section class="tile">
 			<h2>Wybierz dzień tygodnia:</h2>
 			<p><c:forEach var="i" begin="1" end="7">
-   			<a href='price_list?day=<c:out value="${i}"/>'>${dayNames[i]}</a>
+   			<a class="prices" href='price_list?day=<c:out value="${i}"/>'>${dayNames[i]}</a>
 			</c:forEach></p>
 			${prices}
 				</section>
