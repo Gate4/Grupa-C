@@ -52,6 +52,15 @@ frameborder="0"></iframe>
 				
 				
 			</section>
+			<aside class="secondary">
+			<h2>${movie.title} w najbliższym czasie:</h2>
+			<c:forEach items="${seances}" var="seance">
+				<section>
+				<hr>
+				<p><a href='seance_detail?id=${seance.ID}'>${seance.startTime}</a></p>
+				</section>
+			</c:forEach>
+			</aside>
 		</div>
 
 		<footer class="clear">

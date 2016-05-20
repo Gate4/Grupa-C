@@ -23,6 +23,7 @@ public class MoviesController {
 		List<Movie> lista=sqliteDAO.getMovieListByName(title);
 		if(!lista.isEmpty()){
 			model.put("movie", lista.get(0));
+			model.put("seances", sqliteDAO.getFutureSeancesForTitle(title));
 		}
 		
 		return "/movie_detail";
