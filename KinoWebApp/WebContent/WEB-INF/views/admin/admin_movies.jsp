@@ -35,8 +35,9 @@
 		<div id="content" role="main">
 			<section class="primary">
 				<form action="admin_movies.html" method="POST">
-					<input type="hidden" name="title" value="" readonly /> <input
-						type="submit" name="action" value="Dodaj nowy"/>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					<input type="hidden" name="title" value="" readonly />
+					<input type="submit" name="action" value="Dodaj nowy"/>
 				</form>
 				<c:forEach items="${movies}" var="movie">
 					<section class="tile">

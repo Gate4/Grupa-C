@@ -35,8 +35,9 @@
 		<div id="content" role="main">
 			<section class="primary">
 				<form action="admin_seances.html" method="POST">
-					<input type="hidden" name="ID" value="" readonly /> <input
-						type="submit" name="action" value="Dodaj nowy" method="POST" />
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+					<input type="hidden" name="ID" value="" readonly /> 
+					<input type="submit" name="action" value="Dodaj nowy" method="POST" />
 				</form>
 				<c:forEach items="${seances}" var="seance">
 					<section class="tile">

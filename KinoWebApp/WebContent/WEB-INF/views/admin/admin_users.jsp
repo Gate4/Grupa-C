@@ -35,8 +35,9 @@
 		<div id="content" role="main">
 			<section class="primary">
 				<form action="admin_users.html" method="POST">
-					<input type="hidden" name="login" value="" readonly /> <input
-						type="submit" name="action" value="Dodaj nowy"/>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+					<input type="hidden" name="login" value="" readonly /> 
+					<input type="submit" name="action" value="Dodaj nowy"/>
 				</form>
 				<c:forEach items="${users}" var="user">
 					<section class="tile">

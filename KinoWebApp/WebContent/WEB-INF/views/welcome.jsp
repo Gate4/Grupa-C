@@ -39,8 +39,7 @@
 
 
 		<div id="content" role="main">
-			<section class="primary">
-			
+			<section class="primary">	
 				<c:forEach items="${movies}" var="movie">
 				<a href="movie_detail?title=${movie.title}">
 				<section class="tile_list">
@@ -58,8 +57,8 @@
 			<c:forEach items="${seances}" var="seance">
 				<section>
 				<hr>
-				<h2>${seance.title}</h2>
-				<p>${seance.startTime}</p>
+				<h2><a href='movie_detail?title=${seance.title}'>${seance.title}</a></h2>
+				<ul><li><a href='seance_detail?id=${seance.ID}'>${seance.startTime}</a></li></ul>
 				</section>
 			</c:forEach>
 			</aside>
