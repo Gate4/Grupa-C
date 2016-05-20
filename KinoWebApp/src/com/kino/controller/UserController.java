@@ -1,5 +1,6 @@
 package com.kino.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,12 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String homePage(ModelMap model) {
         model.addAttribute("user", getPrincipal());
-        model.put("seances", sqliteDAO.getFutureSeances());
+        List<Seance> seances=sqliteDAO.getFutureSeances();
+        if(!seances.isEmpty()){
+        	model.put("seances", seances);
+        	model.put("latest", sqliteDAO.getMovieListByName(seances.get(0).getTitle()).get(0));
+        }
+        
         return "index";
     }
 	

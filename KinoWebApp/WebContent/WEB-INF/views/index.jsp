@@ -42,6 +42,14 @@
     				</div>
 				</section>
 				<section class="tile">
+					<h1>Nowość:</h1>
+					<h2><a href='movie_detail?title=${latest.title}'>${latest.title}</a></h2>
+					<iframe id="ytplayer" type="text/html" width="683" height="512"
+					src="https://www.youtube.com/v/${latest.trailer}?disablekb=1&fs=0&rel=0&showinfo=0&autohide=1&iv_load_policy=3&vq=large"
+					frameborder="0"></iframe>
+					<p>${latest.description}</p>
+				</section>
+				<section class="tile">
 					<h2>Polecamy:</h2>
 					<section class="poster">
 						<a href='movie_detail?title=Commando'><img
