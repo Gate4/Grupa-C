@@ -48,6 +48,7 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String homePage(ModelMap model) {
         model.addAttribute("user", getPrincipal());
+        model.put("seances", sqliteDAO.getFutureSeances());
         return "index";
     }
 	

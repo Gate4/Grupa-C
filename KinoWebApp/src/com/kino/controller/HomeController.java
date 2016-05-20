@@ -23,12 +23,5 @@ public class HomeController {
 		return "welcome";
 	}
 	
-	@RequestMapping("/")
-	public String greet(Map<String, Object> model) {
-		model.put("seances", sqliteDAO.getFutureSeances());
-		return "index";
-	}
-	
-	
 
 }

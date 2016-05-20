@@ -47,6 +47,7 @@ body {
 	background-color: #000000;
 	background-color: rgba(0, 0, 0, 0.5);
 	width: 25%;
+	margin-bottom: 10px;
 }
 
 .secondary p, .tile p,.tile_list p {

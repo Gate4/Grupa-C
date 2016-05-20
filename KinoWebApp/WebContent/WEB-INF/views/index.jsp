@@ -33,9 +33,15 @@
 		<div id="content" role="main">
 			<section class="primary">
 				<section class="tile">
-
-
-
+					Dear <strong>${user}</strong>, Welcome to Home Page.
+					<a href="<c:url value="/logout" />">Logout</a>
+			    	<div>
+        				<sec:authorize access="hasRole('ADMIN')">
+            				<label><a href="#">Edit this page</a> | This part is visible only to ADMIN</label>
+        				</sec:authorize>
+    				</div>
+				</section>
+				<section class="tile">
 					<h2>Polecamy:</h2>
 					<section class="poster">
 						<a href='movie_detail?title=Commando'><img
@@ -54,28 +60,14 @@
 							src="resources/img/p3.jpg" alt="Tytuł filmu 4"></a>
 					</section>
 				</section>
-
 			</section>
 			<aside class="secondary">
-
-
-
-				Dear <strong>${user}</strong>, Welcome to Home Page. <a
-					href="<c:url value="/logout" />">Logout</a>
-
-			    <div>
-        <sec:authorize access="hasRole('ADMIN')">
-            <label><a href="#">Edit this page</a> | This part is visible only to ADMIN</label>
-        </sec:authorize>
-    </div>
-
-
 				<h2>W najbliższym czasie:</h2>
 				<c:forEach items="${seances}" var="seance">
 					<section>
 						<hr>
-						<h2>${seance.title}</h2>
-						<p>${seance.startTime}</p>
+						<h2><a href='movie_detail?title=${seance.title}'>${seance.title}</a></h2>
+						<ul><li><a href='seance_detail?id=${seance.ID}'>${seance.startTime}</a></li></ul>
 					</section>
 				</c:forEach>
 			</aside>
