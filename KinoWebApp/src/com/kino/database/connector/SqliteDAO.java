@@ -17,17 +17,21 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.kino.database.DAO.Booking;
+import com.kino.database.DAO.BookingDAO;
 import com.kino.database.DAO.Movie;
 import com.kino.database.DAO.MovieDAO;
 import com.kino.database.DAO.PriceList;
 import com.kino.database.DAO.PriceListDAO;
 import com.kino.database.DAO.Seance;
 import com.kino.database.DAO.SeanceDAO;
+import com.kino.database.DAO.Seat;
+import com.kino.database.DAO.SeatDAO;
 import com.kino.database.DAO.User;
 import com.kino.database.DAO.UserDAO;
 
 @Component("sqliteDAO")
-public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
+public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,SeatDAO,BookingDAO {
 
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -208,6 +212,34 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 		}
 		
 	}
+	
+	private static final class BookingRowMapper implements RowMapper<Booking>{
+
+		public Booking mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Booking bk=new Booking();
+			bk.setCode(rs.getString("code"));
+			bk.setID(rs.getInt("id"));
+			bk.setLogin(rs.getString("login"));
+			bk.setSeanceID(rs.getInt("seanceID"));
+			bk.setSeatID(rs.getInt("seatID"));
+			bk.setLowerPrice(rs.getBoolean("lowerPrice"));
+			return bk;
+		}
+		
+	}
+	
+	private static final class SeatRowMapper implements RowMapper<Seat>{
+
+		public Seat mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Seat s=new Seat();
+			s.setID(rs.getInt("ID"));
+			s.setRoomNumber(rs.getInt("roomNumber"));
+			s.setRowNumber(rs.getInt("rowNumber"));
+			s.setSeatNumber(rs.getInt("seatNumber"));
+			return s;
+		}
+		
+	}
 
 	public Map<String, Integer> getStatMovie() {
 		String sql = "select title, count(*) as count from Movie group by title";
@@ -341,6 +373,24 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO {
 		params.addValue("title", title);
 		return jdbcTemplate.query(sql,params, new SeanceRowMapper());
 	}
+
+	@Override
+	public List<Seat> getSeatListForRoomNumber(int roomNumber) {
+		String sql = "select * from Seats where roomNumber=:roomNumber order by roomNumber asc,rowNumber asc,seatNumber asc";
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("roomNumber", roomNumber);
+		return jdbcTemplate.query(sql,params, new SeatRowMapper());
+	}
+
+	@Override
+	public List<Booking> getBookingForSeanceID(int seanceID) {
+		String sql = "select * from Booking where seanceID=:seanceID";
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("seanceID", seanceID);
+		return jdbcTemplate.query(sql,params, new BookingRowMapper());
+	}
+	
+	
 
 
 
