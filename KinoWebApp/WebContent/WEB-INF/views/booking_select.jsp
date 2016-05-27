@@ -42,32 +42,52 @@
 			<section class="primary">
 				<section class="tile">
 					<h2>${message}</h2>
-					<c:forEach items="${seats}" var="seat">
-						<p>${seat}</p>
+					<c:forEach items="${bookedSeats}" var="bookedSeat">
+						<p>${bookedSeat}</p>
 					</c:forEach>
 					<form action="booking_select" method="post">
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
 						<table>
-							<tr>
+						<tr>
 								<td></td>
 								<c:forEach var="i" begin="1" end="15">
 									<td><c:out value="${i}" /></td>
 								</c:forEach>
-							</tr>
-							<c:forEach var="y" begin="1" end="10">
-								<tr>
-									<td><c:out value="${y}" /></td>
-									<c:forEach var="x" begin="1" end="15">
-										<td>
-											<div class="checkBoxEnabled">
-												<input type="checkbox" value="<c:out value="${x}"/>.<c:out value="${y}"/>" id="<c:out value="${x}"/>.<c:out value="${y}"/>" name="seat"/>
-												<label for="<c:out value="${x}"/>.<c:out value="${y}"/>"></label>
-											</div>
-										</td>
-									</c:forEach>
-								</tr>
+						</tr>
+						<tr>
+						<td>1</td>
+						<c:set var="y" value="1"/>
+						<c:set var="x" value="1"/>
+						<c:forEach items="${seats}" var="seat">
+							<c:forEach var="y" begin="${y}" end="${seat.rowNumber-1}">
+								</tr><tr><td>${y+1}</td>
+								<c:set var="x" value="1"/>
 							</c:forEach>
+							<c:set var="y" value="${seat.rowNumber}"/>
+							<td>
+							<c:forEach var="x" begin="${x}" end="${seat.seatNumber-1}">
+								</td><td>
+							</c:forEach>
+							<c:choose>
+    							<c:when test="${!seat.taken}">
+        							<div class="checkBoxEnabled">
+										<input type="checkbox" value="${seat.seatNumber}.${seat.rowNumber}" id="${seat.seatNumber}.${seat.rowNumber}" name="seat"/>
+										<label for="${seat.seatNumber}.${seat.rowNumber}"></label>
+									</div> 
+    							</c:when>    
+    							<c:otherwise>
+        							<div class="checkBoxDisabled">
+										<input type="checkbox" id="${seat.seatNumber}.${seat.rowNumber}" name="seat" disabled/>
+										<label for="${seat.seatNumber}.${seat.rowNumber}"></label>
+									</div> 
+    							</c:otherwise>
+							</c:choose>
+							
+							</td>
+							<c:set var="x" value="${seat.seatNumber+1}"/>
+						</c:forEach>
+						</tr>
 						</table>
 						<input type="submit" value="Kup/zarezerwuj">
 					</form>

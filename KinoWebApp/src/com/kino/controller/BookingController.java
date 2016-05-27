@@ -28,29 +28,41 @@ public class BookingController {
 				System.out.println("Miejsce "+i+": "+seats[i]);
 			}
 			model.put("message", "Moje miejsca:");
-			model.put("seats", seats);
+			model.put("bookedSeats", seats);
 		}
 		
 		return "booking_select";
 	}
 	
 	@RequestMapping(value="/booking_select", method = RequestMethod.GET)
-	public String displayGET(Map<String, Object> model) {
-		List<Seat> seatList=sqliteDAO.getSeatListForRoomNumber(1);
+	public String displayGET(@RequestParam(value="seance",required=false) String seance, Map<String, Object> model) {
+		/*List<Seat> seatList=sqliteDAO.getSeatListForRoomNumber(1);
 		for(int i=0;i<seatList.size();i++){
 			System.out.println("Rz¹d "+seatList.get(i).getRowNumber()+" ,miejsce "+seatList.get(i).getSeatNumber());
+		}*/
+		if(seance!=null){
+			int seanceID=0;
+			try{
+				seanceID=Integer.parseInt(seance);
+			}catch(NumberFormatException ex){}
+			List<Seat> seatList=sqliteDAO.getSeatListForSeance(seanceID);
+			for(int i=0;i<seatList.size();i++){
+				System.out.println("Rz¹d "+seatList.get(i).getRowNumber()+", miejsce "+seatList.get(i).getSeatNumber()+", zajête: "+seatList.get(i).isTaken());
+			}
+			List<Booking> bookingList=sqliteDAO.getBookingForSeanceID(seanceID);
+			for(int i=0;i<bookingList.size();i++){
+				System.out.println("Rezerwacja "+bookingList.get(i).getID());
+				System.out.println("-u¿ytkownik: "+bookingList.get(i).getLogin());
+				System.out.println("-ID rezerwacji: "+bookingList.get(i).getID());
+				System.out.println("-ID seansu: "+bookingList.get(i).getSeanceID());
+				System.out.println("-ID siedzenia: "+bookingList.get(i).getSeatID());
+				System.out.println("-kod rezerwacji: "+bookingList.get(i).getCode());
+				System.out.println("-cena ulgowa?: "+bookingList.get(i).getLowerPrice());
+			}
+			model.put("message", "Wybierz miejsca:");
+			model.put("seats", seatList);
 		}
-		List<Booking> bookingList=sqliteDAO.getBookingForSeanceID(5);
-		for(int i=0;i<bookingList.size();i++){
-			System.out.println("Rezerwacja "+bookingList.get(i).getID());
-			System.out.println("-u¿ytkownik: "+bookingList.get(i).getLogin());
-			System.out.println("-ID rezerwacji: "+bookingList.get(i).getID());
-			System.out.println("-ID seansu: "+bookingList.get(i).getSeanceID());
-			System.out.println("-ID siedzenia: "+bookingList.get(i).getSeatID());
-			System.out.println("-kod rezerwacji: "+bookingList.get(i).getCode());
-			System.out.println("-cena ulgowa?: "+bookingList.get(i).getLowerPrice());
-		}
-		model.put("message", "Wybierz miejsca:");
+		
 		return "booking_select";
 	}
 	

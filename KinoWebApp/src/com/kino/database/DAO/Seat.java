@@ -5,6 +5,7 @@ public class Seat {
 	private int roomNumber;
 	private int rowNumber;
 	private int seatNumber;
+	private boolean taken;
 
 	public int getID() {
 		return ID;
@@ -37,6 +38,14 @@ public class Seat {
 
 	public void setSeatNumber(int seatNumber) {
 		this.seatNumber = seatNumber;
+	}
+	
+	public void setTaken(boolean taken){
+		this.taken=taken;
+	}
+	
+	public boolean isTaken(){
+		return this.taken;
 	}
 
 }

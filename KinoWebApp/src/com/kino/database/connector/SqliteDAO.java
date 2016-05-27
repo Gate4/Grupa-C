@@ -236,6 +236,11 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 			s.setRoomNumber(rs.getInt("roomNumber"));
 			s.setRowNumber(rs.getInt("rowNumber"));
 			s.setSeatNumber(rs.getInt("seatNumber"));
+			try{
+				s.setTaken(rs.getBoolean("isTaken"));
+			}catch(SQLException ex){
+				s.setTaken(false);
+			}
 			return s;
 		}
 		
@@ -389,6 +394,16 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 		params.addValue("seanceID", seanceID);
 		return jdbcTemplate.query(sql,params, new BookingRowMapper());
 	}
+
+	@Override
+	public List<Seat> getSeatListForSeance(int seanceID) {
+		String sql = "select s.id,s.roomNumber,s.rowNumber,s.seatNumber,(s.id=b.seatID) as \"isTaken\" from Seats as \"s\" inner join Seance as \"sc\" on s.roomNumber=sc.roomNumber outer left join Booking as \"b\" on sc.id=b.seanceID where sc.id=:seanceID order by s.rowNumber asc,s.seatNumber asc";
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("seanceID", seanceID);
+		return jdbcTemplate.query(sql,params, new SeatRowMapper());
+	}
+	
+	
 	
 	
 
