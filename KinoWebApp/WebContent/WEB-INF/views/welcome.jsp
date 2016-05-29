@@ -32,7 +32,15 @@
 					<li><a href='/KinoWebApp/'>Strona główna</a></li>
 					<li><a class="active" href='welcome'>Repertuar</a></li>
 					<li><a href='price_list?day=0'>Cennik</a></li>
+					<sec:authorize access="hasRole('ADMIN')">
+					<li><a href='admin/admin_panel'>Panel Admimistratora</a></li>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ANONYMOUS')">
 					<li><a href='login'>Zaloguj</a></li>
+					</sec:authorize>
+					<sec:authorize access="hasRole('USER') or hasRole('ADMIN')">
+					<li><a href="<c:url value="/logout" />">Wyloguj</a></li>
+					</sec:authorize>
 				</ul>
 			</nav>
 		</header>

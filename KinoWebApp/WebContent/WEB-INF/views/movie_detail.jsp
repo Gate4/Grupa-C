@@ -1,6 +1,7 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,15 @@
 					<li><a href='/KinoWebApp/'>Strona główna</a></li>
 					<li><a href='welcome'>Repertuar</a></li>
 					<li><a href='price_list?day=0'>Cennik</a></li>
+					<sec:authorize access="hasRole('ADMIN')">
+					<li><a href='admin/admin_panel'>Panel Admimistratora</a></li>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ANONYMOUS')">
 					<li><a href='login'>Zaloguj</a></li>
+					</sec:authorize>
+					<sec:authorize access="hasRole('USER') or hasRole('ADMIN')">
+					<li><a href="<c:url value="/logout" />">Wyloguj</a></li>
+					</sec:authorize>
 				</ul>
 			</nav>
 		</header>
