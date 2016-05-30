@@ -100,7 +100,7 @@ public class UserController {
 				result = "create";
 			}
 		} else {
-			model.addAttribute("message", "Wype³nij wszystkie pola");
+			model.addAttribute("message", "Wype³nij wszystkie pole");
 			result = "create";
 		}
 		return result;
