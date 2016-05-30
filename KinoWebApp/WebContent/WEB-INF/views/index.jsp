@@ -1,7 +1,8 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -10,6 +11,8 @@
 <spring:url value="/resources/style.css" var="styleCSS" />
 <link href="${styleCSS}" rel="stylesheet" />
 <title>Kino</title>
+
+<link rel="shortcut icon" href="resources/img/icon.png" />
 </head>
 
 <body>
@@ -25,13 +28,13 @@
 					<li><a href='welcome'>Repertuar</a></li>
 					<li><a href='price_list?day=0'>Cennik</a></li>
 					<sec:authorize access="hasRole('ADMIN')">
-					<li><a href='admin/admin_panel'>Panel Admimistratora</a></li>
+						<li><a href='admin/admin_panel'>Panel Admimistratora</a></li>
 					</sec:authorize>
 					<sec:authorize access="hasRole('ANONYMOUS')">
-					<li><a href='login'>Zaloguj</a></li>
+						<li><a href='login'>Zaloguj</a></li>
 					</sec:authorize>
 					<sec:authorize access="hasRole('USER') or hasRole('ADMIN')">
-					<li><a href="<c:url value="/logout" />">Wyloguj</a></li>
+						<li><a href="<c:url value="/logout" />">Wyloguj</a></li>
 					</sec:authorize>
 				</ul>
 			</nav>
@@ -41,20 +44,13 @@
 		<div id="content" role="main">
 			<section class="primary">
 				<section class="tile">
-					Dear <strong>${user}</strong>, Welcome to Home Page.
-					<a href="<c:url value="/logout" />">Logout</a>
-			    	<div>
-        				<sec:authorize access="hasRole('ADMIN')">
-            				<label><a href="#">Edit this page</a> | This part is visible only to ADMIN</label>
-        				</sec:authorize>
-    				</div>
-				</section>
-				<section class="tile">
 					<h1>Nowość:</h1>
-					<h2><a href='movie_detail?title=${latest.title}'>${latest.title}</a></h2>
+					<h2>
+						<a href='movie_detail?title=${latest.title}'>${latest.title}</a>
+					</h2>
 					<iframe id="ytplayer" type="text/html" width="683" height="512"
-					src="https://www.youtube.com/v/${latest.trailer}?disablekb=1&fs=0&rel=0&showinfo=0&autohide=1&iv_load_policy=3&vq=large"
-					frameborder="0"></iframe>
+						src="https://www.youtube.com/v/${latest.trailer}?disablekb=1&fs=0&rel=0&showinfo=0&autohide=1&iv_load_policy=3&vq=large"
+						frameborder="0"></iframe>
 					<p>${latest.description}</p>
 				</section>
 				<section class="tile">
@@ -77,13 +73,31 @@
 					</section>
 				</section>
 			</section>
+
+			<aside class="secondary">
+				<section>
+					<p>Witaj <strong>${user}</strong></p>
+
+					<sec:authorize access="hasRole('ADMIN')">
+						<label><a href="#">Edit this page</a> | This part is
+							visible only to ADMIN</label>
+					</sec:authorize>
+				</section>
+
+			</aside>
+
+
 			<aside class="secondary">
 				<h2>W najbliższym czasie:</h2>
 				<c:forEach items="${seances}" var="seance">
 					<section>
 						<hr>
-						<h2><a href='movie_detail?title=${seance.title}'>${seance.title}</a></h2>
-						<ul><li><a href='seance_detail?id=${seance.ID}'>${seance.startTime}</a></li></ul>
+						<h2>
+							<a href='movie_detail?title=${seance.title}'>${seance.title}</a>
+						</h2>
+						<ul>
+							<li><a href='seance_detail?id=${seance.ID}'>${seance.startTime}</a></li>
+						</ul>
 					</section>
 				</c:forEach>
 			</aside>

@@ -13,6 +13,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <link href="${styleCSS}" rel="stylesheet" />
 <title>Kino</title>
+<link rel="shortcut icon" href="resources/img/icon.png"/>
 </head>
 
 <body>
