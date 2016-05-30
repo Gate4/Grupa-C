@@ -48,6 +48,7 @@
 					<form action="booking_select" method="post">
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
+						<input type="hidden" name="seanceID" value="${seanceID}" readonly/>
 						<table>
 						<tr>
 								<td></td>
@@ -72,14 +73,14 @@
 							<c:choose>
     							<c:when test="${!seat.taken}">
         							<div class="checkBoxEnabled">
-										<input type="checkbox" value="${seat.seatNumber}.${seat.rowNumber}" id="${seat.seatNumber}.${seat.rowNumber}" name="seat"/>
-										<label for="${seat.seatNumber}.${seat.rowNumber}"></label>
+										<input type="checkbox" value="${seat.ID}" id="${seat.ID}" name="seat"/>
+										<label for="${seat.ID}"></label>
 									</div> 
     							</c:when>    
     							<c:otherwise>
         							<div class="checkBoxDisabled">
-										<input type="checkbox" id="${seat.seatNumber}.${seat.rowNumber}" name="seat" disabled/>
-										<label for="${seat.seatNumber}.${seat.rowNumber}"></label>
+										<input type="checkbox" id="${seat.ID}" name="seat" disabled/>
+										<label for="${seat.ID}"></label>
 									</div> 
     							</c:otherwise>
 							</c:choose>

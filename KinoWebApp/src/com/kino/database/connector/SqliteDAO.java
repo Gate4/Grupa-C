@@ -1,5 +1,6 @@
 package com.kino.database.connector;
 
+import java.awt.Point;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -223,6 +224,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 			bk.setSeanceID(rs.getInt("seanceID"));
 			bk.setSeatID(rs.getInt("seatID"));
 			bk.setLowerPrice(rs.getBoolean("lowerPrice"));
+			bk.setHasPaid(rs.getBoolean("hasPaid"));
 			return bk;
 		}
 		
@@ -397,16 +399,66 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 
 	@Override
 	public List<Seat> getSeatListForSeance(int seanceID) {
-		String sql = "select s.id,s.roomNumber,s.rowNumber,s.seatNumber,(s.id=b.seatID) as \"isTaken\" from Seats as \"s\" inner join Seance as \"sc\" on s.roomNumber=sc.roomNumber outer left join Booking as \"b\" on sc.id=b.seanceID where sc.id=:seanceID order by s.rowNumber asc,s.seatNumber asc";
+		String sql = "select *,exists(select * from Booking as b where b.seatID=s.ID) as \"isTaken\" from Seats as s where s.roomNumber=(select roomNumber from Seance where id=:seanceID) order by s.rowNumber asc,s.seatNumber asc";
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("seanceID", seanceID);
 		return jdbcTemplate.query(sql,params, new SeatRowMapper());
 	}
-	
-	
-	
-	
 
+	@Override
+	public boolean canBook(int[] idArray, int seanceID) {
+		String sql="select exists(select id from Booking where seanceID=:seanceID and seatID in (";
+		for(int i=0;i<idArray.length;i++){
+			if(i==idArray.length-1){
+				sql=sql.concat(idArray[i]+"))");
+			}else{
+				sql=sql.concat(idArray[i]+", ");
+			}
+		}
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("seanceID", seanceID);
+		return jdbcTemplate.queryForInt(sql, params)==0;
+	}
 
+	@Override
+	public List<Seat> getSeatListForIDArray(int[] idArray) {
+		String sql="select * from Seats where id in (";
+		for(int i=0;i<idArray.length;i++){
+			if(i==idArray.length-1){
+				sql=sql.concat(idArray[i]+")");
+			}else{
+				sql=sql.concat(idArray[i]+", ");
+			}
+		}
+		return jdbcTemplate.query(sql,new SeatRowMapper());
+	}
 
+	@Override
+	public void insertBooking(Booking booking,String code) {
+		String sql="insert into Booking (login,seanceID,seatID,code,lowerPrice,hasPaid) values (:login,:seanceID,:seatID,:code,:lowerPrice,:hasPaid)";
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("login", booking.getLogin());
+		params.addValue("seanceID", booking.getSeanceID());
+		params.addValue("seatID", booking.getSeatID());
+		params.addValue("code", code);
+		params.addValue("lowerPrice", booking.getLowerPrice());
+		params.addValue("hasPaid", booking.getHasPaid());
+		jdbcTemplate.update(sql, params);
+	}
+
+	@Override
+	public boolean canBookList(List<Booking> bookingList) {
+		String sql="select exists(select id from Booking where seanceID=:seanceID and seatID in (";
+		for(int i=0;i<bookingList.size();i++){
+			if(i==bookingList.size()-1){
+				sql=sql.concat(bookingList.get(i).getSeatID()+"))");
+			}else{
+				sql=sql.concat(bookingList.get(i).getSeatID()+", ");
+			}
+		}
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("seanceID", bookingList.get(0).getSeanceID());
+		return jdbcTemplate.queryForInt(sql, params)==0;
+	}
+	
 }

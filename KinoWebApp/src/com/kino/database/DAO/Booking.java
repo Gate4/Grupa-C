@@ -7,6 +7,7 @@ public class Booking {
 	private int seatID;
 	private String code;
 	boolean lowerPrice;
+	boolean hasPaid;
 
 	public int getID() {
 		return ID;
@@ -56,6 +57,14 @@ public class Booking {
 	
 	public boolean getLowerPrice(){
 		return this.lowerPrice;
+	}
+	
+	public void setHasPaid(boolean hasPaid){
+		this.hasPaid=hasPaid;
+	}
+	
+	public boolean getHasPaid(){
+		return this.hasPaid;
 	}
 
 }
