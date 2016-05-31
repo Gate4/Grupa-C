@@ -32,7 +32,7 @@ public class UserController {
 	@Autowired
 	private SqliteDAO sqliteDAO;
 
-	   private String getPrincipal(){
+	   private User getPrincipal(){
 	        String userName = null;
 	        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	 
@@ -42,13 +42,20 @@ public class UserController {
 	        } else {
 	            userName = principal.toString();
 	        }
-	        return userName;
+	        List<User> user=sqliteDAO.getUserByLogin(userName);
+	        if(user.size()==0){	        	
+	        	return null;
+	        }
+	        return user.get(0);
 	    }
 	
 	
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String homePage(ModelMap model) {
-        model.addAttribute("user", getPrincipal());
+    	if(getPrincipal()!=null){
+    		model.addAttribute("user", getPrincipal());    		
+    	}
+    	  
         List<Seance> seances=sqliteDAO.getFutureSeances();
         if(!seances.isEmpty()){
         	model.put("seances", seances);
@@ -58,7 +65,62 @@ public class UserController {
         return "index";
     }
 	
-	
+    @RequestMapping(value = "/user/user_show_profile", method = RequestMethod.GET)
+    public String viewUserPanel(ModelMap model) {
+    	if(getPrincipal()!=null){
+    		model.addAttribute("user", getPrincipal());    		
+    	}
+    	  
+        List<Seance> seances=sqliteDAO.getFutureSeances();
+        if(!seances.isEmpty()){
+        	model.put("seances", seances);
+        	
+        }
+        
+        return "user/user_show_profile";
+    }
+    
+    
+
+	@RequestMapping(value = "/user/user_show_profile", method = RequestMethod.POST)
+	public String viewUserPanel(@RequestParam String action, 
+			@ModelAttribute("userForm") User user, Model model) {
+		String result = "redirect:/user/user_show_profile";
+		User principal =getPrincipal();
+		if (action.equals("Edytuj dane")) {
+			result = "/user/user_edit_profile";
+			model.addAttribute("userForm", sqliteDAO.getUserByLogin(getPrincipal().getLogin()).get(0));
+					
+		} else if (action.equals("Usun konto")) {
+			sqliteDAO.deleteUser(principal.getLogin());
+			SecurityContextHolder.clearContext();
+		} else if (action.equals("Zapisz zmiany")) {
+			user.setAuthorities(principal.getAuthorities());
+			user.setLogin(principal.getLogin());
+			user.setPassword(principal.getPassword());
+			sqliteDAO.updateUserByLogin(principal.getLogin(),user);
+		} 
+		return result;
+	}
+    
+    
+    
+    
+    
+    @RequestMapping(value = "/user/user_change_password", method = RequestMethod.GET)
+    public String editUserPasswordPanel(ModelMap model) {
+    	if(getPrincipal()!=null){
+    		model.addAttribute("user", getPrincipal());    		
+    	}
+    	  
+        List<Seance> seances=sqliteDAO.getFutureSeances();
+        if(!seances.isEmpty()){
+        	model.put("seances", seances);
+        	
+        }
+        
+        return "user/user_change_password";
+    }
 	
 	
     @RequestMapping(value = "/login", method = RequestMethod.GET)

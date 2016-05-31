@@ -76,11 +76,14 @@
 
 			<aside class="secondary">
 				<section>
-					<p>Witaj <strong>${user}</strong></p>
 
-					<sec:authorize access="hasRole('ADMIN')">
-						<label><a href="#">Edit this page</a> | This part is
-							visible only to ADMIN</label>
+
+					<sec:authorize access="hasAnyRole('ADMIN','USER')">
+
+						<p>
+							Witaj <strong>${user.name}</strong>
+						</p>
+						<a href="user/user_show_profile">Zobacz swój profil</a>
 					</sec:authorize>
 				</section>
 
