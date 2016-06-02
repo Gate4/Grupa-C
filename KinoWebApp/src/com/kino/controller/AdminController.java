@@ -3,6 +3,7 @@ package com.kino.controller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -111,6 +112,9 @@ public class AdminController {
 			} else if (action.equals("Skasuj")) {
 				sqliteDAO.deleteUser(login);
 			} else if (action.equals("Zapisz zmiany")) {
+				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				String hashedPassword = passwordEncoder.encode(user.getPassword());
+				user.setPassword(hashedPassword);
 				sqliteDAO.insertOrReplaceUser(user);
 			} else if (action.equals("Dodaj nowy")) {
 				result = "/admin/admin_user_edit";

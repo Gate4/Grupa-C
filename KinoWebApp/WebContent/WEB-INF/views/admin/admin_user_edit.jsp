@@ -35,7 +35,7 @@
 						</tr>
 						<tr>
 							<td>Hasło:</td>
-							<td><form:input type="password" path="password" /></td>
+							<td><form:input path="password" /></td>
 						</tr>
 						<tr>
 							<td>Numer telefonu:</td>
