@@ -17,6 +17,7 @@ import com.kino.database.DAO.Booking;
 import com.kino.database.DAO.Movie;
 import com.kino.database.DAO.Seance;
 import com.kino.database.DAO.Seat;
+import com.kino.database.DAO.User;
 import com.kino.database.connector.SqliteDAO;
 
 @Controller
@@ -25,20 +26,27 @@ public class SeanceController {
 	
 	private SqliteDAO sqliteDAO;
 	
-	private String getPrincipal(){
-        String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            userName = ((UserDetails)principal).getUsername();       
-        } else {
-            userName = principal.toString();
-        }
-        return userName;
-    }
+	private User getPrincipal() {
+		String userName = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		if (principal instanceof UserDetails) {
+			userName = ((UserDetails) principal).getUsername();
+
+		} else {
+			userName = principal.toString();
+		}
+		List<User> user = sqliteDAO.getUserByLogin(userName);
+		if (user.size() == 0) {
+			return null;
+		}
+		return user.get(0);
+	}
 	
 	
 	@RequestMapping(value="/seance_detail", method = RequestMethod.GET)
 	public String displayDetailGET(@RequestParam(value="id",required=false) String id, Map<String, Object> model) {
+		
 		if(id!=null){
 			try{
 				Seance seance=sqliteDAO.getSeanceByID(id).get(0);
@@ -56,6 +64,9 @@ public class SeanceController {
 	
 	@RequestMapping(value="/seances", method = RequestMethod.GET)
 	public String displaySeancesGET(@RequestParam(value="date",required=false) String date,Map<String, Object> model) {
+		if (getPrincipal() != null) {
+			model.put("user", getPrincipal());
+		}
 		model.put("days", sqliteDAO.getWeekList());	
 		model.put("seances", sqliteDAO.getSeanceListForDate(date));
 		return "seances";

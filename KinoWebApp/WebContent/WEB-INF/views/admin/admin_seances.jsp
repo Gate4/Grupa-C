@@ -25,8 +25,7 @@
 					<li><a href='admin_movies.html'>Filmy</a></li>
 					<li><a class="active" href='admin_seances.html'>Seanse</a></li>
 					<li><a href='admin_users.html'>Użytkownicy</a></li>
-					<li><a href='/KinoWebApp/'>Strona
-							główna</a></li>
+					<li><a href='/KinoWebApp/'>Strona główna</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -35,39 +34,33 @@
 		<div id="content" role="main">
 			<section class="primary">
 				<form action="admin_seances.html" method="POST">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
-					<input type="hidden" name="ID" value="" readonly /> 
-					<input type="submit" name="action" value="Dodaj nowy" method="POST" />
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" /> <input type="hidden" name="ID" value=""
+						readonly /> <input type="submit" name="action" value="Dodaj nowy"
+						method="POST" />
 				</form>
 				<c:forEach items="${seances}" var="seance">
-					<section class="tile">
-						<form action="admin_seances.html" method="POST">
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
-							<table>
-								<tr>
-									<td><input type="hidden" name="ID" value="${seance.ID}"
-										readonly />
-								</tr>
-								<tr>
-									<td>Data i godzina rozpoczęcia:</td>
-									<td><input type="text" value="${seance.startTime}" readonly /></td>
-								</tr>
-								<tr>
-									<td>Numer sali:</td>
-									<td><input type="text" value="${seance.roomNumber}"
-										readonly /></td>
-								</tr>
-								<tr>
-									<td>Tytuł filmu:</td>
-									<td><input type="text" value="${seance.title}" readonly /></td>
-								</tr>
-								<tr>
-									<td><input type="submit" name="action" value="Edytuj" /><input
-										type="submit" name="action" value="Skasuj" /></td>
-								</tr>
-							</table>
-						</form>
-					</section>
+
+					<form action="admin_seances.html" method="POST">
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
+						<table>
+							<tr>
+								<td><input type="hidden" name="ID" value="${seance.ID}"
+									readonly />
+							</tr>
+							<tr>
+								<td><input type="text" value="${seance.startTime}" readonly /></td>
+
+								<td><input type="submit" name="action" value="Edytuj" /><input
+									type="submit" name="action" value="Skasuj" /></td>
+							</tr>
+
+
+
+						</table>
+					</form>
+
 				</c:forEach>
 
 			</section>

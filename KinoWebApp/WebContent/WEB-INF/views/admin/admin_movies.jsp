@@ -25,8 +25,7 @@
 					<li><a class="active" href='admin_movies.html'>Filmy</a></li>
 					<li><a href='admin_seances.html'>Seanse</a></li>
 					<li><a href='admin_users.html'>Użytkownicy</a></li>
-					<li><a href='/KinoWebApp/'>Strona
-							główna</a></li>
+					<li><a href='/KinoWebApp/'>Strona główna</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -35,31 +34,30 @@
 		<div id="content" role="main">
 			<section class="primary">
 				<form action="admin_movies.html" method="POST">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-					<input type="hidden" name="title" value="" readonly />
-					<input type="submit" name="action" value="Dodaj nowy"/>
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" /> <input type="hidden" name="title"
+						value="" readonly /> <input type="submit" name="action"
+						value="Dodaj nowy" />
 				</form>
 				<c:forEach items="${movies}" var="movie">
-					<section class="tile">
+					
 						<form action="admin_movies.html" method="POST">
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
 							<table>
-								<tr>
-									<td>Tytuł:</td>
+								<tr>									
 									<td><input type="text" name="title" value="${movie.title}"
 										readonly />
-								</tr>
-								<tr>
-									<td>Plakat:</td>
-									<td><img src="http://localhost:8080/KinoWebApp/resources/img/${movie.poster}.jpg" alt="nie znaleziono pliku ${movie.poster}.jpg"></td>
-								</tr>
-								<tr>
 									<td><input type="submit" name="action" value="Edytuj" /><input
 										type="submit" name="action" value="Skasuj" /></td>
 								</tr>
+
+
+
+
 							</table>
 						</form>
-					</section>
+					
 				</c:forEach>
 
 			</section>

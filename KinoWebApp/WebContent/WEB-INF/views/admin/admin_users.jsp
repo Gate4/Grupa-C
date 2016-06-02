@@ -25,8 +25,7 @@
 					<li><a href='admin_movies.html'>Filmy</a></li>
 					<li><a href='admin_seances.html'>Seanse</a></li>
 					<li><a class="active" href='admin_users.html'>Użytkownicy</a></li>
-					<li><a href='/KinoWebApp/'>Strona
-							główna</a></li>
+					<li><a href='/KinoWebApp/'>Strona główna</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -35,27 +34,29 @@
 		<div id="content" role="main">
 			<section class="primary">
 				<form action="admin_users.html" method="POST">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
-					<input type="hidden" name="login" value="" readonly /> 
-					<input type="submit" name="action" value="Dodaj nowy"/>
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" /> <input type="hidden" name="login"
+						value="" readonly /> <input type="submit" name="action"
+						value="Dodaj nowy" />
 				</form>
 				<c:forEach items="${users}" var="user">
-					<section class="tile">
+				
 						<form action="admin_users.html" method="POST">
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
 							<table>
 								<tr>
-									<td>Login:</td>
 									<td><input type="text" name="login" value="${user.login}"
 										readonly />
-								</tr>
-								<tr>
 									<td><input type="submit" name="action" value="Edytuj" /><input
 										type="submit" name="action" value="Skasuj" /></td>
 								</tr>
+
+
+
 							</table>
 						</form>
-					</section>
+					
 				</c:forEach>
 
 			</section>
