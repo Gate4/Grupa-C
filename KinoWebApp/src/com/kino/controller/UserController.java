@@ -52,7 +52,6 @@ public class UserController {
 		return user.get(0);
 	}
 
-
 	@RequestMapping(value = "/user/user_show_profile", method = RequestMethod.GET)
 	public String viewUserPanel(ModelMap model) {
 		if (getPrincipal() != null) {
@@ -100,11 +99,11 @@ public class UserController {
 
 		} else if (action.equals("ZatwierdŸ")) {
 			if (!oldPass.equals("") && !newPass.equals("") && !newPassRepeat.equals("")) {
-				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();				
+				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 				if (passwordEncoder.matches(oldPass, principal.getPassword())) {
 					if (newPass.equals(newPassRepeat)) {
 						if (!newPass.equals(oldPass)) {
-							user = principal;							
+							user = principal;
 							String hashedPassword = passwordEncoder.encode(newPass);
 							user.setPassword(hashedPassword);
 							sqliteDAO.updateUserByLogin(principal.getLogin(), user);
@@ -156,16 +155,21 @@ public class UserController {
 	public String processRegistration(@ModelAttribute("userForm") User user, Model model) {
 		String result = "createSuccess";
 		if (!user.getLogin().isEmpty() && !user.getPhone().isEmpty() && !user.getEmail().isEmpty()) {
-			if (sqliteDAO.getUserByLogin(user.getLogin()).isEmpty()) {
-				
-				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-				String hashedPassword = passwordEncoder.encode(user.getPassword());
-				user.setPassword(hashedPassword);
-				user.setAuthorities("ROLE_USER");				
-				sqliteDAO.insertUser(user);
-				model.addAttribute("message", user.getLogin());
-			} else {
-				model.addAttribute("message", "Login jest ju¿ zajêty");
+			if (user.getLogin().length() >= 7) {
+				if (sqliteDAO.getUserByLogin(user.getLogin()).isEmpty()) {
+
+					BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+					String hashedPassword = passwordEncoder.encode(user.getPassword());
+					user.setPassword(hashedPassword);
+					user.setAuthorities("ROLE_USER");
+					sqliteDAO.insertUser(user);
+					model.addAttribute("message", user.getLogin());
+				} else {
+					model.addAttribute("message", "Login jest ju¿ zajêty");
+					result = "create";
+				}
+			}else{
+				model.addAttribute("message", "Login musi mieæ conajmniej 7 znaków");
 				result = "create";
 			}
 		} else {
