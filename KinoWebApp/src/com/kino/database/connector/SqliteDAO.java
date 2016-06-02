@@ -57,6 +57,16 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 		jdbcTemplate.update(sql, params);
 	}
 	
+	public void insertSeats(Seat seat) {
+		String sql = "insert into Seats (ID,roomNumber,rowNumber,seatNumber) VALUES (:ID,:roomNumber,:rowNumber,:seatNumber)";
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("ID", seat.getID());
+		params.addValue("roomNumber", seat.getRoomNumber());
+		params.addValue("rowNumber", seat.getRowNumber());
+		params.addValue("seatNumber", seat.getSeatNumber());
+		jdbcTemplate.update(sql, params);
+	}
+	
 	public void updateMovieByTitle(String title,Movie film){
 		String sql = "update Movie SET genre=?,releaseYear=?,description=?,direction=?,scenario=?,pegi=?,duration=?,poster=?,trailer=? where title=?";
 		jdbcTemplate.getJdbcOperations().update(sql, new Object[]{film.getGenre(),film.getReleaseYear(),film.getDescription(),film.getDirection(),film.getScenario(),film.getPegi(),film.getDuration(),film.getPoster(),film.getTrailer(),title});
@@ -419,6 +429,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 		jdbcTemplate.update(sql, params);
 	}
 
+	
 	@Override
 	public boolean canBookList(List<Booking> bookingList) {
 		String sql="select exists(select id from Booking where seanceID=:seanceID and seatID in (";
