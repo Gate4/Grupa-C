@@ -51,6 +51,9 @@
 		<div id="content" role="main">
 			<section class="primary">
 			<section class="tile">
+				<a class="prices" href="seances">Seanse</a>|<a class="prices" href="welcome">Filmy</a>
+			</section>
+			<section class="tile">
 			<h1>Wybierz datę:</h1>
 			<p>
 				<c:forEach items="${days}" var="day">
@@ -79,6 +82,20 @@
 						</p>
 					</sec:authorize>
 				</section>
+				</aside>
+				<aside class="secondary">
+				<h2>W najbliższym czasie:</h2>
+				<c:forEach items="${future_seances}" var="f_seance">
+					<section>
+						<hr>
+						<h2>
+							<a href='movie_detail?title=${f_seance.title}'>${f_seance.title}</a>
+						</h2>
+						<ul>
+							<li><a href='seance_detail?id=${f_seance.ID}'>${f_seance.startTime}</a></li>
+						</ul>
+					</section>
+				</c:forEach>
 			</aside>
 		</div>
 

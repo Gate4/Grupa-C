@@ -50,6 +50,9 @@
 
 		<div id="content" role="main">
 			<section class="primary">
+			<section class="tile">
+				<a class="prices" href="seances">Seanse</a>|<a class="prices" href="welcome">Filmy</a>
+			</section>
 				<c:forEach items="${movies}" var="movie">
 					<a href="movie_detail?title=${movie.title}">
 						<section class="tile_list">

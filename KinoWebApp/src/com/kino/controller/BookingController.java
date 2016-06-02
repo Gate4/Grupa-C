@@ -55,6 +55,7 @@ public class BookingController {
 				model.put("message", "B³¹d w przekazanych parametrach");
 			}
 		}
+		
 		return "booking_select";
 	}
 	
@@ -108,6 +109,8 @@ public class BookingController {
 			}catch(NumberFormatException ex){
 				model.put("message", "Nie rozpoznano id seansu");
 			}
+		}else{
+			model.put("message", "Nie rozpoznano id seansu");
 		}
 		
 		return "booking_select";

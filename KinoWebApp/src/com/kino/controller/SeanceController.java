@@ -69,6 +69,11 @@ public class SeanceController {
 		}
 		model.put("days", sqliteDAO.getWeekList());	
 		model.put("seances", sqliteDAO.getSeanceListForDate(date));
+		List<Seance> seances = sqliteDAO.getFutureSeances();
+		if (!seances.isEmpty()) {
+			model.put("future_seances", seances);
+		}
+
 		return "seances";
 	}
 }
