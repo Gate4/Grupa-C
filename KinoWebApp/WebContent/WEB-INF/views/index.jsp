@@ -83,7 +83,7 @@
 						<p>
 							Witaj <strong>${user.name}</strong>
 						</p>
-						<a href="user/user_show_profile">Zobacz swój profil</a>
+						<p><a href="user/user_show_profile">Zobacz swój profil</a></p>
 					</sec:authorize>
 				</section>
 

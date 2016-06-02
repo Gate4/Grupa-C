@@ -52,21 +52,6 @@ public class UserController {
 		return user.get(0);
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String homePage(ModelMap model) {
-		
-		if (getPrincipal() != null) {
-			model.addAttribute("user", getPrincipal());
-		}
-
-		List<Seance> seances = sqliteDAO.getFutureSeances();
-		if (!seances.isEmpty()) {
-			model.put("seances", seances);
-			model.put("latest", sqliteDAO.getMovieListByName(seances.get(0).getTitle()).get(0));
-		}
-
-		return "index";
-	}
 
 	@RequestMapping(value = "/user/user_show_profile", method = RequestMethod.GET)
 	public String viewUserPanel(ModelMap model) {
