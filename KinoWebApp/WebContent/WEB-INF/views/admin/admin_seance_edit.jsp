@@ -45,8 +45,11 @@
 							</datalist>
 						</tr>
 						<tr>
+							<td>ID Cennika:</td>
 							<td><form:input path="priceID" list="priceList"/></td>
 							<datalist id="priceList">
+								<c:forEach items="${prices}" var="price">
+									<option value="${price.id}">${price.name}</option>
 								</c:forEach>
 							</datalist>
 						</tr>
