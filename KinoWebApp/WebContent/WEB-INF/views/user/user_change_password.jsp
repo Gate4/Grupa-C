@@ -50,7 +50,9 @@
 						commandName="userForm">
 						<table>
 
-							<p><error>${errorMessage}</error></p>
+							<p>
+								<error>${errorMessage}</error>
+							</p>
 
 							<tr>
 								<td>Stare hasło:</td>
@@ -68,6 +70,8 @@
 							<tr>
 								<td colspan="2"><input type="submit" name="action"
 									value="Zatwierdź" /></td>
+								<td colspan="2"><input type="submit" name="action"
+									value="Wróć" /></td>
 							</tr>
 						</table>
 					</form:form>

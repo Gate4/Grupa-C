@@ -50,10 +50,12 @@
 					<form:form action="user_show_profile.html" method="POST"
 						commandName="userForm">
 						<table>
-							<p><error>${errorMessage}</error></p>
+							<p>
+								<error>${errorMessage}</error>
+							</p>
 							<tr>
 								<td>Imię:</td>
-								<td><form:input path="name"/></td>
+								<td><form:input path="name" /></td>
 							</tr>
 							<tr>
 								<td>Nazwisko:</td>
@@ -70,6 +72,8 @@
 							<tr>
 								<td colspan="2"><input type="submit" name="action"
 									value="Zapisz zmiany" /></td>
+								<td colspan="2"><input type="submit" name="action"
+									value="Wróć" /></td>
 							</tr>
 						</table>
 					</form:form>

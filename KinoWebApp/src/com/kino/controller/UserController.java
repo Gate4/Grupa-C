@@ -23,6 +23,7 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -53,6 +54,7 @@ public class UserController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
+		
 		if (getPrincipal() != null) {
 			model.addAttribute("user", getPrincipal());
 		}
@@ -97,12 +99,13 @@ public class UserController {
 			sqliteDAO.deleteUser(principal.getLogin());
 			SecurityContextHolder.clearContext();
 		} else if (action.equals("Zapisz zmiany")) {
-			if(!user.getEmail().equals("")&&!user.getPhone().equals("")&&!user.getName().equals("")&&!user.getSurname().equals("")){
+			if (!user.getEmail().equals("") && !user.getPhone().equals("") && !user.getName().equals("")
+					&& !user.getSurname().equals("")) {
 				user.setAuthorities(principal.getAuthorities());
 				user.setLogin(principal.getLogin());
 				user.setPassword(principal.getPassword());
-				sqliteDAO.updateUserByLogin(principal.getLogin(), user);				
-			}else{
+				sqliteDAO.updateUserByLogin(principal.getLogin(), user);
+			} else {
 				result = "/user/user_edit_profile";
 				model.addAttribute("errorMessage", "Wype³nij wszystkie pola");
 			}
@@ -112,11 +115,13 @@ public class UserController {
 
 		} else if (action.equals("ZatwierdŸ")) {
 			if (!oldPass.equals("") && !newPass.equals("") && !newPassRepeat.equals("")) {
-				if (principal.getPassword().equals(oldPass)) {
+				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();				
+				if (passwordEncoder.matches(oldPass, principal.getPassword())) {
 					if (newPass.equals(newPassRepeat)) {
 						if (!newPass.equals(oldPass)) {
-							user = principal;
-							user.setPassword(newPass);
+							user = principal;							
+							String hashedPassword = passwordEncoder.encode(newPass);
+							user.setPassword(hashedPassword);
 							sqliteDAO.updateUserByLogin(principal.getLogin(), user);
 						} else {
 							result = "/user/user_change_password";
@@ -133,7 +138,7 @@ public class UserController {
 					model.addAttribute("errorMessage", "B³êdne has³o");
 				}
 
-			}else{
+			} else {
 				result = "/user/user_change_password";
 				model.addAttribute("errorMessage", "Wype³nij wszystkie pola");
 			}
@@ -167,8 +172,11 @@ public class UserController {
 		String result = "createSuccess";
 		if (!user.getLogin().isEmpty() && !user.getPhone().isEmpty() && !user.getEmail().isEmpty()) {
 			if (sqliteDAO.getUserByLogin(user.getLogin()).isEmpty()) {
-				user.setAuthorities("ROLE_USER");
-				System.out.println("Rejestrujê usera " + user.getAuthorities());
+				
+				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				String hashedPassword = passwordEncoder.encode(user.getPassword());
+				user.setPassword(hashedPassword);
+				user.setAuthorities("ROLE_USER");				
 				sqliteDAO.insertUser(user);
 				model.addAttribute("message", user.getLogin());
 			} else {
