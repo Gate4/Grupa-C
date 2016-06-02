@@ -51,7 +51,7 @@
 							</tr>
 							<tr>
 								<td><input type="text" value="${seance.startTime}" readonly /></td>
-
+								<td><input type="text" value="Sala: ${seance.roomNumber}" readonly /></td>
 								<td><input type="submit" name="action" value="Edytuj" /><input
 									type="submit" name="action" value="Skasuj" /></td>
 							</tr>
