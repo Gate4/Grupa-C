@@ -16,4 +16,6 @@ public interface SeanceDAO
 	List<Seance> getAllSeances();
 	
 	List<Seance> getFutureSeances();
+	
+	List<Seance> getSeanceListForDate(String date);
 }

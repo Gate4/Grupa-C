@@ -38,7 +38,7 @@ public class SeanceController {
 	
 	
 	@RequestMapping(value="/seance_detail", method = RequestMethod.GET)
-	public String displayGET(@RequestParam(value="id",required=false) String id, Map<String, Object> model) {
+	public String displayDetailGET(@RequestParam(value="id",required=false) String id, Map<String, Object> model) {
 		if(id!=null){
 			try{
 				Seance seance=sqliteDAO.getSeanceByID(id).get(0);
@@ -52,5 +52,12 @@ public class SeanceController {
 			}
 		}		
 		return "seance_detail";
+	}
+	
+	@RequestMapping(value="/seances", method = RequestMethod.GET)
+	public String displaySeancesGET(@RequestParam(value="date",required=false) String date,Map<String, Object> model) {
+		model.put("days", sqliteDAO.getWeekList());	
+		model.put("seances", sqliteDAO.getSeanceListForDate(date));
+		return "seances";
 	}
 }

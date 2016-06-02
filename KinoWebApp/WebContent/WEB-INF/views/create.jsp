@@ -35,7 +35,7 @@
 
 		<div id="content" role="main">
 			<section class="primary">
-				<section class="tile">
+				<section class="tile_wide">
 				<h2>Rejestracja</h2>
 					<form:form action="create" method="POST" commandName="userForm">
 						<table>

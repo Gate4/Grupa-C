@@ -194,7 +194,12 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 			seance.setPriceID(rs.getInt("priceID"));
 			return seance;
 		}
-
+	}
+	
+	private static final class StringRowMapper implements RowMapper<String>{
+		public String mapRow(ResultSet rs,int rowNum) throws SQLException{
+			return rs.getString(1);
+		}
 	}
 
 	private static final class UserRowMapper implements RowMapper<User> {
@@ -382,7 +387,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 
 	@Override
 	public List<Seat> getSeatListForSeance(int seanceID) {
-		String sql = "select *,exists(select * from Booking as b where b.seatID=s.ID) as \"isTaken\" from Seats as s where s.roomNumber=(select roomNumber from Seance where id=:seanceID) order by s.rowNumber asc,s.seatNumber asc";
+		String sql = "select *,exists(select * from Booking as b where b.seatID=s.ID and b.seanceID=:seanceID) as \"isTaken\" from Seats as s where s.roomNumber=(select roomNumber from Seance where id=:seanceID) order by s.rowNumber asc,s.seatNumber asc";
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("seanceID", seanceID);
 		return jdbcTemplate.query(sql,params, new SeatRowMapper());
@@ -449,6 +454,17 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 	public List<PriceList> getAllPriceLists() {
 		String sql = "select * from Prices";
 		return jdbcTemplate.query(sql,new PriceListRowMapper());
+	}
+	
+	public List<String> getWeekList(){
+		String sql="select date('now','+1 day') union all select date('now','+2 day') union all select date('now','+3 day') union all select date('now','+4 day') union all select date('now','+5 day') union all select date('now','+6 day') union all select date('now','+7 day')";
+		return jdbcTemplate.query(sql,new StringRowMapper());
+	}
+
+	@Override
+	public List<Seance> getSeanceListForDate(String date) {
+		String sql="select * from Seance where date(start_time)=\""+date+"\" order by start_time asc";
+		return jdbcTemplate.query(sql,new SeanceRowMapper());
 	}
 	
 }

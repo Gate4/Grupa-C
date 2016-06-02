@@ -35,7 +35,7 @@
 
 		<div id="content" role="main">
 			<section class="primary">
-				<section class="tile">
+				<section class="tile_wide">
 				<h2>Rejestracja</h2>
 					Witaj <strong>${message}</strong><br>
 					Rejestracja zakończona powodzeniem!<br>
