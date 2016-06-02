@@ -1,9 +1,8 @@
 package com.kino.database.DAO;
 
+import java.util.List;
+
 public interface PriceListDAO 
 {
-	double getNormalPriceForDay(int day);
-	double setNormalPriceForDay(int day,double price);
-	double getLowerPriceForDay(int day);
-	double setLowerPriceForDay(int day,double price);	
+	List <PriceList> getAllPriceLists();
 }

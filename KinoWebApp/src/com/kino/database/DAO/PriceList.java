@@ -1,16 +1,18 @@
 package com.kino.database.DAO;
 
 public class PriceList {
-	private int day;
+	private int id;
+	private String name;
+	private String description;
 	private double normalPrice;
 	private double lowerPrice;
 
-	public int getDay() {
-		return day;
+	public int getId() {
+		return id;
 	}
 
-	public void setDay(int day) {
-		this.day = day;
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public double getNormalPrice() {
@@ -27,6 +29,22 @@ public class PriceList {
 
 	public void setLowerPrice(double lowerPrice) {
 		this.lowerPrice = lowerPrice;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 }

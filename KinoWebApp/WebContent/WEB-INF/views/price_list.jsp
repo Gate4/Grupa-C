@@ -29,7 +29,7 @@
 				<ul>
 					<li><a href='/KinoWebApp/'>Strona główna</a></li>
 					<li><a href='welcome'>Repertuar</a></li>
-					<li><a class='active' href='price_list?day=0'>Cennik</a></li>
+					<li><a class='active' href='price_list?index=0'>Cennik</a></li>
 					<sec:authorize access="hasRole('ADMIN')">
 						<li><a href='admin/admin_panel'>Panel Admimistratora</a></li>
 					</sec:authorize>
@@ -47,11 +47,13 @@
 		<div id="content" role="main">
 			<section class="primary">
 				<section class="tile">
-					<h2>Wybierz dzień tygodnia:</h2>
+					<h2>Wybierz cennik:</h2>
 					<p>
-						<c:forEach var="i" begin="1" end="7">
-							<a class="prices" href='price_list?day=<c:out value="${i}"/>'>${dayNames[i]}</a>
-						</c:forEach>
+					<c:set var="index" value="0"/>
+					<c:forEach items="${priceList}" var="price">
+						<a class="prices" href='price_list?index=${index}'>${price.name}</a>
+						<c:set var="index" value="${index+1}"/>
+					</c:forEach>
 					</p>
 					${prices}
 				</section>

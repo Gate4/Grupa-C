@@ -5,6 +5,7 @@ public class Seance {
 	private String startTime;
 	private String roomNumber;
 	private String title;
+	private int priceID;
 
 	public String getID() {
 		return ID;
@@ -37,6 +38,14 @@ public class Seance {
 
 	public void setStartTime(String startTime) {
 		this.startTime = startTime;
+	}
+	
+	public int getPriceID() {
+		return priceID;
+	}
+
+	public void setPriceID(int priceID) {
+		this.priceID = priceID;
 	}
 
 }

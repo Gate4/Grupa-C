@@ -45,6 +45,12 @@
 							</datalist>
 						</tr>
 						<tr>
+							<td><form:input path="priceID" list="priceList"/></td>
+							<datalist id="priceList">
+								</c:forEach>
+							</datalist>
+						</tr>
+						<tr>
 							<td colspan="2"><input type="submit" name="action"
 								value="Zapisz zmiany" /></td>
 						</tr>

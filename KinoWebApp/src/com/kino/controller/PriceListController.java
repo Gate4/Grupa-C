@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kino.database.DAO.PriceList;
 import com.kino.database.DAO.Seance;
 import com.kino.database.DAO.User;
 import com.kino.database.connector.SqliteDAO;
@@ -42,28 +43,23 @@ public class PriceListController {
 	
 	
 	@RequestMapping(value="/price_list", method = RequestMethod.GET)
-	public String displayAll(@RequestParam("day") String day,Map<String, Object> model) {
-		
+	public String displayAll(@RequestParam(value="index",required=false)String index,Map<String, Object> model) {
 		if (getPrincipal() != null) {
 			model.put("user", getPrincipal());
-		}
-		
+		}	
 		List<Seance> seances = sqliteDAO.getFutureSeances();
 		if (!seances.isEmpty()) {
 			model.put("seances", seances);
-
 		}
-		
-		String[] days={"","Poniedzia³ek","Wtorek","Œroda","Czwartek","Pi¹tek","Sobota","Niedziela"};
-		int dayInt=0;
-		model.put("dayNames",days);
+		List<PriceList> prices=sqliteDAO.getAllPriceLists();
+		model.put("priceList", prices);
+		int id=0;
 		try{
-			dayInt=Integer.parseInt(day);
-		}catch(NumberFormatException ex){	
+			id=Integer.parseInt(index);
+			model.put("prices", "<p><h3>"+prices.get(id).getName()+"</h3></p><p>"+prices.get(id).getDescription()+"</p><p>Normalna cena: "+prices.get(id).getNormalPrice()+" z³</p><p>Ni¿sza cena: "+prices.get(id).getLowerPrice()+" z³</p>");
+		}catch(Exception ex){
+			model.put("prices", "B³êdny argument");
 		}	
-		if(dayInt>0&&dayInt<8){
-			model.put("prices", "<p><h3>"+days[dayInt]+"</h3></p><p>Normalna cena: "+sqliteDAO.getNormalPriceForDay(dayInt)+" z³</p><p>Ni¿sza cena: "+sqliteDAO.getLowerPriceForDay(dayInt)+" z³</p>");
-		}		
 		return "/price_list";
 	}
 	

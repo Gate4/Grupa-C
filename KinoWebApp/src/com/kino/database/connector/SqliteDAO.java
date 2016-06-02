@@ -112,9 +112,9 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 	}
 
 	public void insertSeance(Seance seance) {
-		String sql = "insert into Seance (start_time,roomNumber,title) VALUES (?,?,?)";
+		String sql = "insert into Seance (start_time,roomNumber,title,priceID) VALUES (?,?,?,?)";
 		jdbcTemplate.getJdbcOperations().update(sql,
-				new Object[] {seance.getStartTime(),seance.getRoomNumber(), seance.getTitle()});
+				new Object[] {seance.getStartTime(),seance.getRoomNumber(), seance.getTitle(),seance.getPriceID()});
 
 	}
 
@@ -124,8 +124,8 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 	}
 	
 	public void updateSeanceByID(String ID,Seance seans){
-		String sql = "update Seance SET start_time=?,roomNumber=?,title=? where ID=?";
-		jdbcTemplate.getJdbcOperations().update(sql, new Object[]{seans.getStartTime(),seans.getRoomNumber(),seans.getTitle(),ID});
+		String sql = "update Seance SET start_time=?,roomNumber=?,title=?,priceID=? where ID=?";
+		jdbcTemplate.getJdbcOperations().update(sql, new Object[]{seans.getStartTime(),seans.getRoomNumber(),seans.getTitle(),seans.getPriceID(),ID});
 	}
 	
 	public void insertOrReplaceSeance(Seance seans){
@@ -181,6 +181,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 			seance.setStartTime(rs.getString("start_time"));
 			seance.setRoomNumber(rs.getString("roomNumber"));
 			seance.setTitle(rs.getString("title"));
+			seance.setPriceID(rs.getInt("priceID"));
 			return seance;
 		}
 
@@ -206,7 +207,9 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 
 		public PriceList mapRow(ResultSet rs, int rowNum) throws SQLException {
 			PriceList pl=new PriceList();
-			pl.setDay(rs.getInt("id"));
+			pl.setId(rs.getInt("id"));
+			pl.setName(rs.getString("name"));
+			pl.setDescription(rs.getString("description"));
 			pl.setLowerPrice(rs.getFloat("lowerPrice"));
 			pl.setNormalPrice(rs.getFloat("normalPrice"));
 			return pl;
@@ -338,36 +341,6 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 		}
 		return jdbcTemplate.query(sql, new UserRowMapper());
 	}
-	
-	
-
-
-	public double getNormalPriceForDay(int day) {
-		String sql="select * from Prices";
-		return jdbcTemplate.query(sql,new PriceListRowMapper()).get(day-1).getNormalPrice();
-	}
-
-
-	public double setNormalPriceForDay(int day, double price) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	public double getLowerPriceForDay(int day) {
-		/*String sql="select lowerPrice from Prices where id=:dzien";
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("dzien", ""+day);
-		return jdbcTemplate.query(sql, params, new PriceListRowMapper()).get(0).getLowerPrice();*/
-		String sql="select * from Prices";
-		return jdbcTemplate.query(sql,new PriceListRowMapper()).get(day-1).getLowerPrice();
-	}
-
-
-	public double setLowerPriceForDay(int day, double price) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	public List<Seance> getFutureSeances() {
 		String sql = "select * from Seance where start_time>(select  datetime(CURRENT_TIMESTAMP, 'localtime')) order by start_time asc LIMIT 10";
@@ -459,6 +432,12 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("seanceID", bookingList.get(0).getSeanceID());
 		return jdbcTemplate.queryForInt(sql, params)==0;
+	}
+
+	@Override
+	public List<PriceList> getAllPriceLists() {
+		String sql = "select * from Prices";
+		return jdbcTemplate.query(sql,new PriceListRowMapper());
 	}
 	
 }

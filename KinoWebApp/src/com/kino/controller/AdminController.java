@@ -73,6 +73,7 @@ public class AdminController {
 			if (action.equals("Edytuj")) {
 				result = "/admin/admin_seance_edit";
 				model.addAttribute("movies", sqliteDAO.getAllMovies());
+				model.addAttribute("prices", sqliteDAO.getAllPriceLists());
 				model.addAttribute("seanceForm", sqliteDAO.getSeanceByID(ID).get(0));
 				model.addAttribute("ID", ID);
 				model.addAttribute("message",
@@ -83,6 +84,7 @@ public class AdminController {
 				sqliteDAO.insertOrReplaceSeance(seance);
 			} else if (action.equals("Dodaj nowy")) {
 				model.addAttribute("movies", sqliteDAO.getAllMovies());
+				model.addAttribute("prices", sqliteDAO.getAllPriceLists());
 				result = "/admin/admin_seance_edit";
 				Seance newSeance = new Seance();
 				model.addAttribute("seanceForm", newSeance);
