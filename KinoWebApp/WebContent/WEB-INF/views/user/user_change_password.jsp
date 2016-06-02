@@ -45,37 +45,38 @@
 		<div id="content" role="main">
 			<section class="primary">
 				<section class="tile">
-					<h2>Edytuj dane:</h2>
-
+					<h2>Zmień hasło:</h2>
 					<form:form action="user_show_profile.html" method="POST"
 						commandName="userForm">
 						<table>
+
 							<p><error>${errorMessage}</error></p>
+
 							<tr>
-								<td>Imię:</td>
-								<td><form:input path="name"/></td>
+								<td>Stare hasło:</td>
+								<td><input type="password" name="oldPass" /></td>
 							</tr>
 							<tr>
-								<td>Nazwisko:</td>
-								<td><form:input path="surname" /></td>
+								<td>Nowe hasło:</td>
+								<td><input type="password" name="newPass" /></td>
 							</tr>
 							<tr>
-								<td>Numer telefonu:</td>
-								<td><form:input path="phone" /></td>
+								<td>Potwierdź nowe hasło:</td>
+								<td><input type="password" name="newPassRepeat" /></td>
 							</tr>
-							<tr>
-								<td>E-mail:</td>
-								<td><form:input type="email" path="email" /></td>
-							</tr>
+
 							<tr>
 								<td colspan="2"><input type="submit" name="action"
-									value="Zapisz zmiany" /></td>
+									value="Zatwierdź" /></td>
 							</tr>
 						</table>
 					</form:form>
 
 				</section>
+
 			</section>
+
+
 
 		</div>
 

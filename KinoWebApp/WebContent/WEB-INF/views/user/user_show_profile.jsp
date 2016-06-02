@@ -45,7 +45,7 @@
 		<div id="content" role="main">
 			<section class="primary">
 				<section class="tile">
-					<h2>Profil:</h2>
+					<h2>Dane:</h2>
 					<form action="user_show_profile.html" method="POST">
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
