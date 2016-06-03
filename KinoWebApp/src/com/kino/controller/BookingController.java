@@ -172,9 +172,12 @@ public class BookingController {
 								+ seance.getTitle() + " " + seance.getStartTime() + "</a></p><p>Sala "
 								+ seance.getRoomNumber() + "</p>";
 						model.put("link", link);
-						String button = "<input type=\"hidden\" name=\"code\" value=\"" + code
-								+ "\"/><input type=\"submit\" name=\"action\"value=\"Anuluj rezerwacjê\"/>";
-						model.put("button", button);
+						if(sqliteDAO.canBook(bookingList.get(0).getSeanceID()+"")){
+							String button = "<input type=\"hidden\" name=\"code\" value=\"" + code
+									+ "\"/><input type=\"submit\" name=\"action\"value=\"Anuluj rezerwacjê\"/>";
+							model.put("button", button);
+						}
+						
 						List<String> booking = new ArrayList<>();
 						for (int i = 0; i < bookingList.size(); i++) {
 							Seat seat = sqliteDAO.getSeatForId(bookingList.get(i).getSeatID());
@@ -200,9 +203,11 @@ public class BookingController {
 								+ seance.getTitle() + " " + seance.getStartTime() + "</a></p><p>Sala "
 								+ seance.getRoomNumber() + "</p>";
 						model.put("link", link);
-						String button = "<input type=\"hidden\" name=\"code\" value=\"" + code
-								+ "\"/><input type=\"submit\" name=\"action\"value=\"Anuluj rezerwacjê\"/>";
-						model.put("button", button);
+						if(sqliteDAO.canBook(bookingList.get(0).getSeanceID()+"")){
+							String button = "<input type=\"hidden\" name=\"code\" value=\"" + code
+									+ "\"/><input type=\"submit\" name=\"action\"value=\"Anuluj rezerwacjê\"/>";
+							model.put("button", button);
+						}
 						for (int i = 0; i < bookingList.size(); i++) {
 							Seat seat = sqliteDAO.getSeatForId(bookingList.get(i).getSeatID());
 							String s = "<p>Rz¹d: " + seat.getRowNumber() + " Siedzenie: " + seat.getSeatNumber()
@@ -234,8 +239,13 @@ public class BookingController {
 				if (!b.getLogin().equals(userName))
 					result = false;
 			if (result) {
-				sqliteDAO.cancelBookingForCode(code);
-				model.put("message", "Pomyœlnie anulowano rezerwacjê");
+				if(sqliteDAO.canBook(bookingList.get(0).getSeanceID()+"")){
+					sqliteDAO.cancelBookingForCode(code);
+					model.put("message", "Pomyœlnie anulowano rezerwacjê");
+				}else{
+					model.put("message", "W tej chwili ju¿ nie mo¿esz anulowaæ rezerwacji");
+				}
+
 			} else {
 				model.put("message", "Ta rezerwacja nie nale¿y do ciebie");
 			}
