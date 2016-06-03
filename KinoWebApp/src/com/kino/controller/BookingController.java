@@ -130,15 +130,19 @@ public class BookingController {
 			model.put("user", getPrincipal());
 		}
 		if (seance != null) {
-			int seanceID = 0;
-			try {
-				seanceID = Integer.parseInt(seance);
-				List<Seat> seatList = sqliteDAO.getSeatListForSeance(seanceID);
-				model.put("message", "Wybierz miejsca:");
-				model.put("seanceID", seance);
-				model.put("seats", seatList);
-			} catch (NumberFormatException ex) {
-				model.put("message", "Nie rozpoznano id seansu");
+			if (sqliteDAO.canBook(seance)) {
+				int seanceID = 0;
+				try {
+					seanceID = Integer.parseInt(seance);
+					List<Seat> seatList = sqliteDAO.getSeatListForSeance(seanceID);
+					model.put("message", "Wybierz miejsca:");
+					model.put("seanceID", seance);
+					model.put("seats", seatList);
+				} catch (NumberFormatException ex) {
+					model.put("message", "Nie rozpoznano id seansu");
+				}
+			} else {
+				return "redirect:/";
 			}
 		} else {
 			model.put("message", "Nie rozpoznano id seansu");
