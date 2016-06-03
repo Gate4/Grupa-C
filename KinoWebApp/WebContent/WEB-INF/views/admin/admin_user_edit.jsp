@@ -57,7 +57,7 @@
 							<td>Rola:</td>
 							<td><form:input path="authorities" /></td>
 								<td>Hasło:</td>
-							<td><form:input path="password" /></td>
+							<td><form:input path="password"/></td>
 						</tr>
 						<tr>
 							<td colspan="2"><input type="submit" name="action"

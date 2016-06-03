@@ -110,13 +110,16 @@ public class AdminController {
 		String result = "redirect:/admin/admin_users.html";
 		if (action.equals("Edytuj")) {
 			result = "/admin/admin_user_edit";
-			model.addAttribute("userForm", sqliteDAO.getUserByLogin(login).get(0));
+			User newUser=sqliteDAO.getUserByLogin(login).get(0);
+			newUser.setPassword("");
+			model.addAttribute("userForm", newUser);
 			model.addAttribute("login", login);
 			model.addAttribute("message",
 					"Login jest identyfikatorem - zmiana spowoduje dodanie nowego u¿ytkownika do bazy danych, lub zmianê istniej¹cego!");
 		} else if (action.equals("Skasuj")) {
 			sqliteDAO.deleteUser(login);
 		} else if (action.equals("Zapisz zmiany")) {			
+			user.setPassword(sqliteDAO.getUserByLogin(user.getLogin()).get(0).getPassword());
 			sqliteDAO.insertOrReplaceUser(user);
 		} else if (action.equals("Zmieñ has³o")) {
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
