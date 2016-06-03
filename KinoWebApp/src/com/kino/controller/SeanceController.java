@@ -23,9 +23,9 @@ import com.kino.database.connector.SqliteDAO;
 @Controller
 public class SeanceController {
 	@Autowired
-	
+
 	private SqliteDAO sqliteDAO;
-	
+
 	private User getPrincipal() {
 		String userName = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -42,32 +42,36 @@ public class SeanceController {
 		}
 		return user.get(0);
 	}
-	
-	
-	@RequestMapping(value="/seance_detail", method = RequestMethod.GET)
-	public String displayDetailGET(@RequestParam(value="id",required=false) String id, Map<String, Object> model) {
-		
-		if(id!=null){
-			try{
-				Seance seance=sqliteDAO.getSeanceByID(id).get(0);
-				String[] time=seance.getStartTime().split(" ");
-				model.put("date",time[0]);
-				model.put("time",time[1]);
-				model.put("movie",sqliteDAO.getMovieListByName(seance.getTitle()).get(0));
-				model.put("seance",seance);
-			}catch(Exception ex){
-				model.put("message", "B³¹d atrybutu");
+
+	@RequestMapping(value = "/seance_detail", method = RequestMethod.GET)
+	public String displayDetailGET(@RequestParam(value = "id", required = false) String id, Map<String, Object> model) {
+
+		if (id != null) {
+			if (sqliteDAO.canBook(id)) {
+				try {
+					Seance seance = sqliteDAO.getSeanceByID(id).get(0);
+					String[] time = seance.getStartTime().split(" ");
+					model.put("date", time[0]);
+					model.put("time", time[1]);
+					model.put("movie", sqliteDAO.getMovieListByName(seance.getTitle()).get(0));
+					model.put("seance", seance);
+				} catch (Exception ex) {
+					model.put("message", "B³¹d atrybutu");
+				}
+			} else {
+				return "redirect:/";
 			}
-		}		
+		}
 		return "seance_detail";
 	}
-	
-	@RequestMapping(value="/seances", method = RequestMethod.GET)
-	public String displaySeancesGET(@RequestParam(value="date",required=false) String date,Map<String, Object> model) {
+
+	@RequestMapping(value = "/seances", method = RequestMethod.GET)
+	public String displaySeancesGET(@RequestParam(value = "date", required = false) String date,
+			Map<String, Object> model) {
 		if (getPrincipal() != null) {
 			model.put("user", getPrincipal());
 		}
-		model.put("days", sqliteDAO.getWeekList());	
+		model.put("days", sqliteDAO.getWeekList());
 		model.put("seances", sqliteDAO.getSeanceListForDate(date));
 		List<Seance> seances = sqliteDAO.getFutureSeances();
 		if (!seances.isEmpty()) {

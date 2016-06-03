@@ -66,8 +66,7 @@ public class BookingController {
 					model.put("message", "B³¹d w przekazanych parametrach");
 				}
 			} else {
-				model.put("message", "Nie mo¿na ju¿ rezerwowaæ biletów na ten seans");
-				return "redirect:/booking_select";
+				return "redirect:/";
 			}
 		} else {
 			model.put("seance", seanceID);
@@ -83,38 +82,42 @@ public class BookingController {
 			@RequestParam(value = "lowerPrice", required = false) boolean lowerPrice[], @RequestParam String action,
 			Map<String, Object> model) {
 		if (seatID != null && seanceID != null) {
-			List<Booking> bookingList = new ArrayList<>();
-			try {
-				String userName = "";
-				if (getPrincipal() != null) {
-					userName = getPrincipal().getLogin();
-				} else {
-					userName = "anonymous";
-				}
-				String code = userName.substring(0, 3) + seanceID + (int) Math.floor((Math.random() * 9000) + 1000);
-				boolean hasPaid = action.equals("Kup");
-				for (int i = 0; i < seatID.length; i++) {
-					Booking b = new Booking();
-					b.setLogin(userName);
-					b.setSeanceID(Integer.parseInt(seanceID));
-					b.setSeatID(Integer.parseInt(seatID[i]));
-					b.setLowerPrice(lowerPrice[i]);
-					b.setHasPaid(hasPaid);
-					b.setCode(code);
-					bookingList.add(b);
-				}
-				if (sqliteDAO.canBookList(bookingList)) {
-					for (Booking b : bookingList) {
-						sqliteDAO.insertBooking(b, code);
-						model.put("message", "Rezerwacja zakoñczona powodzeniem");
-						model.put("code", code);
+			if (sqliteDAO.canBook(seanceID)) {
+				List<Booking> bookingList = new ArrayList<>();
+				try {
+					String userName = "";
+					if (getPrincipal() != null) {
+						userName = getPrincipal().getLogin();
+					} else {
+						userName = "anonymous";
 					}
-				} else {
-					model.put("message",
-							"Wybrane przez ciebie miejsca s¹ ju¿ zajête - wybierz inne i spróbuj ponownie");
+					String code = userName.substring(0, 3) + seanceID + (int) Math.floor((Math.random() * 9000) + 1000);
+					boolean hasPaid = action.equals("Kup");
+					for (int i = 0; i < seatID.length; i++) {
+						Booking b = new Booking();
+						b.setLogin(userName);
+						b.setSeanceID(Integer.parseInt(seanceID));
+						b.setSeatID(Integer.parseInt(seatID[i]));
+						b.setLowerPrice(lowerPrice[i]);
+						b.setHasPaid(hasPaid);
+						b.setCode(code);
+						bookingList.add(b);
+					}
+					if (sqliteDAO.canBookList(bookingList)) {
+						for (Booking b : bookingList) {
+							sqliteDAO.insertBooking(b, code);
+							model.put("message", "Rezerwacja zakoñczona powodzeniem");
+							model.put("code", code);
+						}
+					} else {
+						model.put("message",
+								"Wybrane przez ciebie miejsca s¹ ju¿ zajête - wybierz inne i spróbuj ponownie");
+					}
+				} catch (NumberFormatException ex) {
+					model.put("message", "B³¹d w przekazanych parametrach");
 				}
-			} catch (NumberFormatException ex) {
-				model.put("message", "B³¹d w przekazanych parametrach");
+			} else {
+				return "redirect:/";
 			}
 		}
 		return "booking_result";
