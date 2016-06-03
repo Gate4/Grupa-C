@@ -118,8 +118,14 @@ public class AdminController {
 					"Login jest identyfikatorem - zmiana spowoduje dodanie nowego u¿ytkownika do bazy danych, lub zmianê istniej¹cego!");
 		} else if (action.equals("Skasuj")) {
 			sqliteDAO.deleteUser(login);
-		} else if (action.equals("Zapisz zmiany")) {			
-			user.setPassword(sqliteDAO.getUserByLogin(user.getLogin()).get(0).getPassword());
+		} else if (action.equals("Zapisz zmiany")) {
+			try{
+				user.setPassword(sqliteDAO.getUserByLogin(user.getLogin()).get(0).getPassword());
+			}catch(IndexOutOfBoundsException ex){
+				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				String hashedPassword = passwordEncoder.encode(user.getPassword());			
+				user.setPassword(hashedPassword);
+			}
 			sqliteDAO.insertOrReplaceUser(user);
 		} else if (action.equals("Zmieñ has³o")) {
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
