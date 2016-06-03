@@ -33,10 +33,9 @@
 							<td>Login:</td>
 							<td><form:input path="login" /></td>
 						</tr>
-						<tr>
-							<td>Hasło:</td>
-							<td><form:input path="password" /></td>
-						</tr>
+						
+						
+					
 						<tr>
 							<td>Numer telefonu:</td>
 							<td><form:input path="phone" /></td>
@@ -57,11 +56,18 @@
 						<tr>
 							<td>Rola:</td>
 							<td><form:input path="authorities" /></td>
+								<td>Hasło:</td>
+							<td><form:input path="password" /></td>
 						</tr>
 						<tr>
 							<td colspan="2"><input type="submit" name="action"
 								value="Zapisz zmiany" /></td>
+									<td colspan="2"><input type="submit" name="action"
+								value="Zmień hasło" /></td>
 						</tr>
+							
+						
+						
 					</table>
 				</form:form>
 
