@@ -358,12 +358,12 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 	}
 
 	public List<Seance> getFutureSeances() {
-		String sql = "select * from Seance where start_time>(select  datetime(CURRENT_TIMESTAMP, 'localtime')) order by start_time asc LIMIT 5";
+		String sql = "select * from Seance where start_time>(datetime(CURRENT_TIMESTAMP, 'localtime','+1 hour')) order by start_time asc LIMIT 5";
 		return jdbcTemplate.query(sql, new SeanceRowMapper());
 	}
 	
 	public List<Seance> getFutureSeancesForTitle(String title) {
-		String sql = "select * from Seance where start_time>(select  datetime(CURRENT_TIMESTAMP, 'localtime')) and title=:title order by start_time asc LIMIT 10";
+		String sql = "select * from Seance where start_time>(datetime(CURRENT_TIMESTAMP, 'localtime','+1 hour')) and title=:title order by start_time asc LIMIT 10";
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("title", title);
 		return jdbcTemplate.query(sql,params, new SeanceRowMapper());
@@ -457,13 +457,13 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 	}
 	
 	public List<String> getWeekList(){
-		String sql="select date('now','+1 day') union all select date('now','+2 day') union all select date('now','+3 day') union all select date('now','+4 day') union all select date('now','+5 day') union all select date('now','+6 day') union all select date('now','+7 day')";
+		String sql="select date('now') union all select date('now','+1 day') union all select date('now','+2 day') union all select date('now','+3 day') union all select date('now','+4 day') union all select date('now','+5 day') union all select date('now','+6 day') union all select date('now','+7 day')";
 		return jdbcTemplate.query(sql,new StringRowMapper());
 	}
 
 	@Override
 	public List<Seance> getSeanceListForDate(String date) {
-		String sql="select * from Seance where date(start_time)=\""+date+"\" order by start_time asc";
+		String sql="select * from Seance where date(start_time)=\""+date+"\" and start_time>datetime(CURRENT_TIMESTAMP, 'localtime','+1 hour') order by start_time asc";
 		return jdbcTemplate.query(sql,new SeanceRowMapper());
 	}
 
@@ -495,6 +495,14 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 	public void cancelBookingForCode(String code) {
 		String sql = "delete from Booking where code='"+code+"'";
 		jdbcTemplate.getJdbcOperations().update(sql);
+	}
+
+	@Override
+	public boolean canBook(String seanceID) {
+		String sql="select start_time>datetime(CURRENT_TIMESTAMP, 'localtime','+1 hour') from Seance where id=:seanceID";
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("seanceID", seanceID);
+		return jdbcTemplate.queryForInt(sql,params)==1;
 	}
 	
 	
