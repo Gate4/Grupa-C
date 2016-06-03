@@ -57,7 +57,7 @@
 						Godzina rozpoczęscia seansu: <span>${time}</span>
 					</p>
 					<p>
-						<a href="booking_select?seance=${seance.ID}">REZERWUJ/KUP BILET</a>
+						<a class="prices" href="booking_select?seance=${seance.ID}">REZERWUJ/KUP BILET</a>
 					</p>
 					<img src="resources/img/${movie.poster}.jpg" alt="${movie.title}">
 					<h2>${movie.title}</h2>

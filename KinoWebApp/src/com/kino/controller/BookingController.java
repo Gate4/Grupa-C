@@ -199,9 +199,8 @@ public class BookingController {
 					if (result) {
 						Seance seance = sqliteDAO.getSeanceByID(bookingList.get(0).getSeanceID() + "").get(0);
 						List<String> booking = new ArrayList<>();
-						String link = "<p><a href=\"seance_detail?id=" + seance.getID() + "\">Seans: "
-								+ seance.getTitle() + " " + seance.getStartTime() + "</a></p><p>Sala "
-								+ seance.getRoomNumber() + "</p>";
+						String link = "<p><a href=\"movie_detail?title=" + seance.getTitle() + "\">"+seance.getTitle()+"</a></p><p>Seans: "
+								+ seance.getStartTime() + "</p><p>Sala "+ seance.getRoomNumber() + "</p>";
 						model.put("link", link);
 						if(sqliteDAO.canBook(bookingList.get(0).getSeanceID()+"")){
 							String button = "<input type=\"hidden\" name=\"code\" value=\"" + code

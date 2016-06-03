@@ -457,7 +457,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 	}
 	
 	public List<String> getWeekList(){
-		String sql="select date('now') union all select date('now','+1 day') union all select date('now','+2 day') union all select date('now','+3 day') union all select date('now','+4 day') union all select date('now','+5 day') union all select date('now','+6 day') union all select date('now','+7 day')";
+		String sql="select date('now') union all select date('now','+1 day') union all select date('now','+2 day') union all select date('now','+3 day') union all select date('now','+4 day') union all select date('now','+5 day')";
 		return jdbcTemplate.query(sql,new StringRowMapper());
 	}
 

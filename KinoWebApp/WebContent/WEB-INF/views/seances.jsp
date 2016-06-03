@@ -65,12 +65,12 @@
 			</p>
 			</section>
 			<c:forEach items="${seances}" var="seance">
+			<a href='seance_detail?id=${seance.ID}'>
 					<section class="tile_list">
-						<h2>
-							<a href='movie_detail?title=${seance.title}'>${seance.title}</a>
-						</h2>
-						<p><a href='seance_detail?id=${seance.ID}'>${seance.startTime}</a></p>
+						<h2>${seance.title}</h2>
+						<p>${seance.startTime}</p>
 					</section>
+					</a>
 				</c:forEach>
 			</section>
 
