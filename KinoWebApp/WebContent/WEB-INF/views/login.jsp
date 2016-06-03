@@ -27,6 +27,9 @@
 					<li><a href='/KinoWebApp/'>Strona główna</a></li>
 					<li><a href='welcome'>Repertuar</a></li>
 					<li><a href='price_list?index=0'>Cennik</a></li>
+					<sec:authorize access="hasRole('ANONYMOUS')">
+						<li><a href='anon_booking'>Rezerwacje</a></li>
+					</sec:authorize>
 					<li><a class="active" href='login'>Zaloguj</a></li>
 				</ul>
 			</nav>

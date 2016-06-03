@@ -12,4 +12,5 @@ public interface BookingDAO
 	List<Booking> getBookingForUsername(String username);
 	List<Booking> getBookingForCode(String code);
 	List<String> getCodesListForUser(String code);
+	void cancelBookingForCode(String code);
 }

@@ -490,6 +490,12 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 		String sql="select * from Seats where id='"+id+"'";
 		return jdbcTemplate.query(sql,new SeatRowMapper()).get(0);
 	}
+
+	@Override
+	public void cancelBookingForCode(String code) {
+		String sql = "delete from Booking where code='"+code+"'";
+		jdbcTemplate.getJdbcOperations().update(sql);
+	}
 	
 	
 	

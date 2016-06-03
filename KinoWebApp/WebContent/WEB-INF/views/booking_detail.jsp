@@ -29,7 +29,7 @@
 					<li><a href='welcome'>Repertuar</a></li>
 					<li><a href='price_list?index=0'>Cennik</a></li>
 					<sec:authorize access="hasRole('ANONYMOUS')">
-						<li><a href='login'>Zaloguj</a></li>
+						<li><a href='/login'>Zaloguj</a></li>
 					</sec:authorize>
 					<sec:authorize access="hasRole('USER') or hasRole('ADMIN')">
 						<li><a href="<c:url value="/logout" />">Wyloguj</a></li>
@@ -46,7 +46,7 @@
 					<p>Rezerwacja na anonimowego użytkownika:</p>
 					</sec:authorize>
 					<sec:authorize access="hasRole('USER') or hasRole('ADMIN')">
-					<p>Rezerwacja na użytkownika ${user}:</p>
+					<p>Rezerwacja na użytkownika ${user.name}:</p>
 					</sec:authorize>
 					<table>
 						<tr>

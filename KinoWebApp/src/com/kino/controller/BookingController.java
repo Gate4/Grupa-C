@@ -154,6 +154,8 @@ public class BookingController {
 						Seance seance=sqliteDAO.getSeanceByID(bookingList.get(0).getSeanceID()+"").get(0);
 						String link="<p><a href=\"seance_detail?id="+seance.getID()+"\">Seans: "+seance.getTitle()+" "+seance.getStartTime()+"</a></p><p>Sala "+seance.getRoomNumber()+"</p>";
 						model.put("link", link);
+						String button="<input type=\"hidden\" name=\"code\" value=\""+code+"\"/><input type=\"submit\" name=\"action\"value=\"Anuluj rezerwacjê\"/>";
+						model.put("button", button);
 						List<String> booking=new ArrayList<>();
 						for(int i=0;i<bookingList.size();i++){
 							Seat seat=sqliteDAO.getSeatForId(bookingList.get(i).getSeatID());
@@ -176,6 +178,8 @@ public class BookingController {
 						List<String> booking=new ArrayList<>();
 						String link="<p><a href=\"seance_detail?id="+seance.getID()+"\">Seans: "+seance.getTitle()+" "+seance.getStartTime()+"</a></p><p>Sala "+seance.getRoomNumber()+"</p>";
 						model.put("link", link);
+						String button="<input type=\"hidden\" name=\"code\" value=\""+code+"\"/><input type=\"submit\" name=\"action\"value=\"Anuluj rezerwacjê\"/>";
+						model.put("button", button);
 						for(int i=0;i<bookingList.size();i++){
 							Seat seat=sqliteDAO.getSeatForId(bookingList.get(i).getSeatID());
 							String s="<p>Rz¹d: "+seat.getRowNumber()+" Siedzenie: "+seat.getSeatNumber()+" Bilet: "+(bookingList.get(i).getLowerPrice()?"Ulgowy":"Normalny")+"<p>";
@@ -193,6 +197,22 @@ public class BookingController {
 			model.put("message", "Nie podano kodu rezerwacji");
 		}
 		return "check_booking";
+	}
+	
+	@RequestMapping(value="/check_booking", method = RequestMethod.POST)
+	public String displayCheckPOST(@RequestParam(value="code",required=true) String code,Map<String, Object> model) {
+		sqliteDAO.cancelBookingForCode(code);
+		model.put("message", "Rezerwacja zosta³a anulowana");	
+		return "check_booking";
+	}
+	
+	@RequestMapping(value="/anon_booking", method = RequestMethod.GET)
+	public String displayAnonGET(Map<String, Object> model) {
+		if(getPrincipal()!=null){
+			return "redirect:/";
+		}else{
+			return "anon_booking";
+		}
 	}
 	
 	

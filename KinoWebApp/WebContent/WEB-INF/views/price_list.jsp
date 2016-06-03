@@ -30,6 +30,9 @@
 					<li><a href='/KinoWebApp/'>Strona główna</a></li>
 					<li><a href='welcome'>Repertuar</a></li>
 					<li><a class='active' href='price_list?index=0'>Cennik</a></li>
+					<sec:authorize access="hasRole('ANONYMOUS')">
+						<li><a href='anon_booking'>Rezerwacje</a></li>
+					</sec:authorize>
 					<sec:authorize access="hasRole('ADMIN')">
 						<li><a href='admin/admin_panel'>Panel Admimistratora</a></li>
 					</sec:authorize>

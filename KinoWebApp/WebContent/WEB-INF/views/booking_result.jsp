@@ -1,6 +1,7 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>   
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
@@ -29,10 +30,13 @@
 					<li><a href='welcome'>Repertuar</a></li>
 					<li><a href='price_list?index=0'>Cennik</a></li>
 					<sec:authorize access="hasRole('ANONYMOUS')">
-						<li><a href='login'>Zaloguj</a></li>
+						<li><a href='anon_booking'>Rezerwacje</a></li>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ANONYMOUS')">
+						<li><a href='/login'>Zaloguj</a></li>
 					</sec:authorize>
 					<sec:authorize access="hasRole('USER') or hasRole('ADMIN')">
-						<li><a href="<c:url value="/logout" />">Wyloguj</a></li>
+						<li><a href="<c:url value="/logout"/>">Wyloguj</a></li>
 					</sec:authorize>
 				</ul>
 			</nav>
