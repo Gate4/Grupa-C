@@ -1,5 +1,6 @@
 package com.kino.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kino.database.DAO.Booking;
 import com.kino.database.DAO.Movie;
 import com.kino.database.DAO.Seance;
 import com.kino.database.DAO.User;
@@ -56,8 +58,11 @@ public class UserController {
 	public String viewUserPanel(ModelMap model) {
 		if (getPrincipal() != null) {
 			model.addAttribute("user", getPrincipal());
+			List<String> codeList=sqliteDAO.getCodesListForUser(getPrincipal().getLogin());
+			if(!codeList.isEmpty()){
+				model.put("codeList", codeList);
+			}
 		}
-
 		List<Seance> seances = sqliteDAO.getFutureSeances();
 		if (!seances.isEmpty()) {
 			model.put("seances", seances);

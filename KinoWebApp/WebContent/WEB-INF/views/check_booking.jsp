@@ -1,8 +1,13 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +19,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <link href="${styleCSS}" rel="stylesheet" />
 <title>Kino</title>
+<link rel="shortcut icon" href="resources/img/icon.png" />
 </head>
 
 <body>
@@ -26,8 +32,12 @@
 			<nav class="clear">
 				<ul>
 					<li><a href='/KinoWebApp/'>Strona główna</a></li>
-					<li><a href='welcome'>Repertuar</a></li>
+					<li><a class="active" href='welcome'>Repertuar</a></li>
 					<li><a href='price_list?index=0'>Cennik</a></li>
+					<li><a href='check_booking'>Rezerwacje</a></li>
+					<sec:authorize access="hasRole('ADMIN')">
+						<li><a href='admin/admin_panel'>Panel Admimistratora</a></li>
+					</sec:authorize>
 					<sec:authorize access="hasRole('ANONYMOUS')">
 						<li><a href='login'>Zaloguj</a></li>
 					</sec:authorize>
@@ -42,14 +52,30 @@
 		<div id="content" role="main">
 			<section class="primary">
 				<section class="tile">
-				<h2>Rezerwacja</h2>
-				<p>${message}</p>
-				<sec:authorize access="hasRole('ANONYMOUS')">
-				<p><strong>Jesteś anonimowym użytkownikiem, więc zapamiętaj ten kod - bez niego twoja rezerwacja jest nieważna!</strong></p>
-				<h2>${code}</h2>
-				</sec:authorize>
+				${message}
+				${link}
+				<c:forEach items="${booking}" var="b">
+					${b}
+				</c:forEach>
 				</section>
 			</section>
+
+			<aside class="secondary">
+				<section>
+
+
+					<sec:authorize access="hasAnyRole('ADMIN','USER')">
+
+						<p>
+							Witaj <strong>${user.name}</strong>
+						</p>
+						<p>
+							<a href="user/user_show_profile">Zobacz swój profil</a>
+						</p>
+					</sec:authorize>
+				</section>
+
+			</aside>
 		</div>
 
 		<footer class="clear">

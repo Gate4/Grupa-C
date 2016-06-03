@@ -28,7 +28,12 @@
 					<li><a href='/KinoWebApp/'>Strona główna</a></li>
 					<li><a href='welcome'>Repertuar</a></li>
 					<li><a href='price_list?index=0'>Cennik</a></li>
-					<li><a href='login'>Zaloguj</a></li>
+					<sec:authorize access="hasRole('ANONYMOUS')">
+						<li><a href='login'>Zaloguj</a></li>
+					</sec:authorize>
+					<sec:authorize access="hasRole('USER') or hasRole('ADMIN')">
+						<li><a href="<c:url value="/logout" />">Wyloguj</a></li>
+					</sec:authorize>
 				</ul>
 			</nav>
 		</header>

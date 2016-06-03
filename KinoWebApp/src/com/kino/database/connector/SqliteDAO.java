@@ -358,7 +358,7 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 	}
 
 	public List<Seance> getFutureSeances() {
-		String sql = "select * from Seance where start_time>(select  datetime(CURRENT_TIMESTAMP, 'localtime')) order by start_time asc LIMIT 10";
+		String sql = "select * from Seance where start_time>(select  datetime(CURRENT_TIMESTAMP, 'localtime')) order by start_time asc LIMIT 5";
 		return jdbcTemplate.query(sql, new SeanceRowMapper());
 	}
 	
@@ -466,5 +466,31 @@ public class SqliteDAO implements UserDAO, MovieDAO, SeanceDAO,PriceListDAO,Seat
 		String sql="select * from Seance where date(start_time)=\""+date+"\" order by start_time asc";
 		return jdbcTemplate.query(sql,new SeanceRowMapper());
 	}
+
+	@Override
+	public List<Booking> getBookingForUsername(String username) {
+		String sql="select * from Booking where login='"+username+"'";
+		return jdbcTemplate.query(sql,new BookingRowMapper());
+	}
+
+	@Override
+	public List<Booking> getBookingForCode(String code) {
+		String sql="select * from Booking where code='"+code+"'";
+		return jdbcTemplate.query(sql,new BookingRowMapper());
+	}
+
+	@Override
+	public List<String> getCodesListForUser(String username) {
+		String sql="select distinct code from Booking where login='"+username+"'";
+		return jdbcTemplate.query(sql,new StringRowMapper());
+	}
+
+	@Override
+	public Seat getSeatForId(int id) {
+		String sql="select * from Seats where id='"+id+"'";
+		return jdbcTemplate.query(sql,new SeatRowMapper()).get(0);
+	}
+	
+	
 	
 }

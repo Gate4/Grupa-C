@@ -27,7 +27,7 @@
 				<ul>
 					<li><a href='/KinoWebApp/'>Strona główna</a></li>
 					<li><a href='../welcome'>Repertuar</a></li>
-					<li><a href='../price_list?day=0'>Cennik</a></li>
+					<li><a href='../price_list?index=0'>Cennik</a></li>
 					<sec:authorize access="hasRole('ADMIN')">
 						<li><a href='../admin/admin_panel'>Panel Admimistratora</a></li>
 					</sec:authorize>
@@ -77,11 +77,16 @@
 						<input type="submit" name="action"
 							value="Usun konto" />
 
-						
-
-
 					</form>
 
+				</section>
+				<section class="tile">
+					<h2>Rezerwacje:</h2>
+					<ul>
+					<c:forEach items="${codeList}" var="code">
+						<li><a href="../check_booking?code=${code}">${code}</a></li>
+					</c:forEach>
+					</ul>
 				</section>
 
 			</section>

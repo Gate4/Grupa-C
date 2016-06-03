@@ -94,7 +94,7 @@
 			</aside>
 
 			<aside class="secondary">
-				<h2>${movie.title}wnajbliższym czasie:</h2>
+				<h2>${movie.title} w najbliższym czasie:</h2>
 				<hr>
 				<ul>
 					<c:forEach items="${seances}" var="seance">
