@@ -201,8 +201,21 @@ public class BookingController {
 	
 	@RequestMapping(value="/check_booking", method = RequestMethod.POST)
 	public String displayCheckPOST(@RequestParam(value="code",required=true) String code,Map<String, Object> model) {
-		sqliteDAO.cancelBookingForCode(code);
-		model.put("message", "Rezerwacja zosta³a anulowana");	
+		List<Booking> bookingList=sqliteDAO.getBookingForCode(code);
+		if(!bookingList.isEmpty()){
+			String userName=(getPrincipal()==null?"anonymous":getPrincipal().getLogin());
+			Boolean result=true;
+			for(Booking b:bookingList)if(!b.getLogin().equals(userName))result=false;
+			if(result){
+				sqliteDAO.cancelBookingForCode(code);
+				model.put("message", "Pomyœlnie anulowano rezerwacjê");
+			}else{
+				model.put("message", "Ta rezerwacja nie nale¿y do ciebie");
+			}
+			
+		}else{
+			model.put("message", "Nie rozpoznano kodu rezerwacji");
+		}
 		return "check_booking";
 	}
 	

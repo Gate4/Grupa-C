@@ -57,8 +57,7 @@
 				<h2>Sprawdzenie rezerwacji</h2>
 				<p>Wpisz w polu poniżej kod swojej rezerwacji</p>
 				<form action="check_booking" method="GET">
-					<p><input name="code"/><input type="submit" name="action" value="Sprawdź kod"></p>
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>	
+					<p><input name="code"/><input type="submit" value="Sprawdź kod"/></p>
 				</form>
 				</section>
 			</section>
